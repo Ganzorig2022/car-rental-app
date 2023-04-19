@@ -9,17 +9,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.17",
     "next": "^13.2.4",
-    "next-auth": "^4.21.0",
     "react": "18.2.0",
+    "react-date-range": "^1.4.0",
     "react-dom": "18.2.0",
-    "zod": "^3.21.4"
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@types/eslint": "^8.21.3",
     "@types/node": "^18.15.5",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
+    "@types/react-date-range": "^1.4.4",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
