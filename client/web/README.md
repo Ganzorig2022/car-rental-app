@@ -1,28 +1,72 @@
-# Create T3 App
+# 1 - Install next js with tailwind css
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+npx create-next-app -e with-tailwindcss my-project
 
-## What's next? How do I make an app with this?
+# 2 - Install heroicons
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+npm i @heroicons/react
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+# 3 - next.config.js dr img-nii tohirgoo
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+images: {
+domains: ['links.papareact.com'],
+},
 
-## Learn More
+# 4 - npm i tailwind-scrollbar-hide
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+tailwind.config.js dr "plugins: [require('tailwind-scrollbar-hide')]"
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+=====================================================
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+1. git remote add origin https://github.com/Ganzorig2022/next-js-12-airbnb-clone.git
 
-## How do I deploy this?
+2. git push --set-upstream origin main
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+# 5- Deploy to Vercel
+
+new project --> import github repo --> DEPLOY
+
+https://next-js-12-airbnb-clone.vercel.app/
+
+# 6 - Calendar Date package
+
+npm install react-date-range
+npm install --save react date-fn
+https://www.npmjs.com/package/react-date-range
+
+# 7 - Custom class add into tailwind css
+
+/styles/global.css dotor
+
+@layer components {
+.button {
+@apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out;
+}
+}
+
+# 8 - loading progress package
+
+npm i @badrap/bar-of-progress
+
+/pages/\_app.js file dotor tohirgoo hiine.
+
+# 9 - Map Box
+
+https://account.mapbox.com/ - SIGN UP
+
+1. Create a map in Studio
+2. New styles
+3. Choose "navigation" template
+4. Customization Navigation dr darna.
+
+5. https://github.com/visgl/react-map-gl-aas npm suulgana.
+   npm install --save react-map-gl mapbox-gl
+6. /components/Map.js dotor
+
+# 10 - Deply with env on vercel
+
+npm i -g vercel
+
+$ vercel env add MAPBOX_KEY
+
+https://stackoverflow.com/questions/65003531/application-installed-by-npm-eg-file-c-users-name-appdata-roaming-npm-ng-ps1

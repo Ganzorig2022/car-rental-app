@@ -1,9 +1,21 @@
-import { type AppType } from "next/app";
+import '@/styles/globals.css'
+import type { AppProps } from 'next/app'
+import { ThemeProvider } from "next-themes";
+import ProgressBar from "@badrap/bar-of-progress";
+import { Router } from "next/router";
 
-import '@/styles/globals.css';
+const progress = new ProgressBar({
+  size: 4,
+  color: "#FE595e",
+  className: "z-50",
+  delay: 100,
+});
 
-const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
-  return <Component {...pageProps} />;
-};
+Router.events.on("routeChangeStart", progress.start);
+Router.events.on("routeChangeComplete", progress.finish);
+Router.events.on("routeChangeError", progress.finish);
 
-export default MyApp;
+
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
+}

@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['datawow.s3.amazonaws.com'],
+    domains: ["datawow.s3.amazonaws.com", "links.papareact.com"],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
