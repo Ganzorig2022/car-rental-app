@@ -1,10 +1,9 @@
-import Banner from '@/components/Banner';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header/Header';
 import { type NextPage } from 'next';
 import Head from 'next/head';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import Banner from '@/components/Home/Banner';
+import BestServices from '@/components/Home/BestServices';
+import HowItWorks from '@/components/Home/HowItWorks';
+
 import toast, { Toaster } from 'react-hot-toast';
 
 const Home: NextPage = () => {
@@ -18,13 +17,12 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Toaster />
-      <main className='bg-gray-primary max-w-7xl mx-auto'>
-        <Header />
-        <Banner />
+      <Banner />
+      <main className='bg-white'>
+        <HowItWorks />
+        <BestServices />
       </main>
-      <main className='mx-auto max-w-7xl px-8 sm:px-16'>
-        <Footer />
-      </main>
+      {/* <main className='mx-auto max-w-7xl px-8 sm:px-16'></main> */}
     </>
   );
 };

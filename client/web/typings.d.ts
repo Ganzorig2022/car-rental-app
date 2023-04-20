@@ -36,3 +36,8 @@ interface Posts {
   __v: number;
   _id: string;
 }
+
+type Inputs = {
+  email: string;
+  password: string;
+};
