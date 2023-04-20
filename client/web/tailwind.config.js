@@ -5,11 +5,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        twitterWhite: '#e7e9ea',
-        twitterBlue: '#308cd8',
-        twitterBorder: '#2f3336',
-        twitterLightGray: '#71767b',
-        twitterDarkGray: '#17181c',
+        red: {
+          primary: '#FF2F01',
+          secondary: '#FF7D01',
+        },
+        gray: {
+          primary: '#EDEDED',
+          // secondary: '#FF2F01',
+        },
       },
     },
   },

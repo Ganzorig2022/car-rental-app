@@ -1,6 +1,6 @@
 import Banner from '@/components/Banner';
 import Footer from '@/components/Footer';
-import Header from '@/components/header/Header';
+import Header from '@/components/Header/Header';
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import 'react-date-range/dist/styles.css'; // main style file
@@ -18,11 +18,13 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Toaster />
-      <Header />
-      <Banner />
-      <main className='mx-auto max-w-7xl px-8 sm:px-16'></main>
-
-      <Footer />
+      <main className='bg-gray-primary max-w-7xl mx-auto'>
+        <Header />
+        <Banner />
+      </main>
+      <main className='mx-auto max-w-7xl px-8 sm:px-16'>
+        <Footer />
+      </main>
     </>
   );
 };

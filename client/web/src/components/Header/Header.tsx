@@ -1,10 +1,10 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import DarkModeButton from '../DarkModeButton';
-import SignUp from '../modal/SignUp';
+import SignUp from '../Modal/SignUp';
 
 const Header = () => {
   const router = useRouter();
@@ -16,14 +16,34 @@ const Header = () => {
     endDate: endDate,
     key: 'selection',
   };
+  const [navbar, setNavbar] = useState(false);
 
   const handleSelect = (ranges: any) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
 
+  const changeBackground = () => {
+    // console.log(window.scrollY);
+    if (window.scrollY >= 40) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
+  useEffect(() => {
+    changeBackground();
+    // adding the event when scroll change background
+    window.addEventListener('scroll', changeBackground);
+  });
+
   return (
-    <header className='sticky top-0 z-50 grid grid-cols-3 bg-white px-5 py-5 shadow-md transition-all duration-700  dark:bg-slate-800 md:px-10'>
+    <div
+      className={`sticky top-0 z-50 grid grid-cols-3 px-5 py-5 ${
+        navbar && 'bg-white shadow-md'
+      } transition-all duration-700 dark:bg-slate-800 md:px-10`}
+    >
       {/* LEFT */}
       <div
         className='relative my-auto flex h-10 cursor-pointer items-center'
@@ -36,27 +56,23 @@ const Header = () => {
           alt='logo'
         />
       </div>
-      <div className='flex items-center rounded-full py-2 md:border-2 md:shadow-sm'>
-        <input
-          type='text'
-          placeholder={'Start your search'}
-          className='flex-grow bg-transparent pl-5 outline-none'
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-        {/* 768px - search icon alga bolno. */}
-        <MagnifyingGlassIcon className='hidden h-8 cursor-pointer rounded-full bg-red-400 p-2 text-white md:mx-2 md:inline-flex' />
+
+      {/* Center Menu */}
+      <div className='flex items-center justify-between'>
+        <p className='border-b-2 border-transparent hover:border-red-primary cursor-pointer'>
+          Book
+        </p>
+        <p className='border-b-2 border-transparent hover:border-red-primary cursor-pointer'>
+          My Rentals
+        </p>
+        <p className='border-b-2 border-transparent hover:border-red-primary cursor-pointer'>
+          Account
+        </p>
+        <p className='border-b-2 border-transparent hover:border-red-primary cursor-pointer'>
+          Resources
+        </p>
       </div>
 
-      {searchInput && (
-        <div className='col-span-3 mx-auto flex flex-col'>
-          <DateRangePicker
-            ranges={[selectionRange]}
-            minDate={new Date()}
-            rangeColors={['#FD5B61']}
-            onChange={handleSelect}
-          />
-        </div>
-      )}
       <div className='flex items-center justify-end space-x-2'>
         {/* DarkMode Button */}
         <DarkModeButton />
@@ -67,10 +83,10 @@ const Header = () => {
         <label htmlFor='signup' className='btn-ghost btn'>
           Sign Up
         </label>
-        <button className='btn-primary btn'>Sign In</button>
+        <button className='main-button'>Sign In</button>
         <SignUp />
       </div>
-    </header>
+    </div>
   );
 };
 
