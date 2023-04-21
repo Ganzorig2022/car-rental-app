@@ -5,6 +5,7 @@ import BestServices from '@/components/Home/BestServices';
 import HowItWorks from '@/components/Home/HowItWorks';
 
 import toast, { Toaster } from 'react-hot-toast';
+import TopDeal from '@/components/Home/TopDeal';
 
 const Home: NextPage = () => {
   const notify = () => toast.success('Here is your toast.');
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
       <main className='bg-white'>
         <HowItWorks />
         <BestServices />
+        <TopDeal />
       </main>
       {/* <main className='mx-auto max-w-7xl px-8 sm:px-16'></main> */}
     </>

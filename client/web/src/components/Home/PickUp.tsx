@@ -37,10 +37,10 @@ const PickUp = (props: Props) => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div>Pickup date</div>
+                  <div className='normal-case'>Pickup date</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
-                <div className='text-gray-400 font-normal normal-case'>
+                <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
                   {startDate.toDateString()}
                 </div>
               </div>
@@ -51,10 +51,10 @@ const PickUp = (props: Props) => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div>Drop-off date</div>
+                  <div className='normal-case'>Drop-off date</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
-                <div className='text-gray-400 font-normal normal-case'>
+                <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
                   {endDate.toDateString()}
                 </div>
               </div>
