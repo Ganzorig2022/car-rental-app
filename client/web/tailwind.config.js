@@ -11,7 +11,7 @@ module.exports = {
         },
         gray: {
           primary: '#EDEDED',
-          // secondary: '#FF2F01',
+          secondary: '#D2D2D2',
         },
         dark: {
           primary: '#1E293B',
@@ -23,7 +23,7 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          primary: '#65C3C8',
+          primary: '#FF2F01',
           secondary: '#EF9FBC',
           accent: '#EEAF3A',
           neutral: '#291334',

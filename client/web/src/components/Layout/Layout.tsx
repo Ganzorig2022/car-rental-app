@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import 'react-date-range/dist/styles.css';
@@ -9,8 +9,13 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  useEffect(() => {
+    // 👇️ scroll to top on page load
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   return (
-    <div className='bg-gray-primary max-w-7xl mx-auto dark:bg-dark-primary transition-all duration-700'>
+    <div className='bg-white max-w-7xl mx-auto dark:bg-dark-primary transition-all duration-700'>
       {/* Header */}
       <Header />
       <main>{children}</main>
