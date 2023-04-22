@@ -15,6 +15,8 @@ const Filter = (props: Props) => {
     { id: 4, name: 'Bus', status: false },
   ]);
 
+  const [priceRange, setPriceRange] = useState('160');
+
   const onClick = (id: number, name: string, status: boolean) => {
     setVehicles(
       vehicles.map((item) =>
@@ -22,6 +24,8 @@ const Filter = (props: Props) => {
       )
     );
   };
+
+  console.log(priceRange);
 
   return (
     <div className='p-4'>
@@ -36,7 +40,7 @@ const Filter = (props: Props) => {
 
       <div>
         <p className='text-xs sm:text-sm font-semibold'>Filter By</p>
-        <p className='text-[8px] sm:text-[10px] text-gray-400'>Car type</p>
+        <p className='text-[8px] sm:text-[10px] text-gray-400 mt-2'>Car type</p>
         {/* Vehicle types */}
         <div>
           {vehicles.map((each) => {
@@ -68,8 +72,61 @@ const Filter = (props: Props) => {
             );
           })}
         </div>
+        {/* Capacity */}
+        <div className='divider m-0' />
+        <p className='text-[8px] sm:text-[10px] text-gray-400'>Capacity</p>
+        <div className='form-control'>
+          <label className='label cursor-pointer justify-start space-x-4'>
+            <input
+              type='checkbox'
+              className='h-4 w-4 accent-red-primary'
+              // checked={status}
+              onClick={() => {}}
+            />
+            <span className='label-text text-xs sm:text-sm md:text-base'>
+              2-5 passengers
+            </span>
+            <span className='label-text text-[10px] text-gray-400'>28</span>
+          </label>
+        </div>
+        <div className='form-control'>
+          <label className='label cursor-pointer justify-start space-x-4'>
+            <input
+              type='checkbox'
+              className='h-4 w-4 accent-red-primary'
+              // checked={status}
+              onClick={() => {}}
+            />
+            <span className='label-text text-xs sm:text-sm md:text-base'>
+              6 more passengers
+            </span>
+            <span className='label-text text-[10px] text-gray-400'>28</span>
+          </label>
+        </div>
+        <div className='divider m-0' />
+        <p className='text-[8px] sm:text-[10px] text-gray-400'>Daily price</p>
+
+        <div className='mt-2'>
+          <input
+            type='range'
+            min='0'
+            max='200'
+            step='20'
+            value={priceRange}
+            className='range range-error range-xs h-3 sm:h-4 bg-gray-primary'
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPriceRange(e.target.value)
+            }
+          />
+          <div className='w-full flex items-center justify-between text-[9px] font-semibold'>
+            <span>min.$20</span>
+            <span className='text-red-primary text-xs sm:text-sm'>
+              $ {priceRange}
+            </span>
+            <span>max.$200</span>
+          </div>
+        </div>
       </div>
-      <div className='divider m-0' />
     </div>
   );
 };

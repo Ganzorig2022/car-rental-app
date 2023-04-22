@@ -41,3 +41,24 @@ type Inputs = {
   email: string;
   password: string;
 };
+
+interface Vehicles {
+  id: string;
+  image: string;
+  type: string;
+  typeDefinition: string;
+  model: string;
+  kml: string;
+  transmission: string;
+  passengers: string;
+  doors: string;
+  price: number;
+  mileage: string;
+  details: {
+    make: string;
+    model: string;
+    year: string;
+    exterior: string;
+    interior: string;
+  };
+}

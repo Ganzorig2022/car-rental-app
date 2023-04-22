@@ -19,7 +19,7 @@ const Cars = (props: Props) => {
           <div className='w-1/3 bg-white rounded-lg'>
             <Filter />
           </div>
-          <div className='w-2/3 bg-white rounded-lg'>
+          <div className='w-2/3 rounded-lg'>
             <Vehicles />
           </div>
         </div>
