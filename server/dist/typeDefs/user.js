@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
-
-const typeDefs = gql`
+const typeDefs = gql `
   scalar Date
 
   type User {
@@ -76,5 +75,4 @@ const typeDefs = gql`
     ADMIN
   }
 `;
-
 export default typeDefs;

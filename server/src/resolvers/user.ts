@@ -7,6 +7,11 @@ export const userResolvers = {
         where: {
           email: args.email,
         },
+        include: {
+          rentals: true, // Rental model data will be included. Because in the prisma.schema, User @relation field
+          cars: true, //  Cars model data will be included. Because in the prisma.schema, User @relation field
+          transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
+        },
       });
 
       return user;
@@ -19,7 +24,7 @@ export const userResolvers = {
   },
 
   Mutation: {
-    createUser: async (_parent: any, args: createUserType) => {
+    createUser: async (_parent: any, args: createUser) => {
       //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
       const user = await Prisma.user.create({
         data: {
@@ -29,33 +34,29 @@ export const userResolvers = {
           phone: args.phone,
           age: args.age,
           role: args.role,
-          rentals: args.gender,
         },
       });
       // will receive request from the frontend side
       return user;
     },
-    updateUser: async (_parent: any, args: createUserType) => {
-      const { email, address, username, phone, birthDate, gender, role } = args;
+    updateUser: async (_parent: any, args: createUser) => {
+      const { email, password, name, phone, age, role } = args;
       //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
       const user = await Prisma.user.upsert({
         where: { email: args.email },
         update: {
           email,
-          address,
-          username,
+          password,
+          name,
           phone,
-          birthDate,
-          gender,
-          role,
+          age,
         },
         create: {
           email,
-          address,
-          username,
+          password,
+          name,
           phone,
-          birthDate,
-          gender,
+          age,
           role,
         },
       });
@@ -70,7 +71,9 @@ export const userResolvers = {
           },
         });
         return { success: true };
-      } catch (error) {}
+      } catch (error) {
+        return { error: error };
+      }
     },
     deleteUserById: async (_parent: any, args: { id: string }) => {
       try {
@@ -80,7 +83,9 @@ export const userResolvers = {
           },
         });
         return { success: true };
-      } catch (error) {}
+      } catch (error) {
+        return { error: error };
+      }
     },
   },
 };

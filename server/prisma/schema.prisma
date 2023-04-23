@@ -17,26 +17,27 @@ model User {
   name         String?
   phone        String?
   age          String?
-  role         Role          @default(USER)
+  role         String
   rentals      Rental[]
-  transactions Transaction[]
   cars         Car[]
-  // role    String?
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
 }
 
 model Rental {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  date_rent   DateTime
-  date_return DateTime
-  destination String
-  verified    Boolean  @default(false)
-  renter      User?    @relation(fields: [rentalId], references: [id])
-  rentalId    String   @db.ObjectId
-  createdAt   DateTime @default(now())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  dateRent   String
+  dateReturn String
+  location   String
+  verified   Boolean  @default(false)
+  // onDelete:Cascade means if user is deleted, then this model will be deleted too
+  renter     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String   @db.ObjectId
+  createdAt  DateTime @default(now())
 }
 
-type Car {
-  id             String
+model Car {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
   image          String
   type           String
   typeDefinition String
@@ -48,6 +49,8 @@ type Car {
   price          Int
   mileage        String
   details        Details
+  user           User    @relation(fields: [userId], references: [id])
+  userId         String  @unique @db.ObjectId
 }
 
 type Details {
@@ -59,14 +62,14 @@ type Details {
 }
 
 model Transaction {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  verified      Boolean  @default(false)
-  renter        User?    @relation(fields: [transactionId], references: [id])
-  transactionId String   @db.ObjectId
-  createdAt     DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  verified  Boolean  @default(false)
+  renter    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @unique @db.ObjectId
+  createdAt DateTime @default(now())
 }
 
-enum Role {
-  USER
-  ADMIN
-}
+// enum Role {
+//   USER
+//   ADMIN
+// }

@@ -1,8 +1,5 @@
 import gql from 'graphql-tag';
-
-const typeDefs = gql`
-  scalar Date
-
+const typeDefs = gql `
   type User {
     id: String
     email: String
@@ -13,6 +10,7 @@ const typeDefs = gql`
     role: String
     # array of objects
     rentals: [Rental]
+    createdAt: Date
   }
 
   type Rental {
@@ -22,7 +20,7 @@ const typeDefs = gql`
     location: String
     verified: Boolean
     renter: User
-    rentalId: String
+    userId: String
     createdAt: Date
   }
 
@@ -32,49 +30,35 @@ const typeDefs = gql`
 
   # QUERIES = GET REQUESTS
   type Query {
-    getSingleUser(email: String): User
+    getSingleRental(id: String): Rental
   }
 
   type Query {
-    getAllUsers: [User]
+    getAllRentals: [Rental]
   }
 
   # MUTATIONS = POST or PUT or DELETE REQUESTS
   type Mutation {
-    createUser(
-      id: String
-      email: String
-      password: String
-      name: String
-      phone: String
-      age: String
-      role: String
-    ): User
+    createRental(
+      userId: String
+      dateRent: String
+      dateReturn: String
+      location: String
+      verified: Boolean
+    ): Rental
   }
 
   type Mutation {
-    updateUser(
-      email: String!
-      password: String
-      name: String
-      phone: String
-      age: String
-    ): User
-  }
-
-  # DELETE REQUESTS
-  type Mutation {
-    deleteUser(email: String!): IsSuccess
+    updateRental(
+      dateRent: String
+      dateReturn: String
+      location: String
+      verified: Boolean
+    ): Rental
   }
 
   type Mutation {
-    deleteUserById(id: String!): IsSuccess
-  }
-
-  enum Role {
-    USER
-    ADMIN
+    deleteRental(id: String): IsSuccess
   }
 `;
-
 export default typeDefs;
