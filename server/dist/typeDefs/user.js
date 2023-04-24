@@ -37,7 +37,10 @@ const typeDefs = gql `
   type Query {
     getAllUsers: [User]
   }
-
+  type CreateUserResponse {
+    user: User
+    token: String
+  }
   # MUTATIONS = POST or PUT or DELETE REQUESTS
   type Mutation {
     createUser(
@@ -48,7 +51,7 @@ const typeDefs = gql `
       phone: String
       age: String
       role: String
-    ): User
+    ): CreateUserResponse
   }
 
   type Mutation {

@@ -26,6 +26,9 @@ export const transactionResolvers = {
                         userId,
                         verified,
                     },
+                    include: {
+                        renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
                 // will receive request from the frontend side
                 return transaction;

@@ -3,16 +3,21 @@ import { Prisma } from '../db.js';
 export const rentalResolvers = {
   Query: {
     getSingleRental: async (parent: any, args: { id: string }) => {
-      const rental = await Prisma.rental.findFirst({
-        where: {
-          id: args.id,
-        },
-        include: {
-          renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
-        },
-      });
+      try {
+        const rental = await Prisma.rental.findUnique({
+          where: {
+            id: args.id,
+          },
+          include: {
+            renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
+        });
 
-      return rental;
+        return rental;
+      } catch (error) {
+        console.log('GET SINGLE RENTAL ERROR', error);
+        return error;
+      }
     },
 
     getAllRentals: async () => {

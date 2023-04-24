@@ -1,4 +1,5 @@
 import { Prisma } from '../db.js';
+import { createToken } from '../utils/createToken.js';
 export const userResolvers = {
     Query: {
         getSingleUser: async (parent, args) => {
@@ -32,8 +33,10 @@ export const userResolvers = {
                     role: args.role,
                 },
             });
+            const userId = user.id;
+            const token = createToken(userId);
             // will receive request from the frontend side
-            return user;
+            return { user, token };
         },
         updateUser: async (_parent, args) => {
             const { email, password, name, phone, age, role } = args;

@@ -1,4 +1,6 @@
 import { Prisma } from '../db.js';
+import jwt from 'jsonwebtoken';
+import { createToken } from '../utils/createToken.js';
 
 export const userResolvers = {
   Query: {
@@ -26,6 +28,7 @@ export const userResolvers = {
   Mutation: {
     createUser: async (_parent: any, args: createUser) => {
       //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
+
       const user = await Prisma.user.create({
         data: {
           email: args.email,
@@ -36,8 +39,13 @@ export const userResolvers = {
           role: args.role,
         },
       });
+
+      const userId = user.id;
+
+      const token = createToken(userId);
+
       // will receive request from the frontend side
-      return user;
+      return { user, token };
     },
     updateUser: async (_parent: any, args: createUser) => {
       const { email, password, name, phone, age, role } = args;
