@@ -28,7 +28,7 @@ const typeDefs = gql `
 
   # QUERIES = GET REQUESTS
   type Query {
-    getSingleTransaction(id: String): Transaction
+    getTransactionById(id: String): Transaction
   }
 
   type Query {
@@ -38,19 +38,6 @@ const typeDefs = gql `
   # MUTATIONS = POST or PUT or DELETE REQUESTS
   type Mutation {
     createTransaction(userId: String, verified: Boolean): Transaction
-  }
-
-  # type Mutation {
-  #   updateTransaction(
-  #     dateRent: String
-  #     dateReturn: String
-  #     location: String
-  #     verified: Boolean
-  #   ): Transaction
-  # }
-
-  type Mutation {
-    deleteTransaction(userId: String): IsSuccess
   }
 `;
 export default typeDefs;

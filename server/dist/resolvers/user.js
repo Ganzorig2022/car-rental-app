@@ -1,68 +1,113 @@
 import { Prisma } from '../db.js';
 import { createToken } from '../utils/createToken.js';
+import bcrypt from 'bcryptjs';
+import { GraphQLError } from 'graphql';
 export const userResolvers = {
     Query: {
-        getSingleUser: async (parent, args) => {
-            const user = await Prisma.user.findUnique({
-                where: {
-                    email: args.email,
-                },
-                include: {
-                    rentals: true,
-                    cars: true,
-                    transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
-                },
-            });
-            return user;
+        loginUser: async (parent, args) => {
+            const { email, password } = args;
+            try {
+                //1) find user by email(unique)
+                const user = await Prisma.user.findUnique({
+                    where: {
+                        email,
+                    },
+                });
+                //2) If there is no user, then throw error
+                if (!user) {
+                    throw new GraphQLError('User not found!');
+                }
+                //3) If there is user, then check password
+                const hashedPassword = user.password;
+                const passwordMatch = bcrypt.compareSync(password, hashedPassword);
+                //4) If password does not match, then throw error
+                if (!passwordMatch) {
+                    throw new GraphQLError('Password does not match!');
+                }
+                //5) If passes all above criteria, then return final result
+                const userId = user.id;
+                const token = createToken(userId);
+                return { success: true, token, userId };
+            }
+            catch (error) {
+                console.log('loginUser error', error);
+                throw new GraphQLError(error);
+            }
+        },
+        getUserByEmail: async (parent, args) => {
+            try {
+                const user = await Prisma.user.findUnique({
+                    where: {
+                        email: args.email,
+                    },
+                    include: {
+                        rentals: true,
+                        cars: true,
+                        transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
+                    },
+                });
+                return user;
+            }
+            catch (error) {
+                console.log('GET USER BY EMAIL ERROR', error);
+                throw new GraphQLError(error);
+            }
         },
         getAllUsers: async () => {
-            const users = await Prisma.user.findMany();
-            return users;
+            try {
+                const users = await Prisma.user.findMany();
+                return users;
+            }
+            catch (error) {
+                console.log('GET ALL USERS ERROR', error);
+                throw new GraphQLError(error);
+            }
         },
     },
     Mutation: {
         createUser: async (_parent, args) => {
             //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
-            const user = await Prisma.user.create({
-                data: {
-                    email: args.email,
-                    password: args.password,
-                    name: args.name,
-                    phone: args.phone,
-                    age: args.age,
-                    role: args.role,
-                },
-            });
-            const userId = user.id;
-            const token = createToken(userId);
-            // will receive request from the frontend side
-            return { user, token };
+            try {
+                const user = await Prisma.user.create({
+                    data: {
+                        email: args.email,
+                        password: await bcrypt.hash(args.password, 10),
+                        name: args.name,
+                        phone: args.phone,
+                        age: args.age,
+                        role: args.role,
+                    },
+                });
+                const userId = user.id;
+                const token = createToken(userId);
+                return { user, token };
+            }
+            catch (error) {
+                console.log('CREATE USER ERROR', error);
+                throw new GraphQLError(error);
+            }
         },
         updateUser: async (_parent, args) => {
             const { email, password, name, phone, age, role } = args;
-            //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
-            const user = await Prisma.user.upsert({
-                where: { email: args.email },
-                update: {
-                    email,
-                    password,
-                    name,
-                    phone,
-                    age,
-                },
-                create: {
-                    email,
-                    password,
-                    name,
-                    phone,
-                    age,
-                    role,
-                },
-            });
-            // will receive from the side of frontend
-            return user;
+            try {
+                const user = await Prisma.user.update({
+                    where: { email },
+                    data: {
+                        email,
+                        password,
+                        name,
+                        phone,
+                        age,
+                    },
+                });
+                return user;
+            }
+            catch (error) {
+                console.log('UPDATE USER ERROR', error);
+                throw new GraphQLError(error);
+            }
         },
-        deleteUser: async (_parent, args) => {
+        deleteUserByEmail: async (_parent, args) => {
             try {
                 await Prisma.user.delete({
                     where: {
@@ -72,7 +117,8 @@ export const userResolvers = {
                 return { success: true };
             }
             catch (error) {
-                return { error: error };
+                console.log('DELETE USER ERROR', error);
+                throw new GraphQLError(error);
             }
         },
         deleteUserById: async (_parent, args) => {
@@ -85,7 +131,8 @@ export const userResolvers = {
                 return { success: true };
             }
             catch (error) {
-                return { error: error };
+                console.log('DELETE USER ERROR', error);
+                throw new GraphQLError(error);
             }
         },
     },

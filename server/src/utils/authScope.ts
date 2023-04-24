@@ -3,6 +3,7 @@ dotenv.config();
 
 import jwt from 'jsonwebtoken';
 
+// for middleware in index.ts
 const authScope = async (token: string) => {
   if (!token) {
     return null;

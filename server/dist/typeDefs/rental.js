@@ -13,7 +13,7 @@ const typeDefs = gql `
     createdAt: Date
   }
 
-  type Rental {
+  type RentalType {
     id: String
     dateRent: String
     dateReturn: String
@@ -22,6 +22,19 @@ const typeDefs = gql `
     renter: User
     userId: String
     createdAt: Date
+    extras: Extras
+  }
+
+  type Extras {
+    coverage: Boolean
+    child_safety: Boolean
+    GPS: Boolean
+  }
+
+  input ExtrasInput {
+    coverage: Boolean
+    child_safety: Boolean
+    GPS: Boolean
   }
 
   type IsSuccess {
@@ -30,11 +43,14 @@ const typeDefs = gql `
 
   # QUERIES = GET REQUESTS
   type Query {
-    getSingleRental(id: String): Rental
+    getRentalById(id: String): RentalType
+  }
+  type Query {
+    getOwnRentals(userId: String): [RentalType]
   }
 
   type Query {
-    getAllRentals: [Rental]
+    getAllRentals: [RentalType]
   }
 
   # MUTATIONS = POST or PUT or DELETE REQUESTS
@@ -45,20 +61,23 @@ const typeDefs = gql `
       dateReturn: String
       location: String
       verified: Boolean
-    ): Rental
+      extras: ExtrasInput
+    ): RentalType
   }
 
   type Mutation {
-    updateRental(
+    updateRentalById(
+      id: String
       dateRent: String
       dateReturn: String
       location: String
       verified: Boolean
-    ): Rental
+      extras: ExtrasInput
+    ): RentalType
   }
 
   type Mutation {
-    deleteRental(id: String): IsSuccess
+    deleteRentalById(id: String): IsSuccess
   }
 `;
 export default typeDefs;

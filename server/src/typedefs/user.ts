@@ -26,22 +26,33 @@ const typeDefs = gql`
     createdAt: Date
   }
 
+  type loginUserResponse {
+    success: Boolean
+    token: String
+    userId: String
+  }
+
+  type CreateUserResponse {
+    user: User
+    token: String
+  }
+
   type IsSuccess {
     success: Boolean
   }
 
   # QUERIES = GET REQUESTS
   type Query {
-    getSingleUser(email: String): User
+    loginUser(email: String, password: String): loginUserResponse
+  }
+  type Query {
+    getUserByEmail(email: String): User
   }
 
   type Query {
     getAllUsers: [User]
   }
-  type CreateUserResponse {
-    user: User
-    token: String
-  }
+
   # MUTATIONS = POST or PUT or DELETE REQUESTS
   type Mutation {
     createUser(
@@ -67,7 +78,7 @@ const typeDefs = gql`
 
   # DELETE REQUESTS
   type Mutation {
-    deleteUser(email: String!): IsSuccess
+    deleteUserByEmail(email: String!): IsSuccess
   }
 
   type Mutation {

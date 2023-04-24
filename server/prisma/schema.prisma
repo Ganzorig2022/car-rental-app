@@ -30,35 +30,30 @@ model Rental {
   dateReturn String
   location   String
   verified   Boolean  @default(false)
-  // onDelete:Cascade means if user is deleted, then this model will be deleted too
-  renter     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  renter     User     @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
   userId     String   @db.ObjectId
   createdAt  DateTime @default(now())
+  extras     Extras
+}
+
+type Extras {
+  coverage     Boolean @default(false)
+  child_safety Boolean @default(false)
+  GPS          Boolean @default(false)
 }
 
 model Car {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
   image          String
   type           String
   typeDefinition String
   model          String
-  kml            String
   transmission   String
-  passengers     String
-  doors          String
+  kml            Int
+  passengers     Int
   price          Int
-  mileage        String
-  details        Details
-  user           User    @relation(fields: [userId], references: [id])
-  userId         String  @unique @db.ObjectId
-}
-
-type Details {
-  make      String
-  model     String
-  year      String
-  exterior  String
-  interioir String
+  user           User   @relation(fields: [userId], references: [id])
+  userId         String @db.ObjectId
 }
 
 model Transaction {
