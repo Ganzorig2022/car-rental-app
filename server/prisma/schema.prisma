@@ -28,6 +28,7 @@ model Rental {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   dateRent   String
   dateReturn String
+  totalDays  Int
   location   String
   verified   Boolean  @default(false)
   renter     User     @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too

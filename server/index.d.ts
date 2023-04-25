@@ -7,11 +7,19 @@ interface createUser {
   age: string;
   role: Role;
 }
+interface updateUserInput {
+  email: string;
+  password: string;
+  name: string;
+  phone: string;
+  age: string;
+}
 
 interface Rental {
   id: string;
   dateRent: string;
   dateReturn: string;
+  totalDays: number;
   location: string;
   verified: boolean;
   renter: User;

@@ -18,6 +18,7 @@ const typeDefs = gql`
     id: String
     dateRent: String
     dateReturn: String
+    totalDays: Int
     location: String
     verified: Boolean
     renter: User
@@ -65,6 +66,7 @@ const typeDefs = gql`
       userId: String
       dateRent: String
       dateReturn: String
+      totalDays: Int
       location: String
       verified: Boolean
       extras: ExtrasInput
@@ -76,6 +78,7 @@ const typeDefs = gql`
       id: String
       dateRent: String
       dateReturn: String
+      totalDays: Int
       location: String
       verified: Boolean
       extras: ExtrasInput

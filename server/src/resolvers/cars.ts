@@ -90,9 +90,15 @@ export const carsResolvers = {
       }
     },
 
-    getAllCars: async () => {
+    getAllCarsWithPagination: async (
+      _parent: any,
+      args: { skip: number; pagination: number }
+    ) => {
+      // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
       try {
         const cars = await Prisma.car.findMany({
+          skip: args.skip,
+          take: args.pagination, // pagination by number
           orderBy: {
             price: 'desc',
           },
@@ -174,26 +180,38 @@ export const carsResolvers = {
         throw new GraphQLError(error);
       }
     },
+
     deleteCarById: async (_parent: any, args: { id: string }) => {
+      const id = args.id;
       try {
-        await Prisma.car.delete({
+        const result = await Prisma.car.delete({
           where: {
-            id: args.id,
+            id,
           },
         });
+
         return { success: true };
       } catch (error) {
         console.log('DELETE CAR ERROR', error);
-        throw new GraphQLError(error);
+        throw new GraphQLError(
+          `There is no car to be deleted with this id ${id}`
+        );
       }
     },
-    deleteCarsByUserId: async (_parent: any, args: { id: string }) => {
+
+    deleteCarsByUserId: async (_parent: any, args: { userId: string }) => {
+      const userId = args.userId;
       try {
-        await Prisma.car.delete({
+        const result = await Prisma.car.deleteMany({
           where: {
-            id: args.id,
+            userId,
           },
         });
+        if (result.count === 0)
+          throw new GraphQLError(
+            `There are no cars to be deleted with this userId ${userId}`
+          );
+
         return { success: true };
       } catch (error) {
         console.log('DELETE CAR ERROR', error);

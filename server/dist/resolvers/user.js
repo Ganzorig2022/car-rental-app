@@ -1,4 +1,5 @@
 import { Prisma } from '../db.js';
+import { checkUserExists } from '../utils/checkUserExists.js';
 import { createToken } from '../utils/createToken.js';
 import bcrypt from 'bcryptjs';
 import { GraphQLError } from 'graphql';
@@ -46,6 +47,8 @@ export const userResolvers = {
                         transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
+                if (!user)
+                    throw new GraphQLError(`No user with this email: ${args.email}`);
                 return user;
             }
             catch (error) {
@@ -88,13 +91,19 @@ export const userResolvers = {
             }
         },
         updateUser: async (_parent, args) => {
-            const { email, password, name, phone, age, role } = args;
+            const { email, password, name, phone, age } = args;
+            //middleware for checking if user exists or not
+            const userExists = await checkUserExists(email);
+            if (!userExists) {
+                console.log('User not found');
+                throw new GraphQLError('User not found');
+            }
             try {
                 const user = await Prisma.user.update({
                     where: { email },
                     data: {
                         email,
-                        password,
+                        password: await bcrypt.hash(password, 10),
                         name,
                         phone,
                         age,

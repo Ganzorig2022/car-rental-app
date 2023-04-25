@@ -10,7 +10,7 @@ const main = async () => {
     });
     const { url } = await startStandaloneServer(server, {
         listen: { port: 4000 },
-        // Middleware for checking token
+        // Middleware for CHECKING TOKEN
         context: async ({ req, res }) => {
             const { authorization } = req.headers;
             if (!authorization)

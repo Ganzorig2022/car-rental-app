@@ -17,6 +17,7 @@ const typeDefs = gql `
     id: String
     dateRent: String
     dateReturn: String
+    totalDays: Int
     location: String
     verified: Boolean
     renter: User
@@ -30,6 +31,11 @@ const typeDefs = gql `
     child_safety: Boolean
     GPS: Boolean
   }
+
+  # https://stackoverflow.com/questions/45806368/graphql-error-field-type-must-be-input-type-but-got
+
+  # In GraphQL, an input cannot be used as a type and a type cannot be used as an input.
+  # Must use "input" type for graphql function parameters input
 
   input ExtrasInput {
     coverage: Boolean
@@ -59,6 +65,7 @@ const typeDefs = gql `
       userId: String
       dateRent: String
       dateReturn: String
+      totalDays: Int
       location: String
       verified: Boolean
       extras: ExtrasInput
@@ -70,6 +77,7 @@ const typeDefs = gql `
       id: String
       dateRent: String
       dateReturn: String
+      totalDays: Int
       location: String
       verified: Boolean
       extras: ExtrasInput

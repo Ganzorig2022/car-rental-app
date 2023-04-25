@@ -5,18 +5,21 @@ export const rentalResolvers = {
     Query: {
         getRentalById: async (parent, args) => {
             try {
+                const id = args.id;
                 const rental = await Prisma.rental.findUnique({
                     where: {
-                        id: args.id,
+                        id,
                     },
                     include: {
                         renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
+                if (!rental)
+                    throw new GraphQLError(`There is no such rental with this id: ${id}`);
                 return rental;
             }
             catch (error) {
-                console.log('GET SINGLE RENTAL ERROR', error);
+                console.log('GET RENTAL ERROR', error);
                 throw new GraphQLError(error);
             }
         },
@@ -28,6 +31,8 @@ export const rentalResolvers = {
                         createdAt: 'desc',
                     },
                 });
+                if (!rentals)
+                    throw new GraphQLError(`No rentals with this userId: ${args.userId}`);
                 return rentals;
             }
             catch (error) {
@@ -53,7 +58,7 @@ export const rentalResolvers = {
     // =================MUTATIONS==========================
     Mutation: {
         createRental: async (_parent, args, context) => {
-            const { userId, dateRent, dateReturn, location, verified, extras } = args;
+            const { userId, dateRent, dateReturn, totalDays, location, verified, extras, } = args;
             // getting userId from token verify using context middleware in "index.ts"
             const idToken = context.token.id;
             const authorized = userId === idToken;
@@ -67,6 +72,7 @@ export const rentalResolvers = {
                         userId,
                         dateRent,
                         dateReturn,
+                        totalDays,
                         location,
                         verified,
                         extras,
