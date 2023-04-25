@@ -4,6 +4,6 @@ import jwt from 'jsonwebtoken';
 //get unique token using jsonwebtoken
 export const createToken = (id) => {
     return jwt.sign({ id: id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+        expiresIn: process.env.JWT_LOGIN_TOKEN_EXPIRES_IN,
     });
 };

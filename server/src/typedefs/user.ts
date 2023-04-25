@@ -13,6 +13,8 @@ const typeDefs = gql`
     role: String
     # array of objects
     rentals: [Rental]
+    cars: [Car]
+    transactions: [Transaction]
   }
 
   type Rental {
@@ -23,6 +25,28 @@ const typeDefs = gql`
     verified: Boolean
     renter: User
     rentalId: String
+    createdAt: Date
+  }
+
+  type Car {
+    id: String
+    image: String
+    type: String
+    typeDefinition: String
+    model: String
+    transmission: String
+    kml: Int
+    passengers: Int
+    price: Int
+    user: User
+    userId: String
+  }
+
+  type Transaction {
+    id: String
+    verified: Boolean
+    renter: User
+    userId: String
     createdAt: Date
   }
 
@@ -38,6 +62,11 @@ const typeDefs = gql`
   }
 
   type IsSuccess {
+    success: Boolean
+  }
+
+  type Link {
+    link: String
     success: Boolean
   }
 
@@ -74,6 +103,13 @@ const typeDefs = gql`
       phone: String
       age: String
     ): User
+  }
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  type Mutation {
+    resetPasswordRequest(email: String): Link
+  }
+  type Mutation {
+    resetPassword(token: String, password: String, userId: String): IsSuccess
   }
 
   # DELETE REQUESTS

@@ -4,6 +4,7 @@ export const carsResolvers = {
     Query: {
         getCarById: async (_parent, args) => {
             try {
+                // if there is no record, "findUnique" returns NULL
                 const car = await Prisma.car.findUnique({
                     where: {
                         id: args.id,
@@ -12,6 +13,8 @@ export const carsResolvers = {
                         user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
+                if (!car)
+                    throw new GraphQLError(`No car found with this id: ${args.id}`);
                 return car;
             }
             catch (error) {
@@ -21,12 +24,15 @@ export const carsResolvers = {
         },
         getCarsByType: async (_parent, args) => {
             try {
+                // if there are no records, "findMany" returns EMPTY[]
                 const cars = await Prisma.car.findMany({
                     where: { type: args.type },
                     orderBy: {
                         price: 'desc',
                     },
                 });
+                if (cars.length === 0)
+                    throw new GraphQLError(`No cars found with this type: ${args.type}`);
                 return cars;
             }
             catch (error) {
@@ -72,12 +78,15 @@ export const carsResolvers = {
         },
         getOwnCars: async (_parent, args) => {
             try {
+                // if there are no cars, "findMany" returns EMPTY[]
                 const cars = await Prisma.car.findMany({
                     where: { userId: args.userId },
                     orderBy: {
                         price: 'desc',
                     },
                 });
+                if (cars.length === 0)
+                    throw new GraphQLError(`No cars found with this userId: ${args.userId}`);
                 return cars;
             }
             catch (error) {
@@ -153,6 +162,7 @@ export const carsResolvers = {
         deleteCarById: async (_parent, args) => {
             const id = args.id;
             try {
+                // if there is no record, "delete" returns only ERROR
                 const result = await Prisma.car.delete({
                     where: {
                         id,
@@ -168,6 +178,7 @@ export const carsResolvers = {
         deleteCarsByUserId: async (_parent, args) => {
             const userId = args.userId;
             try {
+                // if there are no records, "deleteMany" returns only {count: 0}
                 const result = await Prisma.car.deleteMany({
                     where: {
                         userId,

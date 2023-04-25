@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"]
 }
 
 datasource db {
@@ -53,7 +54,7 @@ model Car {
   kml            Int
   passengers     Int
   price          Int
-  user           User   @relation(fields: [userId], references: [id])
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String @db.ObjectId
 }
 
@@ -63,6 +64,14 @@ model Transaction {
   renter    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique @db.ObjectId
   createdAt DateTime @default(now())
+}
+
+model Token {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  token  String
+  userId String @unique
+
+  // @@fulltext([userId(expire: 1)])
 }
 
 // enum Role {

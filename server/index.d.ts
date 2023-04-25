@@ -9,10 +9,15 @@ interface createUser {
 }
 interface updateUserInput {
   email: string;
-  password: string;
   name: string;
   phone: string;
   age: string;
+}
+
+interface resetPasswordInput {
+  token: string;
+  password: string;
+  userId: string;
 }
 
 interface Rental {

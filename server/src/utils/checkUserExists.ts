@@ -10,11 +10,11 @@ export const checkUserExists = async (email: string) => {
     });
 
     //2) If there is no user, then throw error
-    if (!user) return false;
+    if (!user) return null;
 
-    return true;
+    return user;
   } catch (error: any) {
     console.log('loginUser error', error);
-    return false;
+    return null;
   }
 };

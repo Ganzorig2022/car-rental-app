@@ -24,9 +24,6 @@ const typeDefs = gql`
     kml: Int
     passengers: Int
     price: Int
-    # doors: String
-    # mileage: String
-    # details: Details
     user: User
     userId: String
   }
