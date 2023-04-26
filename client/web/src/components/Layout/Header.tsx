@@ -5,8 +5,11 @@ import { useEffect, useState } from 'react';
 import DarkModeButton from '../UI/DarkModeButton';
 import SignIn from '../Modal/SignIn';
 import SignUp from '../Modal/SignUp';
+import { useRecoilState } from 'recoil';
+import { closeModalState } from '../atoms/closeModal';
 
 const Header = () => {
+  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -148,16 +151,25 @@ const Header = () => {
         {/* The button to open modal */}
         <div className='hidden sm:flex sm:flex-row sm:items-center'>
           <DarkModeButton />
-          <label htmlFor='signup' className='btn-ghost btn dark:text-white'>
+          <label
+            htmlFor='signup'
+            className='btn-ghost btn dark:text-white'
+            onClick={() => setCloseModal(true)}
+          >
             Sign Up
           </label>
-          <label htmlFor='signin' className='main-button'>
+          <label
+            htmlFor='signin'
+            className='main-button'
+            onClick={() => setCloseModal(true)}
+          >
             Sign In
           </label>
         </div>
       </div>
-      <SignUp />
-      <SignIn />
+
+      {closeModal && <SignUp />}
+      {closeModal && <SignIn />}
     </div>
   );
 };

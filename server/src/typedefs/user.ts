@@ -24,7 +24,7 @@ const typeDefs = gql`
     location: String
     verified: Boolean
     renter: User
-    rentalId: String
+    userId: String
     createdAt: Date
   }
 
@@ -85,12 +85,8 @@ const typeDefs = gql`
   # MUTATIONS = POST or PUT or DELETE REQUESTS
   type Mutation {
     createUser(
-      id: String
       email: String
       password: String
-      name: String
-      phone: String
-      age: String
       role: String
     ): CreateUserResponse
   }

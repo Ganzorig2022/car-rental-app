@@ -1,10 +1,14 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useRecoilState } from 'recoil';
+import { closeModalState } from '../atoms/closeModal';
 
 type Props = {};
 
 const SignIn = (props: Props) => {
+  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
+
   const loading = false;
   const onSubmit: SubmitHandler<Inputs> = async (inputs) => {
     const { email, password } = inputs;
@@ -37,18 +41,21 @@ const SignIn = (props: Props) => {
   return (
     <>
       <input type='checkbox' id='signin' className='modal-toggle' />
-      <div className='modal modal-bottom sm:modal-middle'>
+      <div className='modal modal-middle'>
         <div className='modal-box'>
-          <h3 className='text-lg font-bold'>Sign In </h3>
+          <h3 className='text-lg font-boldtext-lg md:text-2xl font-bold text-center uppercase'>
+            Sign In
+          </h3>
           <label
             htmlFor='signin'
             className='btn-sm btn-circle btn absolute right-2 top-2'
+            onClick={() => setCloseModal(false)}
           >
             ✕
           </label>
 
           <form
-            className='relative mt-24 space-y-8 rounded py-10 px-6 md:mt-0 md:max-w-md md:px-14'
+            className='relative space-y-8 rounded py-2 px-6'
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className='space-y-4'>
@@ -59,7 +66,7 @@ const SignIn = (props: Props) => {
                 <input
                   type='email'
                   //   placeholder='Email'
-                  className={`input ${
+                  className={`input w-full bg-red-100 ${
                     errors.email && 'border-b-2 border-orange-500 '
                   }`}
                   {...register('email', { required: true })}
@@ -78,7 +85,7 @@ const SignIn = (props: Props) => {
                   type='password'
                   {...register('password', { required: true })}
                   //   placeholder='Password'
-                  className={`input ${
+                  className={`input w-full bg-red-100 ${
                     errors.password && 'border-b-2 border-orange-500'
                   }`}
                 />
@@ -92,16 +99,6 @@ const SignIn = (props: Props) => {
             <button className={`w-full main-button ${loading && 'loading'}`}>
               Login
             </button>
-            <div className='flex flex-row items-center justify-center mt-5'>
-              <p className='text-[gray]'>New here?</p>
-              <button
-                className='cursor-pointer font-semibold hover:underline ml-1 text-red-400'
-                onClick={() => toggleView('signup')}
-                type='submit'
-              >
-                Sign Up now
-              </button>
-            </div>
           </form>
         </div>
       </div>

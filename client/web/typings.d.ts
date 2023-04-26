@@ -41,6 +41,11 @@ type Inputs = {
   email: string;
   password: string;
 };
+type createUserFormType = {
+  email: string;
+  password: string;
+  role: string;
+};
 
 interface Vehicles {
   id: string;

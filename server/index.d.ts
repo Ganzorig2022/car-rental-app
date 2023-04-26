@@ -1,10 +1,6 @@
-interface createUser {
-  id: string;
+interface createUserInput {
   email: string;
   password: string;
-  name: string;
-  phone: string;
-  age: string;
   role: Role;
 }
 interface updateUserInput {

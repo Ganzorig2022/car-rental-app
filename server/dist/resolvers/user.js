@@ -77,15 +77,13 @@ export const userResolvers = {
     Mutation: {
         createUser: async (_parent, args) => {
             //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
+            const { email, password, role } = args;
             try {
                 const user = await Prisma.user.create({
                     data: {
-                        email: args.email,
-                        password: await bcrypt.hash(args.password, +bcryptSalt),
-                        name: args.name,
-                        phone: args.phone,
-                        age: args.age,
-                        role: args.role,
+                        email,
+                        password: await bcrypt.hash(password, +bcryptSalt),
+                        role,
                     },
                 });
                 const userId = user.id;
@@ -239,3 +237,4 @@ export const userResolvers = {
     },
 };
 // https://www.prisma.io/docs/concepts/components/prisma-client/crud#read
+//https://blog.logrocket.com/implementing-secure-password-reset-node-js/
