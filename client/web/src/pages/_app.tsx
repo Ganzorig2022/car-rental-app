@@ -1,21 +1,24 @@
 import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '@/graphql/apollo_client';
-import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
-import Layout from '@/components/Layout/Layout';
 import { RecoilRoot } from 'recoil';
+import Layout from '@/components/Layout/Layout';
+import { RentalProvider } from '@/providers/rentalProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider attribute='class'>
+      <RentalProvider>
         <RecoilRoot>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ThemeProvider attribute='class'>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
         </RecoilRoot>
-      </ThemeProvider>
+      </RentalProvider>
     </ApolloProvider>
   );
 }

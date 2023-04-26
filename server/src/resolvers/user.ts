@@ -11,6 +11,42 @@ const bcryptSalt = process.env.BCRYPT_SALT;
 
 export const userResolvers = {
   Query: {
+    getUserByEmail: async (parent: any, args: { email: string }) => {
+      try {
+        // if there is no record, "findUnique" returns NULL
+        const user = await Prisma.user.findUnique({
+          where: {
+            email: args.email,
+          },
+          include: {
+            rentals: true, // Rental model data will be included. Because in the prisma.schema, User @relation field
+            cars: true, //  Cars model data will be included. Because in the prisma.schema, User @relation field
+            transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
+          },
+        });
+
+        if (!user)
+          throw new GraphQLError(`No user with this email: ${args.email}`);
+
+        return user;
+      } catch (error) {
+        console.log('GET USER BY EMAIL ERROR', error);
+        throw new GraphQLError(error);
+      }
+    },
+
+    getAllUsers: async () => {
+      try {
+        const users = await Prisma.user.findMany();
+        return users;
+      } catch (error) {
+        console.log('GET ALL USERS ERROR', error);
+        throw new GraphQLError(error);
+      }
+    },
+  },
+
+  Mutation: {
     loginUser: async (
       parent: any,
       args: { email: string; password: string }
@@ -52,42 +88,6 @@ export const userResolvers = {
       }
     },
 
-    getUserByEmail: async (parent: any, args: { email: string }) => {
-      try {
-        // if there is no record, "findUnique" returns NULL
-        const user = await Prisma.user.findUnique({
-          where: {
-            email: args.email,
-          },
-          include: {
-            rentals: true, // Rental model data will be included. Because in the prisma.schema, User @relation field
-            cars: true, //  Cars model data will be included. Because in the prisma.schema, User @relation field
-            transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
-          },
-        });
-
-        if (!user)
-          throw new GraphQLError(`No user with this email: ${args.email}`);
-
-        return user;
-      } catch (error) {
-        console.log('GET USER BY EMAIL ERROR', error);
-        throw new GraphQLError(error);
-      }
-    },
-
-    getAllUsers: async () => {
-      try {
-        const users = await Prisma.user.findMany();
-        return users;
-      } catch (error) {
-        console.log('GET ALL USERS ERROR', error);
-        throw new GraphQLError(error);
-      }
-    },
-  },
-
-  Mutation: {
     createUser: async (_parent: any, args: createUserInput) => {
       //Prisma.user --> "prisma/schema.prisma" dotor model User bga...
       const { email, password, role } = args;
@@ -107,7 +107,7 @@ export const userResolvers = {
         return { user, token };
       } catch (error) {
         console.log('CREATE USER ERROR', error);
-        throw new GraphQLError(error);
+        throw new GraphQLError(`Already signed up with this email: ${email}`);
       }
     },
 
@@ -185,7 +185,7 @@ export const userResolvers = {
 
       //6) Send email link to user's email address.
       const clientURL = process.env.CLIENT_URL;
-      const link = `${clientURL}/passwordReset?token=${resetToken}&id=${userId}`;
+      const link = `${clientURL}/password/reset?token=${resetToken}&id=${userId}`;
 
       //When click on this link. Go to "/passwordReset" page. Then fetch id, token from "router.query" on frontend.
       const { success } = await sendEmail(

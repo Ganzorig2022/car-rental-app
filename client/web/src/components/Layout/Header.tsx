@@ -5,11 +5,15 @@ import { useEffect, useState } from 'react';
 import DarkModeButton from '../UI/DarkModeButton';
 import SignIn from '../Modal/SignIn';
 import SignUp from '../Modal/SignUp';
-import { useRecoilState } from 'recoil';
-import { closeModalState } from '../atoms/closeModal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { closeModalState } from '../../atoms/closeModal';
+import { loggedInState } from '../../atoms/loginAtom';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);
+  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
+
   const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -40,10 +44,6 @@ const Header = () => {
     // adding the event when scroll change background
     window.addEventListener('scroll', changeBackground);
   });
-
-  const open = () => {
-    console.log('first');
-  };
 
   return (
     <div
@@ -137,13 +137,36 @@ const Header = () => {
               <ul className='p-2 bg-base-100 w-full items-center'>
                 <DarkModeButton />
                 <div className='divider m-0' />
-                <label htmlFor='signup' className='text-[10px] p-2 py-0 '>
-                  Sign Up
-                </label>
-                <div className='divider m-0' />
-                <label htmlFor='signin' className='text-[10px] p-2 py-0'>
-                  Sign In
-                </label>
+                {!loggedIn ? (
+                  <>
+                    <label
+                      htmlFor='signup'
+                      className='text-[10px] p-2 py-0 '
+                      onClick={() => setCloseModal(true)}
+                    >
+                      Sign Up
+                    </label>
+                    <div className='divider m-0' />
+                    <label
+                      htmlFor='signin'
+                      className='text-[10px] p-2 py-0'
+                      onClick={() => setCloseModal(true)}
+                    >
+                      Sign In
+                    </label>
+                  </>
+                ) : (
+                  <button
+                    className='btn text-white ml-2'
+                    onClick={() => {
+                      setLoggedIn(false);
+                      Cookies.remove('token');
+                      Cookies.remove('userId');
+                    }}
+                  >
+                    Log Out
+                  </button>
+                )}
               </ul>
             </li>
           </ul>
@@ -151,20 +174,35 @@ const Header = () => {
         {/* The button to open modal */}
         <div className='hidden sm:flex sm:flex-row sm:items-center'>
           <DarkModeButton />
-          <label
-            htmlFor='signup'
-            className='btn-ghost btn dark:text-white'
-            onClick={() => setCloseModal(true)}
-          >
-            Sign Up
-          </label>
-          <label
-            htmlFor='signin'
-            className='main-button'
-            onClick={() => setCloseModal(true)}
-          >
-            Sign In
-          </label>
+          {!loggedIn ? (
+            <>
+              <label
+                htmlFor='signup'
+                className='btn-ghost btn dark:text-white'
+                onClick={() => setCloseModal(true)}
+              >
+                Sign Up
+              </label>
+              <label
+                htmlFor='signin'
+                className='main-button'
+                onClick={() => setCloseModal(true)}
+              >
+                Sign In
+              </label>
+            </>
+          ) : (
+            <button
+              className='btn text-white ml-2'
+              onClick={() => {
+                setLoggedIn(false);
+                Cookies.remove('token');
+                Cookies.remove('userId');
+              }}
+            >
+              Log Out
+            </button>
+          )}
         </div>
       </div>
 

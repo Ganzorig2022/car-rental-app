@@ -3,10 +3,19 @@ import Header from './Header';
 import Footer from './Footer';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import dynamic from 'next/dynamic';
 
 type Props = {
   children: ReactNode;
 };
+
+// Dynamic import resolved hydration error permanently in my case:
+const Toaster = dynamic(
+  () => import('react-hot-toast').then((c) => c.Toaster),
+  {
+    ssr: false,
+  }
+);
 
 const Layout = ({ children }: Props) => {
   useEffect(() => {
@@ -20,8 +29,11 @@ const Layout = ({ children }: Props) => {
       <Header />
       <main>{children}</main>
       <Footer />
+      <Toaster />
     </div>
   );
 };
 
 export default Layout;
+
+//https://github.com/timolins/react-hot-toast/issues/46

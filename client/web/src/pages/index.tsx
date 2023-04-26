@@ -6,7 +6,6 @@ import HowItWorks from '@/components/Home/HowItWorks';
 import DownloadApp from '@/components/Home/DownloadApp';
 import TopDeal from '@/components/Home/TopDeal';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
-import { Toaster } from 'react-hot-toast';
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +15,6 @@ const Home: NextPage = () => {
         <meta name='description' content='created by Leap-3 Team-2' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Toaster />
       <Banner />
       <main className='bg-white'>
         <HowItWorks />

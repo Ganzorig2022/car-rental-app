@@ -76,9 +76,9 @@ export const rentalResolvers = {
 
       const authorized = userId === idToken;
 
-      //middleware
+      //If userId is not right, then ERROR
       if (!authorized) {
-        throw new GraphQLError('User not authorized');
+        throw new GraphQLError('User not authorized. Wrong token or userId.');
       }
 
       try {

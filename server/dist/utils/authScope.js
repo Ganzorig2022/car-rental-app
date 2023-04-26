@@ -6,7 +6,12 @@ const authScope = async (token) => {
     if (!token) {
         return null;
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded;
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded;
+    }
+    catch (error) {
+        return error;
+    }
 };
 export default authScope;

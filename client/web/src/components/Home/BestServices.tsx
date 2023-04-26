@@ -14,6 +14,7 @@ const BestServices = (props: Props) => {
             height={200}
             width={200}
             alt='wrangler'
+            priority
             className='sm:w-[300px] md:w-[400px] lg:w-[600px] object-contain'
           />
         </div>

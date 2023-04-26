@@ -8,6 +8,7 @@ type Props = {
   endDate: Date;
 };
 
+// imported from <PickUp/>
 const Calendar = ({ setStartDate, setEndDate, startDate, endDate }: Props) => {
   const selectionRange = {
     startDate: startDate,

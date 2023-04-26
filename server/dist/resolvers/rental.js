@@ -62,7 +62,7 @@ export const rentalResolvers = {
             // getting userId from token verify using context middleware in "index.ts"
             const idToken = context.token.id;
             const authorized = userId === idToken;
-            //middleware
+            //If userId is not right, then ERROR
             if (!authorized) {
                 throw new GraphQLError('User not authorized');
             }

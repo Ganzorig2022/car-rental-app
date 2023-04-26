@@ -8,7 +8,12 @@ const authScope = async (token: string) => {
   if (!token) {
     return null;
   }
-  const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
-  return decoded;
+
+  try {
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded;
+  } catch (error) {
+    return error;
+  }
 };
 export default authScope;

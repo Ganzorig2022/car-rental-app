@@ -46,6 +46,10 @@ type createUserFormType = {
   password: string;
   role: string;
 };
+type loginUserFormType = {
+  email: string;
+  password: string;
+};
 
 interface Vehicles {
   id: string;
@@ -67,3 +71,17 @@ interface Vehicles {
     interior: string;
   };
 }
+
+type RentalType = {
+  userId: string;
+  dateRent: string;
+  dateReturn: string;
+  totalDays: number;
+  location: string;
+  verified: boolean;
+  extras: {
+    coverage: boolean;
+    child_safety: boolean;
+    GPS: boolean;
+  };
+};

@@ -1,14 +1,38 @@
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from './Calendar';
+import { useRental } from '@/providers/rentalProvider';
+import { calculateDate } from '@/utils/calculateDate';
+import Cookies from 'js-cookie';
 
 type Props = {};
 
 const PickUp = (props: Props) => {
+  const router = useRouter();
+  const { rentals, setRentals } = useRental();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const router = useRouter();
+  const [location, setLocation] = useState('');
+  const userId = Cookies.get('userId') as string;
+
+  useEffect(() => {
+    const { stringStartDate, stringEndDate, totalDays } = calculateDate(
+      startDate,
+      endDate
+    );
+
+    setRentals((prev) => ({
+      ...prev,
+      dateRent: stringStartDate, // etc. "2023-04-26"
+      dateReturn: stringEndDate, // etc. "2023-04-29"
+      totalDays, // etc. 3 days
+      location,
+      userId,
+    }));
+  }, [startDate, endDate, setRentals, location, userId]);
+
+  console.log('rentals', rentals);
 
   return (
     <>
@@ -17,15 +41,18 @@ const PickUp = (props: Props) => {
           {/* LOCATION */}
           {/* <GooglePlaces /> */}
           <div>
-            <select className='select w-full max-w-[200px]'>
+            <select
+              className='select w-full max-w-[200px]'
+              onChange={(e) => setLocation(e.target.value)}
+            >
               <option disabled selected>
                 Choose a location
               </option>
-              <option>Ulaanbaatar</option>
-              <option>Tow</option>
-              <option>Darkhan</option>
-              <option>Erdenet</option>
-              <option>Bayankhongor</option>
+              <option value='Ulaanbaatar'>Ulaanbaatar</option>
+              <option value='Tow'>Tow</option>
+              <option value='Khovd'>Khovd</option>
+              <option value='Uws'>Uws</option>
+              <option value='Bayan-Ulgii'>Bayan-Ulgii</option>
             </select>
           </div>
 

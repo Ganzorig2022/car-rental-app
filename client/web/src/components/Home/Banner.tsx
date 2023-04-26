@@ -11,6 +11,7 @@ const Banner = () => {
           height={450}
           width={400}
           alt='wrangler'
+          priority
           className='absolute z-10 -right-0 top-20 sm:top-32 sm:w-[500px] md:w-[550px] lg:w-[600px] xl:w-[800px]'
         />
       </div>

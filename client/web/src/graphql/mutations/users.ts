@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const LOGIN_USER = gql`
+  mutation LoginUser($email: String, $password: String) {
+    loginUser(email: $email, password: $password) {
+      success
+      userId
+      token
+    }
+  }
+`;
+
 export const CREATE_NEW_USER = gql`
   mutation createUser($email: String, $password: String, $role: String) {
     createUser(email: $email, password: $password, role: $role) {
@@ -16,6 +26,23 @@ export const CREATE_NEW_USER = gql`
         }
       }
       token
+    }
+  }
+`;
+
+export const PASSWORD_RESET_REQUEST = gql`
+  mutation ResetPasswordRequest($email: String) {
+    resetPasswordRequest(email: $email) {
+      link
+      success
+    }
+  }
+`;
+
+export const PASSWORD_RESET = gql`
+  mutation ResetPassword($token: String, $password: String, $userId: String) {
+    resetPassword(token: $token, password: $password, userId: $userId) {
+      success
     }
   }
 `;

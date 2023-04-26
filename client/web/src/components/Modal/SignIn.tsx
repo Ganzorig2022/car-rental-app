@@ -1,43 +1,71 @@
-import React from 'react';
+import { LOGIN_USER } from '@/graphql/mutations/users';
+import { useMutation, useQuery } from '@apollo/client';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
-import { closeModalState } from '../atoms/closeModal';
+import { closeModalState } from '../../atoms/closeModal';
+import { loggedInState } from '../../atoms/loginAtom';
 
 type Props = {};
 
 const SignIn = (props: Props) => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);
-
-  const loading = false;
-  const onSubmit: SubmitHandler<Inputs> = async (inputs) => {
-    const { email, password } = inputs;
-
-    // // 1) MIDDLEWARE for checking if there is user or not...
-    // const response = await checkUser(email);
-
-    // if (response?.data.message === 'user not found') {
-    //   toast.error('You are not signed up. Please sign up instead!');
-    //   return;
-    // }
-
-    // // 2) If there is user, then sign in
-    // await signIn(email, password);
-
-    // if (error === 'Network Error') {
-    //   toast.error('Network error. Something wrong with backend service.');
-    //   return;
-    // }
-
-    toast.success('Successfully signed.');
-  };
+  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
+  const router = useRouter();
 
   //react hook form
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const [formData, setFormData] = useState<loginUserFormType>({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formData;
+
+  // 2) getting user data from MONGODB using Apollo Client
+  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
+    variables: { email, password },
+  });
+
+  //2)
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = async () => {
+    if (error) return toast.error(error?.message);
+
+    try {
+      const data = (await loginUser()).data;
+
+      if (data.loginUser.success) toast.success('Successfully signed.');
+      setCloseModal(false);
+      setLoggedIn(true);
+
+      Cookies.set('token', data.loginUser.token);
+      Cookies.set('userId', data.loginUser.userId);
+    } catch (error: any) {
+      const errors = new Error(error);
+      toast.error(errors.message);
+      return;
+    }
+  };
+
+  const goToPasswordRequestPage = () => {
+    router.push('/password/request');
+    setCloseModal(false);
+  };
+
   return (
     <>
       <input type='checkbox' id='signin' className='modal-toggle' />
@@ -65,11 +93,12 @@ const SignIn = (props: Props) => {
                 </label>
                 <input
                   type='email'
-                  //   placeholder='Email'
                   className={`input w-full bg-red-100 ${
                     errors.email && 'border-b-2 border-orange-500 '
                   }`}
-                  {...register('email', { required: true })}
+                  onChange={onChangeHandler}
+                  id='email'
+                  required
                 />
                 {errors.email && (
                   <p className='p-1 text-[13px] font-light  text-orange-500'>
@@ -83,11 +112,12 @@ const SignIn = (props: Props) => {
                 </label>
                 <input
                   type='password'
-                  {...register('password', { required: true })}
-                  //   placeholder='Password'
                   className={`input w-full bg-red-100 ${
                     errors.password && 'border-b-2 border-orange-500'
                   }`}
+                  onChange={onChangeHandler}
+                  id='password'
+                  required
                 />
                 {errors.password && (
                   <p className='p-1 text-[13px] font-light  text-orange-500'>
@@ -100,6 +130,16 @@ const SignIn = (props: Props) => {
               Login
             </button>
           </form>
+          <div className='flex flex-row items-center justify-center mt-5'>
+            <p className='text-[gray]'>Forgot password?</p>
+            <button
+              className='cursor-pointer font-semibold hover:underline ml-1 text-red-400'
+              onClick={goToPasswordRequestPage}
+              type='submit'
+            >
+              Click here
+            </button>
+          </div>
         </div>
       </div>
     </>
