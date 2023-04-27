@@ -1,4 +1,3 @@
-import ConfirmedFooter from '@/components/ConfirmedFooter';
 import Image from 'next/image';
 import React from 'react';
 
@@ -68,10 +67,10 @@ const Confirmed = () => {
                         <h4 className='font-semibold text-base dark:text-white'>Rental Details</h4>
                     </div>
                     <div className='flex flex-col gap-[12px]'>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Driver Name: <strong>TEMUUJIN</strong></h4>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Email Address: <strong>s*****a@gmail.com</strong></h4>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Phone Number: <strong>******6010</strong></h4>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Age: <strong>25+</strong></h4>
+                        <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Driver Name: <strong>TEMUUJIN</strong></h4>
+                        <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Email Address: <strong>s*****a@gmail.com</strong></h4>
+                        <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Phone Number: <strong>******6010</strong></h4>
+                        <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Age: <strong>25+</strong></h4>
                     </div>
                 </div>
 
@@ -80,21 +79,19 @@ const Confirmed = () => {
                         <h4 className='font-semibold text-base'>Vehicle Class</h4>
                     </div>
                     <div className='flex flex-col gap-[12px]'>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Vehicle Class: <strong>BMW X6</strong></h4>
+                        <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Vehicle Class: <strong>BMW X6</strong></h4>
                         <ul className='pl-[30px]'>
-                            <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>Automatic</li>
-                            <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>4 door</li>
-                            <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>5 passengers</li>
+                            <li className='font-normal list-disc text-[12px] text-[#3E3E3E] md:text-base] dark:text-white'>Automatic</li>
+                            <li className='font-normal list-disc text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>5 passengers</li>
                         </ul>
                         <div className='w-full flex justify-between items-center'>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Time & Distance 1 Day(s) @ $ 106.09 / Day</h4>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>$ 700.00</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Time & Distance 1 Day(s) @ $ 106.09 / Day</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>$ 700.00</h4>
                         </div>
                         <div className='w-full flex justify-between items-center'>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Unlimited Mileage</h4>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>Inclueded</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Unlimited Mileage</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>Inclueded</h4>
                         </div>
-                        <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'></h4>
                     </div>
                 </div>
 
@@ -104,8 +101,8 @@ const Confirmed = () => {
                     </div>
                     <div className='flex flex-col gap-[12px]'>
                         <div className='w-full flex justify-between items-center'>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>GPS:</h4>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>$ 28.00</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>GPS:</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base] dark:text-white'>$ 28.00</h4>
                         </div>
                     </div>
                 </div>
@@ -116,8 +113,8 @@ const Confirmed = () => {
                     </div>
                     <div className='flex flex-col gap-[12px]'>
                         <div className='w-full flex justify-between items-center'>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>SALES TAX (10.0%)</h4>
-                            <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>$ 72.80</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>SALES TAX (10.0%)</h4>
+                            <h4 className='font-normal text-[12px] text-[#3E3E3E] md:text-base dark:text-white'>$ 72.80</h4>
                         </div>
                     </div>
                 </div>
