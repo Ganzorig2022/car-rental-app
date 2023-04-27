@@ -9,7 +9,6 @@ const typeDefs = gql`
     phone: String
     age: String
     role: String
-    # array of objects
     rentals: [Rental]
     createdAt: Date
   }
@@ -71,33 +70,28 @@ const typeDefs = gql`
       kml: Int
       passengers: Int
       price: Int
-      # doors: String
-      # mileage: String
-      # details: Details
       userId: String
     ): Car
   }
 
   type Mutation {
-    updateCar(
+    updateCarById(
       id: String
       image: String
       type: String
       typeDefinition: String
       model: String
-      kml: String
+      kml: Int
       transmission: String
       passengers: Int
-      # doors: String
-      # mileage: String
-      # details: Details
-      price: Float
+      price: Int
     ): Car
   }
 
   type Mutation {
     deleteCarById(id: String): IsSuccess
   }
+
   type Mutation {
     deleteCarsByUserId(userId: String): IsSuccess
   }

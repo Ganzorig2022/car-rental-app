@@ -11,7 +11,7 @@ export const rentalResolvers = {
                         id,
                     },
                     include: {
-                        renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
                 if (!rental)
@@ -64,7 +64,7 @@ export const rentalResolvers = {
             const authorized = userId === idToken;
             //If userId is not right, then ERROR
             if (!authorized) {
-                throw new GraphQLError('User not authorized');
+                throw new GraphQLError('User not authorized. Wrong token or userId.');
             }
             try {
                 const rental = await Prisma.rental.create({
@@ -78,7 +78,7 @@ export const rentalResolvers = {
                         extras,
                     },
                     include: {
-                        renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
                 // will receive request from the frontend side

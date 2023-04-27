@@ -77,6 +77,10 @@ const typeDefs = gql`
   }
 
   type Query {
+    getUserById(id: String): User
+  }
+
+  type Query {
     getAllUsers: [User]
   }
 
@@ -94,7 +98,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    updateUser(
+    updateUserByEmail(
       email: String!
       password: String
       name: String

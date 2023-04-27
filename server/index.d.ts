@@ -35,7 +35,7 @@ type updateRentalType = {
   dateReturn: string;
   location: string;
   verified: boolean;
-  renter: User;
+  user: User;
   createdAt: Date;
   extras: Extras;
 };
@@ -50,7 +50,6 @@ interface createCarType {
   kml: number;
   passengers: number;
   price: number;
-  user: User;
   userId: string;
 }
 

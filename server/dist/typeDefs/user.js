@@ -62,6 +62,7 @@ const typeDefs = gql `
 
   type IsSuccess {
     success: Boolean
+    # error: string
   }
 
   type Link {
@@ -72,6 +73,10 @@ const typeDefs = gql `
   # QUERIES = GET REQUESTS
   type Query {
     getUserByEmail(email: String): User
+  }
+
+  type Query {
+    getUserById(id: String): User
   }
 
   type Query {
@@ -92,7 +97,7 @@ const typeDefs = gql `
   }
 
   type Mutation {
-    updateUser(
+    updateUserByEmail(
       email: String!
       password: String
       name: String

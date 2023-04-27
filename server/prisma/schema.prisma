@@ -32,7 +32,7 @@ model Rental {
   totalDays  Int
   location   String
   verified   Boolean  @default(false)
-  renter     User     @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
   userId     String   @db.ObjectId
   createdAt  DateTime @default(now())
   extras     Extras
@@ -54,7 +54,7 @@ model Car {
   kml            Int
   passengers     Int
   price          Int
-  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
   userId         String @db.ObjectId
 }
 
@@ -78,3 +78,5 @@ model Token {
 //   USER
 //   ADMIN
 // }
+
+// onDelete:Cascade does not work on MONGODB!!!!!!!!!!!!!!!!

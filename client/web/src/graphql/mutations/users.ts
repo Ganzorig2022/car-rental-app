@@ -47,38 +47,35 @@ export const PASSWORD_RESET = gql`
   }
 `;
 
-export const UPDATE_SINGLE_USER = gql`
-  mutation UpdateUser(
+export const UPDATE_USER_BY_EMAIL = gql`
+  mutation UpdateUserByEmail(
     $email: String!
-    $username: String
+    $password: String
+    $name: String
     $phone: String
-    $birthDate: String
-    $address: String
-    $gender: String
-    $role: String
+    $age: String
   ) {
-    updateUser(
+    updateUserByEmail(
       email: $email
-      username: $username
+      password: $password
+      name: $name
       phone: $phone
-      birthDate: $birthDate
-      address: $address
-      gender: $gender
-      role: $role
+      age: $age
     ) {
       email
-      username
+      name
+      id
       phone
-      birthDate
-      address
-      gender
+      password
+      age
+      createdAt
     }
   }
 `;
 
-export const DELETE_USER = gql`
-  mutation DeleteUser($email: String!) {
-    deleteUser(email: $email) {
+export const DELETE_USER_BY_EMAIL = gql`
+  mutation DeleteUserByEmail($email: String!) {
+    deleteUserByEmail(email: $email) {
       success
     }
   }

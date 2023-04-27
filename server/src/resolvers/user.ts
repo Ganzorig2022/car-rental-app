@@ -35,6 +35,30 @@ export const userResolvers = {
       }
     },
 
+    getUserById: async (parent: any, args: { id: string }) => {
+      const { id } = args;
+      try {
+        // if there is no record, "findUnique" returns NULL
+        const user = await Prisma.user.findUnique({
+          where: {
+            id,
+          },
+          include: {
+            rentals: true, // Rental model data will be included. Because in the prisma.schema, User @relation field
+            cars: true, //  Cars model data will be included. Because in the prisma.schema, User @relation field
+            transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
+          },
+        });
+
+        if (!user) throw new GraphQLError(`No user with this id: ${id}`);
+
+        return user;
+      } catch (error) {
+        console.log('GET USER BY ID ERROR', error);
+        throw new GraphQLError(error);
+      }
+    },
+
     getAllUsers: async () => {
       try {
         const users = await Prisma.user.findMany();
@@ -111,7 +135,7 @@ export const userResolvers = {
       }
     },
 
-    updateUser: async (_parent: any, args: updateUserInput) => {
+    updateUserByEmail: async (_parent: any, args: updateUserInput) => {
       const { email, name, phone, age } = args;
 
       //middleware for checking if user exists or not

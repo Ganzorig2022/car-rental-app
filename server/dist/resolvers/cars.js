@@ -30,6 +30,9 @@ export const carsResolvers = {
                     orderBy: {
                         price: 'desc',
                     },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
                 if (cars.length === 0)
                     throw new GraphQLError(`No cars found with this type: ${args.type}`);
@@ -55,6 +58,9 @@ export const carsResolvers = {
                         orderBy: {
                             price: 'desc',
                         },
+                        include: {
+                            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                        },
                     });
                     return cars;
                 }
@@ -67,6 +73,9 @@ export const carsResolvers = {
                     },
                     orderBy: {
                         price: 'desc',
+                    },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
                 return cars;
@@ -84,6 +93,9 @@ export const carsResolvers = {
                     orderBy: {
                         price: 'desc',
                     },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
                 if (cars.length === 0)
                     throw new GraphQLError(`No cars found with this userId: ${args.userId}`);
@@ -97,13 +109,19 @@ export const carsResolvers = {
         getAllCarsWithPagination: async (_parent, args) => {
             // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
             try {
+                // if there are no records, "findMany" returns EMPTY[]
                 const cars = await Prisma.car.findMany({
                     skip: args.skip,
                     take: args.pagination,
                     orderBy: {
                         price: 'desc',
                     },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
+                if (cars.length === 0)
+                    throw new GraphQLError(`No cars found `);
                 return cars;
             }
             catch (error) {
@@ -128,6 +146,9 @@ export const carsResolvers = {
                         price,
                         userId,
                     },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
                 return car;
             }
@@ -136,9 +157,10 @@ export const carsResolvers = {
                 throw new GraphQLError(error);
             }
         },
-        updateCar: async (_parent, args) => {
+        updateCarById: async (_parent, args) => {
             const { id, image, type, typeDefinition, model, kml, transmission, passengers, price, } = args;
             try {
+                //If there is no record, "update" returns NOTHING, throws error
                 const car = await Prisma.car.update({
                     where: { id },
                     data: {
@@ -151,12 +173,15 @@ export const carsResolvers = {
                         passengers,
                         price,
                     },
+                    include: {
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                    },
                 });
                 return car;
             }
             catch (error) {
                 console.log('UPDATE CAR ERROR', error);
-                throw new GraphQLError(error);
+                throw new GraphQLError(`No car found with ${id}`);
             }
         },
         deleteCarById: async (_parent, args) => {

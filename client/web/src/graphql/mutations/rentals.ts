@@ -1,30 +1,43 @@
 import { gql } from '@apollo/client';
 
-export const UPDATE_SINGLE_USER = gql`
-  mutation UpdateUser(
-    $email: String!
-    $username: String
-    $phone: String
-    $birthDate: String
-    $address: String
-    $gender: String
-    $role: String
+export const CREATE_RENTAL = gql`
+  mutation CreateRental(
+    $dateRent: String
+    $dateReturn: String
+    $location: String
+    $verified: Boolean
+    $userId: String
+    $extras: ExtrasInput
+    $totalDays: Int
   ) {
-    updateUser(
-      email: $email
-      username: $username
-      phone: $phone
-      birthDate: $birthDate
-      address: $address
-      gender: $gender
-      role: $role
+    createRental(
+      dateRent: $dateRent
+      dateReturn: $dateReturn
+      location: $location
+      verified: $verified
+      userId: $userId
+      extras: $extras
+      totalDays: $totalDays
     ) {
-      email
-      username
-      phone
-      birthDate
-      address
-      gender
+      id
+      userId
+      dateRent
+      dateReturn
+      verified
+      location
+      createdAt
+      renter {
+        id
+        email
+        name
+        phone
+      }
+      extras {
+        GPS
+        child_safety
+        coverage
+      }
+      totalDays
     }
   }
 `;

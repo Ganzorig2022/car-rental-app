@@ -12,7 +12,7 @@ export const rentalResolvers = {
             id,
           },
           include: {
-            renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
           },
         });
 
@@ -93,7 +93,7 @@ export const rentalResolvers = {
             extras,
           },
           include: {
-            renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
           },
         });
         // will receive request from the frontend side

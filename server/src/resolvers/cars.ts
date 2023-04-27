@@ -33,6 +33,9 @@ export const carsResolvers = {
           orderBy: {
             price: 'desc',
           },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
         });
 
         if (cars.length === 0)
@@ -60,6 +63,9 @@ export const carsResolvers = {
             orderBy: {
               price: 'desc',
             },
+            include: {
+              user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+            },
           });
           return cars;
         }
@@ -73,6 +79,9 @@ export const carsResolvers = {
           },
           orderBy: {
             price: 'desc',
+          },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
           },
         });
 
@@ -90,6 +99,9 @@ export const carsResolvers = {
           where: { userId: args.userId },
           orderBy: {
             price: 'desc',
+          },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
           },
         });
 
@@ -111,13 +123,20 @@ export const carsResolvers = {
     ) => {
       // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
       try {
+        // if there are no records, "findMany" returns EMPTY[]
         const cars = await Prisma.car.findMany({
           skip: args.skip,
           take: args.pagination, // pagination by number
           orderBy: {
             price: 'desc',
           },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
         });
+
+        if (cars.length === 0) throw new GraphQLError(`No cars found `);
+
         return cars;
       } catch (error) {
         console.log('GET ALL CARS ERROR', error);
@@ -153,6 +172,9 @@ export const carsResolvers = {
             price,
             userId,
           },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
         });
 
         return car;
@@ -161,7 +183,7 @@ export const carsResolvers = {
         throw new GraphQLError(error);
       }
     },
-    updateCar: async (_parent: any, args: createCarType) => {
+    updateCarById: async (_parent: any, args: createCarType) => {
       const {
         id,
         image,
@@ -175,6 +197,7 @@ export const carsResolvers = {
       } = args;
 
       try {
+        //If there is no record, "update" returns NOTHING, throws error
         const car = await Prisma.car.update({
           where: { id },
           data: {
@@ -187,12 +210,15 @@ export const carsResolvers = {
             passengers,
             price,
           },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
         });
 
         return car;
       } catch (error) {
         console.log('UPDATE CAR ERROR', error);
-        throw new GraphQLError(error);
+        throw new GraphQLError(`No car found with ${id}`);
       }
     },
 
