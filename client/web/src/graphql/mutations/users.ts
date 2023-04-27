@@ -14,7 +14,11 @@ export const CREATE_NEW_USER = gql`
   mutation createUser($email: String, $password: String, $role: String) {
     createUser(email: $email, password: $password, role: $role) {
       user {
+        age
         email
+        id
+        name
+        phone
         role
         rentals {
           id

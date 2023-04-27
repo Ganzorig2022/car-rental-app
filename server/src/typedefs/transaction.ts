@@ -18,7 +18,7 @@ const typeDefs = gql`
   type Transaction {
     id: String
     verified: Boolean
-    renter: User
+    user: User
     userId: String
     createdAt: Date
   }

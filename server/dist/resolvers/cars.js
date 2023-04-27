@@ -112,7 +112,7 @@ export const carsResolvers = {
                 // if there are no records, "findMany" returns EMPTY[]
                 const cars = await Prisma.car.findMany({
                     skip: args.skip,
-                    take: args.pagination,
+                    take: args.take,
                     orderBy: {
                         price: 'desc',
                     },

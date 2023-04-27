@@ -21,7 +21,7 @@ const typeDefs = gql`
     totalDays: Int
     location: String
     verified: Boolean
-    renter: User
+    user: User
     userId: String
     createdAt: Date
     extras: Extras

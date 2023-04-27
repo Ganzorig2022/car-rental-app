@@ -9,7 +9,7 @@ export const transactionResolvers = {
                         id: args.id,
                     },
                     include: {
-                        renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
                 return transaction;
@@ -44,7 +44,7 @@ export const transactionResolvers = {
                         verified,
                     },
                     include: {
-                        renter: true, // User model data will be included. Because in the prisma.schema, User @relation field
+                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
                 return transaction;

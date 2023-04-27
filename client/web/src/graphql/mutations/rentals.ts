@@ -26,7 +26,7 @@ export const CREATE_RENTAL = gql`
       verified
       location
       createdAt
-      renter {
+      user {
         id
         email
         name

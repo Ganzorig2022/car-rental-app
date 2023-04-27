@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import { CREATE_NEW_USER } from '@/graphql/mutations/users';
-import { useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useRecoilState } from 'recoil';
-import { closeModalState } from '../../atoms/closeModal';
-import Cookies from 'js-cookie';
-import { loggedInState } from '../../atoms/loginAtom';
 import Spinner from '../UI/Spinner';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import useGraphql from '@/hooks/useGraphql';
+import { loggedInState } from '../../atoms/loginAtom';
+import { closeModalState } from '../../atoms/closeModal';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 type Props = {};
 
 const SignUp = (props: Props) => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
-  const router = useRouter();
+
   //react hook form
   const {
     register,
@@ -29,16 +26,9 @@ const SignUp = (props: Props) => {
     role: '',
   });
 
-  const { email, password, role } = formData;
+  const { signUp, createUserLoading: loading } = useGraphql();
 
-  //Apollo Client request for Apollo Server/Prisma/MongoDB
-  const [createNewUser, { loading }] = useMutation(CREATE_NEW_USER, {
-    variables: {
-      email,
-      password,
-      role,
-    },
-  });
+  const { email, password, role } = formData;
 
   //2) Setting email and password
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,22 +41,13 @@ const SignUp = (props: Props) => {
 
   // 3) Create new user
   const onSubmit: SubmitHandler<Inputs> = async () => {
-    try {
-      const {
-        createUser: { token },
-      } = (await createNewUser()).data;
+    const response = await signUp(email, password, role);
 
+    if (response) {
       setLoggedIn(true);
-      Cookies.set('token', token);
-    } catch (error: any) {
-      const errors = new Error(error);
-      toast.error(errors.message);
-      return;
+      toast.success('Successfully signed.');
     }
-
     setCloseModal(false);
-
-    toast.success('Successfully signed.');
   };
 
   if (loading) return <Spinner />;
@@ -140,7 +121,7 @@ const SignUp = (props: Props) => {
                 </label>
                 <div className='w-full overflow-hidden'>
                   <select
-                    className='select w-full'
+                    className='select w-full bg-red-100'
                     defaultValue=''
                     onChange={(e) => setSelectValue(e.target.value)}
                   >
@@ -155,16 +136,6 @@ const SignUp = (props: Props) => {
             <button className={`w-full main-button ${loading && 'loading'}`}>
               Sign Up
             </button>
-            {/* <div className='flex flex-row items-center justify-center mt-5'>
-              <p className='text-[gray]'>New here?</p>
-              <button
-                className='cursor-pointer font-semibold hover:underline ml-1 text-red-400'
-                onClick={() => toggleView('signup')}
-                type='submit'
-              >
-                Sign Up now
-              </button>
-            </div> */}
           </form>
         </div>
       </div>

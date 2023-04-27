@@ -4,17 +4,16 @@ import React from 'react';
 type Props = {};
 
 const Card = ({
-  id,
   image,
+  type,
   typeDefinition,
   model,
   kml,
   transmission,
   passengers,
-  doors,
-  details,
-  mileage,
-}: Vehicles) => {
+  price,
+  userId,
+}: CarsType) => {
   return (
     <div className='mb-5'>
       <div className='flex flex-col py-5 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white shadow-xl rounded-xl '>
@@ -69,7 +68,7 @@ const Card = ({
                 height={15}
                 className='object-contain'
               />
-              <p className='font-semibold'>{doors}</p>
+              <p className='font-semibold'>{type === 'Bus' ? '1' : '4'}</p>
             </div>
           </div>
           <div
@@ -82,33 +81,17 @@ const Card = ({
             <div className='collapse-content flex flex-row flex-wrap space-x-2 md:grid'>
               <div>
                 <span className='text-xs sm:text-sm pl-2'>Make: </span>
-                <span className='text-xs sm:text-sm font-semibold'>
-                  {details.make}
-                </span>
+                <span className='text-xs sm:text-sm font-semibold'>Toyota</span>
               </div>
               <div>
                 <span className='text-xs sm:text-sm'>Model: </span>
                 <span className='text-xs sm:text-sm font-semibold'>
-                  {details.model}
+                  {model}
                 </span>
               </div>
               <div>
                 <span className='text-xs sm:text-sm'>Year: </span>
-                <span className='text-xs sm:text-sm font-semibold'>
-                  {details.year}
-                </span>
-              </div>
-              <div>
-                <span className='text-xs sm:text-sm'>Exterior: </span>
-                <span className='text-xs sm:text-sm font-semibold'>
-                  {details.exterior}
-                </span>
-              </div>
-              <div>
-                <span className='text-xs sm:text-sm'>Interior: </span>
-                <span className='text-xs sm:text-sm font-semibold'>
-                  {details.interior}
-                </span>
+                <span className='text-xs sm:text-sm font-semibold'>{2020}</span>
               </div>
             </div>
           </div>

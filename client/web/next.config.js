@@ -6,6 +6,7 @@ const nextConfig = {
       'datawow.s3.amazonaws.com',
       'links.papareact.com',
       'www.pngmart.com',
+      'e7.pngegg.com',
     ],
   },
 };

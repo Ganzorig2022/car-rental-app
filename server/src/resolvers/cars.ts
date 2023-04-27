@@ -119,14 +119,14 @@ export const carsResolvers = {
 
     getAllCarsWithPagination: async (
       _parent: any,
-      args: { skip: number; pagination: number }
+      args: { skip: number; take: number }
     ) => {
       // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
       try {
         // if there are no records, "findMany" returns EMPTY[]
         const cars = await Prisma.car.findMany({
           skip: args.skip,
-          take: args.pagination, // pagination by number
+          take: args.take, // pagination by number
           orderBy: {
             price: 'desc',
           },

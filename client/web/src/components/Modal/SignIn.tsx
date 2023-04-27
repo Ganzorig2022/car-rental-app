@@ -1,6 +1,4 @@
-import { LOGIN_USER } from '@/graphql/mutations/users';
-import { useMutation, useQuery } from '@apollo/client';
-import Cookies from 'js-cookie';
+import useGraphql from '@/hooks/useGraphql';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -8,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import { closeModalState } from '../../atoms/closeModal';
 import { loggedInState } from '../../atoms/loginAtom';
+import Spinner from '../UI/Spinner';
 
 type Props = {};
 
@@ -30,9 +29,7 @@ const SignIn = (props: Props) => {
   const { email, password } = formData;
 
   // 2) getting user data from MONGODB using Apollo Client
-  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
-    variables: { email, password },
-  });
+  const { login, loginUserLoading: loading } = useGraphql();
 
   //2)
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,28 +40,22 @@ const SignIn = (props: Props) => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = async () => {
-    if (error) return toast.error(error?.message);
+    const response = await login(email, password);
 
-    try {
-      const data = (await loginUser()).data;
-
-      if (data.loginUser.success) toast.success('Successfully signed.');
-      setCloseModal(false);
+    if (response) {
+      toast.success('Successfully signed.');
       setLoggedIn(true);
-
-      Cookies.set('token', data.loginUser.token);
-      Cookies.set('userId', data.loginUser.userId);
-    } catch (error: any) {
-      const errors = new Error(error);
-      toast.error(errors.message);
-      return;
+      setCloseModal(false);
     }
   };
 
+  //If press click here button
   const goToPasswordRequestPage = () => {
     router.push('/password/request');
     setCloseModal(false);
   };
+
+  if (loading) return <Spinner />;
 
   return (
     <>

@@ -1,12 +1,27 @@
+import useGraphql from '@/hooks/useGraphql';
 import { MapPinIcon } from '@heroicons/react/24/solid';
-import React, { useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import Spinner from '../UI/Spinner';
+import { toast } from 'react-hot-toast';
 
-type Props = {};
+type Props = {
+  setCarsData: Dispatch<SetStateAction<CarsType[]>>;
+};
 
-type Vehicles = { id: number; name: string; status: boolean };
-
-const Filter = (props: Props) => {
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicles[]>([]);
+//===========Rendering===================
+const Filter = ({ setCarsData }: Props) => {
+  const {
+    getAllCarsByPeople,
+    getAllCarsByType,
+    getCarsByPassengerLoading: loading,
+    getCarsByTypeLoading,
+  } = useGraphql();
   const [vehicles, setVehicles] = useState([
     { id: 0, name: 'SUV', status: false },
     { id: 1, name: 'Standard', status: false },
@@ -16,16 +31,35 @@ const Filter = (props: Props) => {
   ]);
 
   const [priceRange, setPriceRange] = useState('160');
+  const [deSelected, setDeSelected] = useState(false);
 
-  const onClick = (id: number, name: string, status: boolean) => {
-    setVehicles(
-      vehicles.map((item) =>
-        item.id === id ? { ...item, status: !item.status } : item
-      )
-    );
+  const [capacity, setCapacity] = useState({
+    lte5: false,
+    gte6: false,
+  });
+
+  // Getting cars by type. etc. "SUV" or "Bus"
+
+  const carTypeHandler = useCallback(async (id: number, name: string) => {
+    const response = await getAllCarsByType(name);
+
+    if (response) {
+      setCarsData([...response]);
+    }
+  }, []);
+
+  // Getting cars by Passengers Number
+  const passengersHandler = async (people: number) => {
+    const response = await getAllCarsByPeople(people);
+
+    if (response.length > 0) {
+      setCarsData([...response]);
+    }
   };
 
-  console.log(priceRange);
+  useEffect(() => {});
+
+  if (loading || getCarsByTypeLoading) return <Spinner />;
 
   return (
     <div className='p-4'>
@@ -43,7 +77,7 @@ const Filter = (props: Props) => {
         <p className='text-[8px] sm:text-[10px] text-gray-400 mt-2'>Car type</p>
         {/* Vehicle types */}
         <div>
-          {vehicles.map((each) => {
+          {vehicles.map((each, idx) => {
             const { id, name, status } = each;
             return (
               <div className='form-control' key={id}>
@@ -53,12 +87,15 @@ const Filter = (props: Props) => {
                     className='h-4 w-4 accent-red-primary'
                     checked={status}
                     onClick={() => {
-                      onClick(id, name, status);
-                      setSelectedVehicle(
-                        vehicles.filter(
-                          (item) => item.status === true && item.name
+                      carTypeHandler(id, name);
+                      setVehicles(
+                        vehicles.map((item) =>
+                          item.id === id
+                            ? { ...item, status: !item.status }
+                            : { ...item, status: false }
                         )
                       );
+                      setDeSelected((prev) => !prev);
                     }}
                   />
                   <span className='label-text text-xs sm:text-sm md:text-base'>
@@ -80,8 +117,11 @@ const Filter = (props: Props) => {
             <input
               type='checkbox'
               className='h-4 w-4 accent-red-primary'
-              // checked={status}
-              onClick={() => {}}
+              checked={capacity.lte5}
+              onClick={() => {
+                passengersHandler(5);
+                setCapacity({ gte6: false, lte5: !capacity.lte5 });
+              }}
             />
             <span className='label-text text-xs sm:text-sm md:text-base'>
               2-5 passengers
@@ -94,8 +134,11 @@ const Filter = (props: Props) => {
             <input
               type='checkbox'
               className='h-4 w-4 accent-red-primary'
-              // checked={status}
-              onClick={() => {}}
+              checked={capacity.gte6}
+              onClick={() => {
+                passengersHandler(6);
+                setCapacity({ gte6: !capacity.gte6, lte5: false });
+              }}
             />
             <span className='label-text text-xs sm:text-sm md:text-base'>
               6 more passengers

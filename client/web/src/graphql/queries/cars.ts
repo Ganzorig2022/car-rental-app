@@ -17,8 +17,8 @@ export const GET_CARS_BY_TYPE = gql`
   }
 `;
 export const GET_CARS_BY_PASSENGERS = gql`
-  query GetCarsByPassengers($type: String) {
-    getCarsByPassengers(type: $type) {
+  query GetCarsByPassengers($passengers: Int) {
+    getCarsByPassengers(passengers: $passengers) {
       id
       image
       kml
@@ -34,8 +34,8 @@ export const GET_CARS_BY_PASSENGERS = gql`
 `;
 
 export const GET_ALL_CARS_WITH_PAGINATION = gql`
-  query GetAllCarsWithPagination($pagination: Int, $skip: Int) {
-    getAllCarsWithPagination(pagination: $pagination, skip: $skip) {
+  query GetAllCarsWithPagination($skip: Int, $take: Int) {
+    getAllCarsWithPagination(skip: $skip, take: $take) {
       id
       image
       kml

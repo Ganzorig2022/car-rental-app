@@ -55,7 +55,7 @@ const typeDefs = gql `
     getOwnCars(userId: String): [Car]
   }
   type Query {
-    getAllCarsWithPagination(skip: Int, pagination: Int): [Car]
+    getAllCarsWithPagination(skip: Int, take: Int): [Car]
   }
 
   # MUTATIONS = POST or PUT or DELETE REQUESTS

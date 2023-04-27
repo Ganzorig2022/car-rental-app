@@ -61,7 +61,7 @@ model Car {
 model Transaction {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   verified  Boolean  @default(false)
-  renter    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique @db.ObjectId
   createdAt DateTime @default(now())
 }

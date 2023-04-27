@@ -1,29 +1,12 @@
-interface ProviderType {
-  callbackUrl: string;
+type User = {
   id: string;
-  name: string;
-  signinUrl: string;
-  type: string;
-}
-
-interface Author {
   email: string;
-  emailVerified: string | null;
-  image: string;
+  password: string;
   name: string;
-  username: string;
-  _id: string;
-}
-interface User {
-  email: string;
-  emailVerified: string | null;
-  image: string;
-  name: string;
-  username: string;
-  _id: string;
-  cover: string;
-  bio: string;
-}
+  phone: string;
+  age: string;
+  role: Role;
+};
 
 interface Posts {
   author: Author;
@@ -51,25 +34,18 @@ type loginUserFormType = {
   password: string;
 };
 
-interface Vehicles {
+interface CarsType {
   id: string;
   image: string;
   type: string;
   typeDefinition: string;
   model: string;
-  kml: string;
   transmission: string;
-  passengers: string;
-  doors: string;
+  kml: number;
+  passengers: number;
   price: number;
-  mileage: string;
-  details: {
-    make: string;
-    model: string;
-    year: string;
-    exterior: string;
-    interior: string;
-  };
+  user: User;
+  userId: string;
 }
 
 type RentalType = {
