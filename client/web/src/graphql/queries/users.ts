@@ -56,6 +56,13 @@ export const GET_USER_BY_ID = gql`
   }
 `;
 
+export const CHECK_TOKEN = gql`
+  query CheckToken($token: String) {
+    checkToken(token: $token) {
+      success
+    }
+  }
+`;
 export const GET_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {

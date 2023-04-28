@@ -8,6 +8,7 @@ import { GraphQLError } from 'graphql';
 import { sendEmail } from '../utils/sendEmail.js';
 import crypto from 'crypto';
 const bcryptSalt = process.env.BCRYPT_SALT;
+import jwt from 'jsonwebtoken';
 export const userResolvers = {
     Query: {
         getUserByEmail: async (parent, args) => {
@@ -53,6 +54,28 @@ export const userResolvers = {
             catch (error) {
                 console.log('GET USER BY ID ERROR', error);
                 throw new GraphQLError(error);
+            }
+        },
+        checkToken: async (parent, args) => {
+            const { token } = args;
+            try {
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                const id = decoded === null || decoded === void 0 ? void 0 : decoded.id;
+                if (!id)
+                    throw new GraphQLError(`No user with this id: ${id}`);
+                // if there is no record, "findUnique" returns NULL
+                const user = await Prisma.user.findUnique({
+                    where: {
+                        id,
+                    },
+                });
+                if (!user)
+                    throw new GraphQLError(`No user with this id: ${id}`);
+                return { success: true };
+            }
+            catch (error) {
+                console.log('CHECK TOKEN ERORR', error);
+                throw new GraphQLError('Invalid token!');
             }
         },
         getAllUsers: async () => {

@@ -6,19 +6,22 @@ import { ThemeProvider } from 'next-themes';
 import { RecoilRoot } from 'recoil';
 import Layout from '@/components/Layout/Layout';
 import { RentalProvider } from '@/providers/rentalProvider';
+import { AuthProvider } from '@/hooks/useAuth';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <RentalProvider>
-        <RecoilRoot>
-          <ThemeProvider attribute='class'>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </RecoilRoot>
-      </RentalProvider>
+      <RecoilRoot>
+        <AuthProvider>
+          <RentalProvider>
+            <ThemeProvider attribute='class'>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
+          </RentalProvider>
+        </AuthProvider>
+      </RecoilRoot>
     </ApolloProvider>
   );
 }

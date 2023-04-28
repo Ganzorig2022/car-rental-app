@@ -6,7 +6,6 @@ import {
 } from '@/graphql/queries/cars';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const useGraphql = () => {
@@ -67,7 +66,7 @@ const useGraphql = () => {
 
       const { loginUser: data } = response;
 
-      Cookies.set('token', data?.success);
+      Cookies.set('token', data?.token);
       Cookies.set('userId', data?.userId);
 
       return true;

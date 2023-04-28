@@ -78,6 +78,9 @@ const typeDefs = gql `
   type Query {
     getUserById(id: String): User
   }
+  type Query {
+    checkToken(token: String): IsSuccess
+  }
 
   type Query {
     getAllUsers: [User]

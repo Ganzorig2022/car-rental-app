@@ -68,13 +68,13 @@ const Header = () => {
           <Link href='/'>Book</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/rentals'>My Rentals</Link>
+          <Link href='/about'>About Us</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/'>Account</Link>
+          <Link href='/account'>Account</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/rentals'>My Resources</Link>
+          <Link href='/contact'>Contact</Link>
         </div>
       </div>
 
