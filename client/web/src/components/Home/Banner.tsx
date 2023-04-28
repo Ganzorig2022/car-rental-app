@@ -16,8 +16,8 @@ const Banner = () => {
         />
       </div>
       <div className='w-full'>
-        <p className='absolute top-10 text-lg sm:text-xl md:text-3xl sm:top-20 sm:left-20 md:left-44 left-10 z-10 font-bold dark:text-white'>
-          Та машин түрээслэх үү?
+        <p className='absolute top-10 left-10 z-10 text-lg sm:text-xl md:text-3xl lg:text-4xl sm:top-20 sm:left-20 md:left-44 md:top-40 font-bold dark:text-white md:w-40 lg:w-60'>
+          Та өөрт тохирох төмөр хүлгээ түрээслэхэд бэлэн үү?
         </p>
       </div>
 

@@ -42,7 +42,7 @@ const Card = ({
 
   return (
     <div className='mb-5'>
-      <div className='flex flex-col py-5 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white shadow-xl rounded-xl '>
+      <div className='flex flex-col py-5 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white shadow-xl rounded-xl hover:bg-gray-50 hover:scale-[1.01] transition-all duration-300 '>
         <figure>
           <Image
             src={image}

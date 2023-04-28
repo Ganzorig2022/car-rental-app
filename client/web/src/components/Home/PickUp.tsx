@@ -5,10 +5,9 @@ import Calendar from './Calendar';
 import { useRental } from '@/providers/rentalProvider';
 import { calculateDate } from '@/utils/calculateDate';
 import Cookies from 'js-cookie';
+import { toast } from 'react-hot-toast';
 
-type Props = {};
-
-const PickUp = (props: Props) => {
+const PickUp = () => {
   const router = useRouter();
   const { rentals, setRentals } = useRental();
   const [startDate, setStartDate] = useState(new Date());
@@ -98,11 +97,13 @@ const PickUp = (props: Props) => {
               </li>
             </ul>
           </div>
-          {/* router.push(/reserve/cars) */}
           <button
             className='main-button m-1'
-            onClick={() => router.push('/reserve/cars')}
-            disabled={rentals.location && rentals.totalDays ? false : true}
+            onClick={() => {
+              rentals.location === '' && rentals.totalDays === 0
+                ? toast.error('Please choose your date and location')
+                : router.push('/reserve/cars');
+            }}
           >
             Browse Vehicles
           </button>

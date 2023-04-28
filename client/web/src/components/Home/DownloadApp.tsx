@@ -12,7 +12,7 @@ const DownloadApp = (props: Props) => {
             Download the free Car Rental App
           </h5>
           <p className='text-[10px] text-white sm:text-sm md:text-base'>
-            for faster, easier booking and enclusive deals.
+            шуурхай, хэрэглэхэд хялбар захиалга.
           </p>
           <div className='flex flex-row space-x-2 pt-10'>
             <div className='p-2 bg-white rounded-md'>

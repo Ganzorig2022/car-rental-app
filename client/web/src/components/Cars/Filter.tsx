@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import Spinner from '../UI/Spinner';
 import { toast } from 'react-hot-toast';
+import { useRental } from '@/providers/rentalProvider';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;
@@ -23,6 +24,7 @@ const Filter = ({ setCarsData }: Props) => {
     getCarsByPassengerLoading: loading,
     getCarsByTypeLoading,
   } = useGraphql();
+  const { rentals } = useRental();
   const [vehicles, setVehicles] = useState([
     { id: 0, name: 'SUV', status: false },
     { id: 1, name: 'Standard', status: false },
@@ -75,8 +77,10 @@ const Filter = ({ setCarsData }: Props) => {
       <div className='flex flex-row justify-between space-x-2'>
         <MapPinIcon className='text-red-primary h-5' />
         <div className='flex flex-col bg-gray-200 p-2 rounded w-full'>
-          <p className='text-[9px] text-gray-500'>Available from</p>
-          <p className='text-[10px] text-gray-700'>Ulaanbaatar, Bayangol</p>
+          <p className='text-[9px] text-gray-500 '>Available from</p>
+          <p className='text-[10px] text-gray-700 md:text-xs'>
+            {rentals.location}
+          </p>
         </div>
       </div>
       <div className='divider m-0' />

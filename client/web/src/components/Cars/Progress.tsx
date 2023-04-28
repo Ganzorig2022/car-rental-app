@@ -27,7 +27,7 @@ const Progress = (props: Props) => {
         <div className='flex flex-row justify-center flex-wrap lg:flex-nowrap items-start'>
           {/* 1) RENTAL DETAILS */}
           <div
-            className='flex flex-row items-center space-x-2 p-2 sm:p-4'
+            className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
             onClick={() => router.push('/')}
           >
             <div className='flex flex-col space-y-2 sm:space-y-4'>
@@ -54,7 +54,7 @@ const Progress = (props: Props) => {
           </div>
           {/* 2) PICKUP RETURN */}
           <div
-            className='flex flex-row items-center space-x-2 p-2 sm:p-4'
+            className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
             onClick={() => router.push('/')}
           >
             <div className='flex flex-col space-y-2 sm:space-y-4'>
@@ -78,16 +78,16 @@ const Progress = (props: Props) => {
           </div>
           {/* 3) VEHICLE */}
           <div
-            className='flex flex-row items-center space-x-2 p-2 sm:p-4'
+            className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
             onClick={() => router.push('/reserve/cars')}
           >
             <div className='flex flex-col space-y-2 sm:space-y-4'>
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
                   <span
-                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm  p-2.5 ${
+                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2.5 ${
                       activePage.page_car &&
-                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0'
+                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0 border-transparent'
                     } `}
                   >
                     3
@@ -120,7 +120,7 @@ const Progress = (props: Props) => {
           </div>
           {/* 4) EXTRAS */}
           <div
-            className='flex flex-row items-center space-x-2 p-2 sm:p-4'
+            className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
             onClick={() => router.push('/reserve/extras')}
           >
             <div className='flex flex-col space-y-2 sm:space-y-4'>
@@ -129,7 +129,7 @@ const Progress = (props: Props) => {
                   <span
                     className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-gray-600 border-2 text-xs md:text-sm p-2.5 ${
                       activePage.page_extras &&
-                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0'
+                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0 border-transparent'
                     } `}
                   >
                     4
@@ -168,14 +168,17 @@ const Progress = (props: Props) => {
             </div>
           </div>
           {/* 5) EXTRAS */}
-          <div className='flex flex-row items-center space-x-2 p-2 sm:p-4'>
+          <div
+            className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
+            onClick={() => router.push('/reserve/review&reserve')}
+          >
             <div className='flex flex-col space-y-2 sm:space-y-4'>
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
                   <span
                     className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-gray-600 border-2 ${
                       activePage.page_review &&
-                      'bg-gradient-to-r from-red-primary to-red-secondary border-0 text-white'
+                      'bg-gradient-to-r from-red-primary to-red-secondary border-0 border-transparent text-white'
                     } text-xs md:text-sm  p-2.5`}
                   >
                     5

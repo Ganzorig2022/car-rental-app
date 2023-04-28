@@ -11,11 +11,8 @@ type Props = {};
 const Reserve = (props: Props) => {
   const { rentals, setRentals } = useRental();
 
-  console.log(rentals);
-
   return (
     <div>
-      <Total />
       <Progress />
       {/* CHOOSE VEHICLE CLASS */}
       <div className='w-full shadow p-5'>

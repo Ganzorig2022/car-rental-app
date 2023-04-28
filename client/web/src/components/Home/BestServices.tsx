@@ -19,13 +19,13 @@ const BestServices = (props: Props) => {
           />
         </div>
         <div className='flex flex-col items-start w-1/2 m-2'>
-          <h3 className='uppercase text-[10px] mb-3 font-semibold ml-2 sm:text-sm md:text-base'>
+          <h3 className='uppercase text-[10px] mb-3 font-semibold ml-2 sm:text-sm md:text-base '>
             Манай шилдэг үйлчилгээ
           </h3>
-          <h3 className='text-sm font-bold ml-2 sm:text-base md:text-xl mb-2'>
+          <h3 className='text-sm font-bold ml-2 sm:text-base md:text-xl lg:text-3xl mb-2'>
             Feel the best experience with our rental deals
           </h3>
-          <div className='flex flex-row space-y-2'>
+          <div className='flex flex-row space-y-2 hover:scale-105 transition-all duration-300 ease-in-out'>
             <Image
               src='/logos/deals.png'
               height={50}
@@ -42,7 +42,7 @@ const BestServices = (props: Props) => {
               </p>
             </div>
           </div>
-          <div className='flex flex-row space-y-2'>
+          <div className='flex flex-row space-y-2 hover:scale-105 transition-all duration-300 ease-in-out'>
             <Image
               src='/logos/best_price.png'
               height={50}
@@ -59,7 +59,7 @@ const BestServices = (props: Props) => {
               </p>
             </div>
           </div>
-          <div className='flex flex-row space-y-2'>
+          <div className='flex flex-row space-y-2 hover:scale-105 transition-all duration-300 ease-in-out'>
             <Image
               src='/logos/support_24/7.png'
               height={50}

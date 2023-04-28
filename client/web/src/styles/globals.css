@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* body {
-    @apply;
-  } */
+  body {
+    @apply bg-gray-50;
+  }
 }
 
 @layer components {

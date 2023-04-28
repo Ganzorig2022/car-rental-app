@@ -48,7 +48,7 @@ const Header = () => {
           src='/logo.png'
           width={50}
           height={50}
-          className='object-contain sm:h-14 sm:w-14 md:h-20 md:w-20'
+          className='object-contain sm:h-14 sm:w-14 md:h-14 md:w-20'
           alt='logo'
         />
       </div>
@@ -56,16 +56,16 @@ const Header = () => {
       {/* Center Menu */}
       <div className='hidden sm:flex items-center justify-between space-x-4'>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/'>Book</Link>
+          <Link href='/'>Захиалга</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/about'>About Us</Link>
+          <Link href='/about'>Бидний тухай</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/account'>Account</Link>
+          <Link href='/account'>Аккаунт</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/contact'>Contact</Link>
+          <Link href='/contact'>Холбогдох</Link>
         </div>
       </div>
 
@@ -135,15 +135,15 @@ const Header = () => {
                       className='text-[10px] p-2 py-0 '
                       onClick={() => setCloseModal(true)}
                     >
-                      Sign Up
+                      Бүртгүүлэх
                     </label>
                     <div className='divider m-0' />
                     <label
                       htmlFor='signin'
-                      className='text-[10px] p-2 py-0'
+                      className='text-[10px] p-2 py-0 uppercase'
                       onClick={() => setCloseModal(true)}
                     >
-                      Sign In
+                      Нэвтрэх
                     </label>
                   </>
                 ) : (
@@ -155,7 +155,7 @@ const Header = () => {
                       Cookies.remove('userId');
                     }}
                   >
-                    Log Out
+                    Гарах
                   </button>
                 )}
               </ul>
@@ -172,26 +172,26 @@ const Header = () => {
                 className='btn-ghost btn dark:text-white'
                 onClick={() => setCloseModal(true)}
               >
-                Sign Up
+                Бүртгүүлэх
               </label>
               <label
                 htmlFor='signin'
                 className='main-button'
                 onClick={() => setCloseModal(true)}
               >
-                Sign In
+                Нэвтрэх
               </label>
             </>
           ) : (
             <button
-              className='btn text-white ml-2'
+              className='btn text-white ml-2 uppercase'
               onClick={() => {
                 setLoggedIn(false);
                 Cookies.remove('token');
                 Cookies.remove('userId');
               }}
             >
-              Log Out
+              Гарах
             </button>
           )}
         </div>
