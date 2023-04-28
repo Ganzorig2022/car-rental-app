@@ -8,7 +8,7 @@ const Total = (props: Props) => {
       <div className='w-[130px] bg-white p-2'>
         <div className='flex flex-row space-x-2 justify-end'>
           <span className='font-semibold pt-1'>TOTAL</span>
-          <span className='font-semibold text-5xl'>0</span>
+          <span className='text-5xl md:text-7xl'>0</span>
           <span className='font-semibold pt-1'>.00</span>
         </div>
       </div>

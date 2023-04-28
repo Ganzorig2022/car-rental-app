@@ -47,6 +47,16 @@ interface CarsType {
   user: User;
   userId: string;
 }
+interface CarType {
+  image: string;
+  type: string;
+  typeDefinition: string;
+  model: string;
+  transmission: string;
+  kml: number;
+  passengers: number;
+  price: number;
+}
 
 type RentalType = {
   userId: string;
@@ -60,4 +70,5 @@ type RentalType = {
     child_safety: boolean;
     GPS: boolean;
   };
+  car: CarType;
 };

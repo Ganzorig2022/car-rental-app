@@ -1,9 +1,12 @@
+import { useRental } from '@/providers/rentalProvider';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
 type Props = {};
 
 const Progress = (props: Props) => {
+  const { rentals, setRentals } = useRental();
+
   return (
     <>
       <div className='bg-gray-secondary'>
@@ -22,7 +25,10 @@ const Progress = (props: Props) => {
                 </label>
               </div>
               <div className='text-red-500 text-[9px] sm:text-[10px] md:text-xs ml-2'>
-                05/01/2023 13:00pm
+                <div className='flex flex-col space-y-1'>
+                  <p>From: {rentals.dateRent}</p>
+                  <p>To: {rentals.dateReturn}</p>
+                </div>
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
@@ -43,7 +49,7 @@ const Progress = (props: Props) => {
                 </label>
               </div>
               <div className='text-red-500 text-[9px] sm:text-[10px] md:text-xs ml-2'>
-                Ulaanbaatar, Bayangol
+                {rentals.location}
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
@@ -109,15 +115,6 @@ const Progress = (props: Props) => {
               <ArrowRightIcon className='h-4 md:h-6' />
             </div>
           </div>
-        </div>
-      </div>
-      {/* CHOOSE VEHICLE CLASS */}
-      <div className='w-full shadow p-5'>
-        <div className='flex flex-row items-end space-x-4'>
-          <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none'>
-            Choose a Vehicle Class
-          </div>
-          <div className='text-gray-500 text-xs sm:text-base'>24 results</div>
         </div>
       </div>
     </>

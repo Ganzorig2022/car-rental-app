@@ -1,5 +1,8 @@
+import { useRental } from '@/providers/rentalProvider';
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 type Props = {};
 
@@ -12,8 +15,31 @@ const Card = ({
   transmission,
   passengers,
   price,
-  userId,
 }: CarsType) => {
+  const { rentals, setRentals } = useRental();
+  const router = useRouter();
+  const totalDays = rentals.totalDays;
+
+  const goToExtrasPage = () => {
+    if (totalDays === 0) return toast.error('Please choose date');
+
+    setRentals((prev) => ({
+      ...prev,
+      car: {
+        image,
+        type,
+        typeDefinition,
+        model,
+        kml,
+        transmission,
+        passengers,
+        price,
+      },
+    }));
+
+    router.push('/reserve/extras');
+  };
+
   return (
     <div className='mb-5'>
       <div className='flex flex-col py-5 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white shadow-xl rounded-xl '>
@@ -97,7 +123,41 @@ const Card = ({
           </div>
         </div>
         <div className='w-full px-6 md:w-auto md:px-2'>
-          <button className='btn btn-primary normal-case rounded-3xl py-2 w-full'>
+          <div>
+            <p>Pay later</p>
+            <div className='divider m-0' />
+
+            <div className='flex flex-row justify-end'>
+              <div className='w-full bg-white p-2'>
+                <div className='flex flex-col justify-center items-center'>
+                  <div className='flex flex-row space-x-2 justify-end'>
+                    <span className='font-semibold pt-1'>$</span>
+                    <span className='font-semibold text-3xl'>{price}</span>
+                    <span className='text-sm pt-1'>.00</span>
+                  </div>
+                  <p className='text-gray-400 text-sm'>Per Day</p>
+                </div>
+              </div>
+              <div className='divider divider-horizontal h-9 mt-5' />
+              <div className='w-full bg-white p-2'>
+                <div className='flex flex-col justify-center items-center'>
+                  <div className='flex flex-row space-x-2 justify-end'>
+                    <span className='font-semibold pt-1'>$</span>
+                    <span className='font-semibold text-3xl'>
+                      {price * totalDays}
+                    </span>
+                    <span className='text-sm pt-1'>.00</span>
+                  </div>
+                  <p className='text-gray-400 text-sm'>Total</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            className='btn btn-primary normal-case rounded-3xl py-2 w-full'
+            onClick={goToExtrasPage}
+          >
             Select
           </button>
         </div>

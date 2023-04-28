@@ -32,8 +32,6 @@ const PickUp = (props: Props) => {
     }));
   }, [startDate, endDate, setRentals, location, userId]);
 
-  console.log('rentals', rentals);
-
   return (
     <>
       <div className='absolute -bottom-10 left-1/2 md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-white p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-[500px] md:w-[800px]'>
@@ -104,6 +102,7 @@ const PickUp = (props: Props) => {
           <button
             className='main-button m-1'
             onClick={() => router.push('/reserve/cars')}
+            disabled={rentals.location && rentals.totalDays ? false : true}
           >
             Browse Vehicles
           </button>

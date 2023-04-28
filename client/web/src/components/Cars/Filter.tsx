@@ -17,6 +17,7 @@ type Props = {
 //===========Rendering===================
 const Filter = ({ setCarsData }: Props) => {
   const {
+    getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
     getCarsByPassengerLoading: loading,
@@ -31,7 +32,6 @@ const Filter = ({ setCarsData }: Props) => {
   ]);
 
   const [priceRange, setPriceRange] = useState('160');
-  const [deSelected, setDeSelected] = useState(false);
 
   const [capacity, setCapacity] = useState({
     lte5: false,
@@ -39,14 +39,25 @@ const Filter = ({ setCarsData }: Props) => {
   });
 
   // Getting cars by type. etc. "SUV" or "Bus"
+  const carTypeHandler = async (id: number, name: string) => {
+    const unchecked = vehicles[id].status;
 
-  const carTypeHandler = useCallback(async (id: number, name: string) => {
+    if (unchecked) {
+      const data = await getAllCarsByPage(0, 5);
+
+      if (data) {
+        setCarsData([...data?.getAllCarsWithPagination]);
+      } else {
+        setCarsData([]);
+      }
+    }
+
     const response = await getAllCarsByType(name);
 
     if (response) {
       setCarsData([...response]);
     }
-  }, []);
+  };
 
   // Getting cars by Passengers Number
   const passengersHandler = async (people: number) => {
@@ -56,8 +67,6 @@ const Filter = ({ setCarsData }: Props) => {
       setCarsData([...response]);
     }
   };
-
-  useEffect(() => {});
 
   if (loading || getCarsByTypeLoading) return <Spinner />;
 
@@ -95,7 +104,6 @@ const Filter = ({ setCarsData }: Props) => {
                             : { ...item, status: false }
                         )
                       );
-                      setDeSelected((prev) => !prev);
                     }}
                   />
                   <span className='label-text text-xs sm:text-sm md:text-base'>

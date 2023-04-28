@@ -31,6 +31,16 @@ export const RentalProvider = ({ children }: RentalProviderProps) => {
       child_safety: false,
       GPS: false,
     },
+    car: {
+      image: '',
+      type: '',
+      typeDefinition: '',
+      model: '',
+      transmission: '',
+      kml: 0,
+      passengers: 0,
+      price: 0,
+    },
   });
 
   return (

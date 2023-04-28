@@ -6,13 +6,16 @@ import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
 import Spinner from '@/components/UI/Spinner';
 import useGraphql from '@/hooks/useGraphql';
+import { useRental } from '@/providers/rentalProvider';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const take = 5;
 const perPage = 5;
 
 const Cars = () => {
   const [carsData, setCarsData] = useState<CarsType[]>([]);
+  const { rentals, setRentals } = useRental();
 
   const { getAllCarsByPage, getCarsByPageLoading: loading } = useGraphql();
   const [active, setActive] = useState(1);
@@ -40,12 +43,30 @@ const Cars = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const totalDays = rentals.totalDays;
+    if (totalDays === 0) toast.error('Please choose date');
+  }, []);
+
   if (loading) return <Spinner />;
 
   return (
     <div>
-      <Total />
+      {/* <Total /> */}
       <Progress />
+      <div>
+        {/* CHOOSE VEHICLE CLASS */}
+        <div className='w-full shadow p-5'>
+          <div className='flex flex-row items-end space-x-4'>
+            <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none'>
+              Choose a Vehicle Class
+            </div>
+            <div className='text-gray-500 text-xs sm:text-base'>
+              {carsData.length} results
+            </div>
+          </div>
+        </div>
+      </div>
       {/* CENTER BODY */}
       <main className='bg-gray-primary py-5'>
         <div className='flex flex-row space-x-4 mx-auto'>
