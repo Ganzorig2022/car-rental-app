@@ -7,7 +7,7 @@ const Banner = () => {
     <div className='relative h-[400px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] pt-5 bg-gray-primary '>
       <div>
         <Image
-          src='/wrangler.png'
+          src='/cars/wrangler.png'
           height={450}
           width={400}
           alt='wrangler'

@@ -4,10 +4,12 @@ import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
 import React from 'react';
 import AddExtras from '@/components/Extras/AddExtras';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Extras = (props: Props) => {
+  const router = useRouter();
   return (
     <div>
       {/* <Total /> */}
@@ -18,7 +20,10 @@ const Extras = (props: Props) => {
           <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none'>
             Add Extras
           </div>
-          <button className='btn btn-primary normal-case rounded-3xl py-2 text-white'>
+          <button
+            className='btn btn-primary normal-case rounded-3xl py-2 text-white'
+            onClick={() => router.push('/reserve/review&reserve')}
+          >
             Continue to Review
           </button>
         </div>
@@ -31,7 +36,10 @@ const Extras = (props: Props) => {
           </div>
         </div>
         <div className='flex w-full flex-row-reverse'>
-          <button className='btn btn-primary normal-case rounded-3xl py-2 mr-6 text-white'>
+          <button
+            className='btn btn-primary normal-case rounded-3xl py-2 mr-6 text-white'
+            onClick={() => router.push('/reserve/review&reserve')}
+          >
             Continue to Review
           </button>
         </div>

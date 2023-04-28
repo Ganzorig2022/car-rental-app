@@ -46,6 +46,7 @@ const Cars = () => {
   useEffect(() => {
     const totalDays = rentals.totalDays;
     if (totalDays === 0) toast.error('Please choose date');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Spinner />;

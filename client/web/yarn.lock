@@ -126,10 +126,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@next/env@13.3.0":
-  "integrity" "sha512-AjppRV4uG3No7L1plinoTQETH+j2F10TEnrMfzbTUYwze5sBUPveeeBAPZPm8OkJZ1epq9OyYKhZrvbD6/9HCQ=="
-  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.3.0.tgz"
-  "version" "13.3.0"
+"@next/env@13.3.2-canary.11":
+  "integrity" "sha512-19J1iJiw8e1qL9UjR0cWTS/KiAicH6h/3qm9qIHXBj7X21AszglEucWIz/HINO7frReLu15SUehJRCs63+UXtg=="
+  "resolved" "https://registry.npmjs.org/@next/env/-/env-13.3.2-canary.11.tgz"
+  "version" "13.3.2-canary.11"
 
 "@next/eslint-plugin-next@13.3.0":
   "integrity" "sha512-wuGN5qSEjSgcq9fVkH0Y/qIPFjnZtW3ZPwfjJOn7l/rrf6y8J24h/lo61kwqunTyzZJm/ETGfGVU9PUs8cnzEA=="
@@ -138,10 +138,10 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-darwin-arm64@13.3.0":
-  "integrity" "sha512-DmIQCNq6JtccLPPBzf0dgh2vzMWt5wjxbP71pCi5EWpWYE3MsP6FcRXi4MlAmFNDQOfcFXR2r7kBeG1LpZUh1w=="
-  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.3.0.tgz"
-  "version" "13.3.0"
+"@next/swc-darwin-arm64@13.3.2-canary.11":
+  "integrity" "sha512-7TI3+1yFZovnEyKhV9+klBhoMZ3ulEYwCIPOE3uQx972f/Ctz19fEuuYVopsZ+ESqzbpqdGUVLiRSwHhP6ae4Q=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.3.2-canary.11.tgz"
+  "version" "13.3.2-canary.11"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -181,10 +181,10 @@
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
   "version" "1.2.0"
 
-"@swc/helpers@0.4.14":
-  "integrity" "sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw=="
-  "resolved" "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.14.tgz"
-  "version" "0.4.14"
+"@swc/helpers@0.5.1":
+  "integrity" "sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg=="
+  "resolved" "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.1.tgz"
+  "version" "0.5.1"
   dependencies:
     "tslib" "^2.4.0"
 
@@ -1212,6 +1212,11 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
+
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -1834,27 +1839,27 @@
   "resolved" "https://registry.npmjs.org/next-themes/-/next-themes-0.2.1.tgz"
   "version" "0.2.1"
 
-"next@*", "next@13.3.0":
-  "integrity" "sha512-OVTw8MpIPa12+DCUkPqRGPS3thlJPcwae2ZL4xti3iBff27goH024xy4q2lhlsdoYiKOi8Kz6uJoLW/GXwgfOA=="
-  "resolved" "https://registry.npmjs.org/next/-/next-13.3.0.tgz"
-  "version" "13.3.0"
+"next@*", "next@^13.3.2-canary.11":
+  "integrity" "sha512-4Io/rkOBQj8hno83kQpQoYI0tMqZhjBdAzIm9kUoDJvdkaTLopT881RbiImtmjJ5HhLVpPN/VYgHJj60u7tkqA=="
+  "resolved" "https://registry.npmjs.org/next/-/next-13.3.2-canary.11.tgz"
+  "version" "13.3.2-canary.11"
   dependencies:
-    "@next/env" "13.3.0"
-    "@swc/helpers" "0.4.14"
+    "@next/env" "13.3.2-canary.11"
+    "@swc/helpers" "0.5.1"
     "busboy" "1.6.0"
     "caniuse-lite" "^1.0.30001406"
     "postcss" "8.4.14"
     "styled-jsx" "5.1.1"
   optionalDependencies:
-    "@next/swc-darwin-arm64" "13.3.0"
-    "@next/swc-darwin-x64" "13.3.0"
-    "@next/swc-linux-arm64-gnu" "13.3.0"
-    "@next/swc-linux-arm64-musl" "13.3.0"
-    "@next/swc-linux-x64-gnu" "13.3.0"
-    "@next/swc-linux-x64-musl" "13.3.0"
-    "@next/swc-win32-arm64-msvc" "13.3.0"
-    "@next/swc-win32-ia32-msvc" "13.3.0"
-    "@next/swc-win32-x64-msvc" "13.3.0"
+    "@next/swc-darwin-arm64" "13.3.2-canary.11"
+    "@next/swc-darwin-x64" "13.3.2-canary.11"
+    "@next/swc-linux-arm64-gnu" "13.3.2-canary.11"
+    "@next/swc-linux-arm64-musl" "13.3.2-canary.11"
+    "@next/swc-linux-x64-gnu" "13.3.2-canary.11"
+    "@next/swc-linux-x64-musl" "13.3.2-canary.11"
+    "@next/swc-win32-arm64-msvc" "13.3.2-canary.11"
+    "@next/swc-win32-ia32-msvc" "13.3.2-canary.11"
+    "@next/swc-win32-x64-msvc" "13.3.2-canary.11"
 
 "node-releases@^2.0.8":
   "integrity" "sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w=="

@@ -4,10 +4,15 @@ import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
 import React from 'react';
 import RentalDetail from '@/components/Reserve/RentalDetail';
+import { useRental } from '@/providers/rentalProvider';
 
 type Props = {};
 
 const Reserve = (props: Props) => {
+  const { rentals, setRentals } = useRental();
+
+  console.log(rentals);
+
   return (
     <div>
       <Total />
