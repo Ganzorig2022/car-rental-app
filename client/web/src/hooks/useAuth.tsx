@@ -1,30 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { loggedInState } from '@/atoms/loginAtom';
 import { CHECK_TOKEN } from '@/graphql/queries/users';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { useSetRecoilState } from 'recoil';
-import useGraphql from './useGraphql';
+import { useLazyQuery } from '@apollo/client';
+import { ReactNode, createContext, useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useSetRecoilState } from 'recoil';
+import Cookies from 'js-cookie';
 
-//Creating Auth Context
-interface AuthType {
-  loading: boolean;
-  loggedIn: boolean;
-  error: string;
-}
-
-const AuthContext = createContext({});
+const AuthContext = createContext({ loading: false });
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -32,7 +14,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const setLoggedIn = useSetRecoilState(loggedInState);
-  const [checkToken] = useLazyQuery(CHECK_TOKEN);
+  const [checkToken, { loading }] = useLazyQuery(CHECK_TOKEN);
 
   // keep logged in when refresh
   useEffect(() => {
@@ -46,25 +28,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           },
         });
 
-        const {
-          checkToken: { success },
-        } = data?.data;
-        console.log('ISVALIDTOKEN', success);
+        if (!data.data) return toast.error('You are not logged in.');
+
+        const success = data?.data?.checkToken as any;
+
         if (!success) {
           setLoggedIn(false);
-          console.log('<<<<<< USER LOGGED OUT>>>>>>');
+          return;
         }
+
         setLoggedIn(true);
-        console.log('<<<<<<USER STILL SIGNED IN>>>>>>');
       } catch (error: any) {
         console.log('ERROR with getAllCarsByPassengers', error);
         const errors = new Error(error);
         toast.error(errors?.message);
       }
     })();
-  }, []);
+  }, [checkToken, setLoggedIn]);
 
-  return <AuthContext.Provider value>{children}</AuthContext.Provider>;
+  const value = {
+    loading: loading,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

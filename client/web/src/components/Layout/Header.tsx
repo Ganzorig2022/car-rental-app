@@ -1,34 +1,23 @@
+import { useAuth } from '@/hooks/useAuth';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import DarkModeButton from '../UI/DarkModeButton';
-import SignIn from '../Modal/SignIn';
-import SignUp from '../Modal/SignUp';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { closeModalState } from '../../atoms/closeModal';
 import { loggedInState } from '../../atoms/loginAtom';
-import Cookies from 'js-cookie';
+import SignIn from '../Modal/SignIn';
+import SignUp from '../Modal/SignUp';
+import DarkModeButton from '../UI/DarkModeButton';
+import Spinner from '../UI/Spinner';
 
 const Header = () => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
-
+  const { loading } = useAuth();
   const router = useRouter();
-  const [searchInput, setSearchInput] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: 'selection',
-  };
   const [navbar, setNavbar] = useState(false);
-
-  const handleSelect = (ranges: any) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
 
   const changeBackground = () => {
     // console.log(window.scrollY);
@@ -44,6 +33,8 @@ const Header = () => {
     // adding the event when scroll change background
     window.addEventListener('scroll', changeBackground);
   });
+
+  if (loading) return <Spinner />;
 
   return (
     <div
