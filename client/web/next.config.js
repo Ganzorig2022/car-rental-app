@@ -6,6 +6,8 @@ const nextConfig = {
       'datawow.s3.amazonaws.com',
       'links.papareact.com',
       'www.pngmart.com',
+      'cdn-icons-png.flaticon.com',
+      'firebasestorage.googleapis.com',
     ],
   },
 };
