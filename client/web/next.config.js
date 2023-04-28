@@ -7,6 +7,8 @@ const nextConfig = {
       'links.papareact.com',
       'www.pngmart.com',
       'e7.pngegg.com',
+      'cdn-icons-png.flaticon.com',
+      'firebasestorage.googleapis.com',
     ],
   },
 };
