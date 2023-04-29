@@ -23,9 +23,16 @@ const typeDefs = gql`
     dateReturn: String
     location: String
     verified: Boolean
-    renter: User
+    user: User
     userId: String
     createdAt: Date
+    extras: Extras
+  }
+
+  type Extras {
+    coverage: Boolean
+    child_safety: Boolean
+    GPS: Boolean
   }
 
   type Car {

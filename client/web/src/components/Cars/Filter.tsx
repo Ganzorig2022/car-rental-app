@@ -1,15 +1,8 @@
 import useGraphql from '@/hooks/useGraphql';
-import { MapPinIcon } from '@heroicons/react/24/solid';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import Spinner from '../UI/Spinner';
-import { toast } from 'react-hot-toast';
 import { useRental } from '@/providers/rentalProvider';
+import { MapPinIcon } from '@heroicons/react/24/solid';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import Spinner from '../UI/Spinner';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;

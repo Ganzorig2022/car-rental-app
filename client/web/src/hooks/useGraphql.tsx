@@ -9,11 +9,17 @@ import {
   GET_CARS_BY_PASSENGERS,
   GET_CARS_BY_TYPE,
 } from '@/graphql/queries/cars';
+import { GET_USER_BY_ID } from '@/graphql/queries/users';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import Cookies from 'js-cookie';
 import { toast } from 'react-hot-toast';
 
 const useGraphql = () => {
+  // USER QUERIES
+  const [getUserById, { loading: getUserByIdLoading }] =
+    useLazyQuery(GET_USER_BY_ID);
+
+  // USER MUTATIONS
   const [createNewUser, { loading: createUserLoading }] =
     useMutation(CREATE_NEW_USER);
 
@@ -21,6 +27,7 @@ const useGraphql = () => {
   const [updateUserById, { loading: updateUserLoading }] =
     useMutation(UPDATE_USER_BY_ID);
 
+  // CARS QUERIES
   const [getCarsByPagination, { loading: getCarsByPageLoading }] = useLazyQuery(
     GET_ALL_CARS_WITH_PAGINATION,
     { pollInterval: 500 }
@@ -34,9 +41,11 @@ const useGraphql = () => {
     { pollInterval: 500 }
   );
 
+  // RENTALS MUTATIONS
   const [createRental, { loading: createRentalLoading }] =
     useMutation(CREATE_RENTAL);
 
+  //============================================================
   const signUp = async (email: string, password: string, role: string) => {
     try {
       const response = (
@@ -82,6 +91,27 @@ const useGraphql = () => {
       return true;
     } catch (error: any) {
       console.log('error from apollo/loginUser', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+      return false;
+    }
+  };
+
+  const getUserByID = async (id: string) => {
+    try {
+      const response = (
+        await getUserById({
+          variables: {
+            id,
+          },
+        })
+      ).data;
+
+      const { getUserById: data } = response;
+
+      return data;
+    } catch (error: any) {
+      console.log('error from apollo/getUserUserById', error);
       const errors = new Error(error);
       toast.error(errors?.message);
       return false;
@@ -215,9 +245,11 @@ const useGraphql = () => {
     getCarsByTypeLoading,
     createRentalLoading,
     updateUserLoading,
+    getUserByIdLoading,
     signUp,
     login,
     updateUserByID,
+    getUserByID,
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,

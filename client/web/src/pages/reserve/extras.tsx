@@ -1,9 +1,7 @@
 import Progress from '@/components/Cars/Progress';
-import Total from '@/components/Cars/Total';
 import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
-import React from 'react';
-import AddExtras from '@/components/Extras/AddExtras';
+import AddExtras from '@/components/Reserve/extras/AddExtras';
 import { useRouter } from 'next/router';
 
 type Props = {};

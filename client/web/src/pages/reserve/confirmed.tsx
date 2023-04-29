@@ -1,5 +1,11 @@
 import DownloadApp from '@/components/Home/DownloadApp';
+import Spinner from '@/components/UI/Spinner';
+import useGraphql from '@/hooks/useGraphql';
+import { useRental } from '@/providers/rentalProvider';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Checklist = [
   'Familiarize yourself with your Pick-Up and Return location(s)',
@@ -9,6 +15,24 @@ const Checklist = [
 ];
 
 const Confirmed = () => {
+  const { rentals } = useRental();
+  const { getUserByID, getUserByIdLoading } = useGraphql();
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const id = Cookies.get('userId');
+      const response = await getUserByID(id!);
+      if (response?.email !== '') setUserData({ ...response });
+      if (!response) toast.error('No user data found');
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(userData);
+
+  if (getUserByIdLoading) return <Spinner />;
+
   return (
     <section className='w-full flex flex-col gap-y-[30px] gap-[30px]'>
       <div className='w-full py-[20px] px-2'>
@@ -57,10 +81,10 @@ const Confirmed = () => {
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-white'>
-                Khan-Uul dustrict 17 Ulaanbaatar, Mongolia
+                {rentals.location}
               </p>
               <p className='text-[#777777] font-medium text-[11px] dark:text-white'>
-                Sat, Apr 22, 2023 @ 12:00 PM
+                {rentals.dateRent}
               </p>
             </div>
           </div>
@@ -70,10 +94,10 @@ const Confirmed = () => {
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-white'>
-                Khan-Uul dustrict 17 Ulaanbaatar, Mongolia
+                {rentals.location}
               </p>
               <p className='text-[#777777] font-medium text-[11px] dark:text-white'>
-                Sat, Apr 22, 2023 @ 12:00 PM
+                {rentals.dateReturn}
               </p>
             </div>
           </div>
@@ -101,7 +125,7 @@ const Confirmed = () => {
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-white'>
-                Rental Details
+                User Details
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>

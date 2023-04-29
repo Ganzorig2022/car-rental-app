@@ -35,6 +35,20 @@ const typeDefs = gql`
     interioir: String
   }
 
+  type Rental {
+    id: String
+    dateRent: String
+    dateReturn: String
+    totalDays: Int
+    location: String
+    verified: Boolean
+    user: User
+    userId: String
+    createdAt: Date
+    extras: Extras
+    car: Car
+  }
+
   type IsSuccess {
     success: Boolean
   }

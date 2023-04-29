@@ -61,7 +61,7 @@ const RentalDetail = () => {
     }
 
     // 3) go to home page
-    router.push('/');
+    router.push('/reserve/confirmed');
   }, [
     lastName,
     phone,

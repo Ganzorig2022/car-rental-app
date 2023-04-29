@@ -25,7 +25,7 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const GET_USER_BY_ID = gql`
-  query GetUserByIdId($id: String) {
+  query GetUserById($id: String) {
     getUserById(id: $id) {
       age
       cars {
@@ -37,20 +37,34 @@ export const GET_USER_BY_ID = gql`
         transmission
         type
         typeDefinition
-        id
       }
       createdAt
       email
       name
-      id
       phone
+      role
       rentals {
-        createdAt
-        dateReturn
         dateRent
-        id
+        dateReturn
         location
         verified
+        extras {
+          GPS
+          child_safety
+          coverage
+        }
+        totalDays
+        createdAt
+        car {
+          image
+          kml
+          model
+          passengers
+          price
+          transmission
+          type
+          typeDefinition
+        }
       }
     }
   }
