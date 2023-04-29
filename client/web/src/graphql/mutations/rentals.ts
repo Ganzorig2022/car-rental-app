@@ -2,42 +2,55 @@ import { gql } from '@apollo/client';
 
 export const CREATE_RENTAL = gql`
   mutation CreateRental(
+    $userId: String
     $dateRent: String
     $dateReturn: String
+    $totalDays: Int
     $location: String
     $verified: Boolean
-    $userId: String
     $extras: ExtrasInput
-    $totalDays: Int
+    $car: CarInput
   ) {
     createRental(
+      userId: $userId
       dateRent: $dateRent
       dateReturn: $dateReturn
+      totalDays: $totalDays
       location: $location
       verified: $verified
-      userId: $userId
       extras: $extras
-      totalDays: $totalDays
+      car: $car
     ) {
-      id
-      userId
+      createdAt
       dateRent
       dateReturn
-      verified
+      id
       location
-      createdAt
-      user {
-        id
-        email
-        name
-        phone
-      }
+      totalDays
+      verified
+      userId
       extras {
         GPS
         child_safety
         coverage
       }
-      totalDays
+      car {
+        id
+        image
+        kml
+        model
+        passengers
+        price
+        transmission
+        type
+        typeDefinition
+      }
+      user {
+        createdAt
+        email
+        name
+        phone
+      }
     }
   }
 `;

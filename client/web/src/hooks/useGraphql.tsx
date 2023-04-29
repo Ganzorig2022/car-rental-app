@@ -1,4 +1,9 @@
-import { CREATE_NEW_USER, LOGIN_USER } from '@/graphql/mutations/users';
+import { CREATE_RENTAL } from '@/graphql/mutations/rentals';
+import {
+  CREATE_NEW_USER,
+  LOGIN_USER,
+  UPDATE_USER_BY_ID,
+} from '@/graphql/mutations/users';
 import {
   GET_ALL_CARS_WITH_PAGINATION,
   GET_CARS_BY_PASSENGERS,
@@ -13,6 +18,8 @@ const useGraphql = () => {
     useMutation(CREATE_NEW_USER);
 
   const [loginUser, { loading: loginUserLoading }] = useMutation(LOGIN_USER);
+  const [updateUserById, { loading: updateUserLoading }] =
+    useMutation(UPDATE_USER_BY_ID);
 
   const [getCarsByPagination, { loading: getCarsByPageLoading }] = useLazyQuery(
     GET_ALL_CARS_WITH_PAGINATION,
@@ -26,6 +33,9 @@ const useGraphql = () => {
     GET_CARS_BY_TYPE,
     { pollInterval: 500 }
   );
+
+  const [createRental, { loading: createRentalLoading }] =
+    useMutation(CREATE_RENTAL);
 
   const signUp = async (email: string, password: string, role: string) => {
     try {
@@ -72,6 +82,29 @@ const useGraphql = () => {
       return true;
     } catch (error: any) {
       console.log('error from apollo/loginUser', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+      return false;
+    }
+  };
+
+  const updateUserByID = async (id: string, name: string, phone: string) => {
+    try {
+      const response = (
+        await updateUserById({
+          variables: {
+            id,
+            name,
+            phone,
+          },
+        })
+      ).data;
+
+      const { updateUserByID: data } = response;
+
+      return true;
+    } catch (error: any) {
+      console.log('error from apollo/updateUser', error);
       const errors = new Error(error);
       toast.error(errors?.message);
       return false;
@@ -135,6 +168,44 @@ const useGraphql = () => {
       toast.error(errors?.message);
     }
   };
+  const createRentals = async (args: RentalType) => {
+    const {
+      userId,
+      dateRent,
+      dateReturn,
+      totalDays,
+      location,
+      verified,
+      extras,
+      car,
+    } = args;
+
+    try {
+      const response = (
+        await createRental({
+          variables: {
+            userId,
+            dateRent,
+            dateReturn,
+            totalDays,
+            location,
+            verified,
+            extras,
+            car,
+          },
+        })
+      ).data;
+
+      // if (!response) toast.error(`No cars found with ${type} type`);
+
+      const data = response?.createRental;
+      return data;
+    } catch (error: any) {
+      console.log('ERROR with getAllCarsByPassengers', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+    }
+  };
 
   return {
     createUserLoading,
@@ -142,11 +213,15 @@ const useGraphql = () => {
     getCarsByPageLoading,
     getCarsByPassengerLoading,
     getCarsByTypeLoading,
+    createRentalLoading,
+    updateUserLoading,
     signUp,
     login,
+    updateUserByID,
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
+    createRentals,
   };
 };
 

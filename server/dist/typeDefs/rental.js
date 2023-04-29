@@ -8,7 +8,6 @@ const typeDefs = gql `
     phone: String
     age: String
     role: String
-    # array of objects
     rentals: [Rental]
     createdAt: Date
   }
@@ -24,6 +23,19 @@ const typeDefs = gql `
     userId: String
     createdAt: Date
     extras: Extras
+    car: Car
+  }
+
+  type Car {
+    id: String
+    image: String
+    type: String
+    typeDefinition: String
+    model: String
+    transmission: String
+    kml: Int
+    passengers: Int
+    price: Int
   }
 
   type Extras {
@@ -41,6 +53,17 @@ const typeDefs = gql `
     coverage: Boolean
     child_safety: Boolean
     GPS: Boolean
+  }
+
+  input CarInput {
+    image: String
+    type: String
+    typeDefinition: String
+    model: String
+    transmission: String
+    kml: Int
+    passengers: Int
+    price: Int
   }
 
   type IsSuccess {
@@ -69,6 +92,7 @@ const typeDefs = gql `
       location: String
       verified: Boolean
       extras: ExtrasInput
+      car: CarInput
     ): RentalType
   }
 

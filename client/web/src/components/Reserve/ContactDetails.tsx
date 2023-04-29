@@ -1,25 +1,9 @@
 import React, { useState } from 'react';
 
-interface Props {
-  states: {
-    email: string;
-    setEmail: () => void;
-    lastName: string;
-  };
-}
-
 const ContactDetails = (props: any) => {
-  // const [email, setEmail] = useState<string>('')
-  const {
-    email,
-    setEmail,
-    lastName,
-    setLastName,
-    firstName,
-    setFirstName,
-    phone,
-    setPhone,
-  } = props.states;
+  const { lastName, setLastName, firstName, setFirstName, phone, setPhone } =
+    props.states;
+
   return (
     <div className='my-2'>
       <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white rounded border border-gray-300'>
@@ -64,7 +48,7 @@ const ContactDetails = (props: any) => {
               value={phone}
             />
           </div>
-          <div className='form-control w-full mt-6'>
+          {/* <div className='form-control w-full mt-6'>
             <label className='label'>
               <span className='label-text font-semibold'>Email</span>
             </label>
@@ -75,7 +59,7 @@ const ContactDetails = (props: any) => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-          </div>
+          </div> */}
 
           {/*  =============== checkbox ============= */}
 

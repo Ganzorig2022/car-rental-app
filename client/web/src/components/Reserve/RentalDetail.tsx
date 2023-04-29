@@ -1,45 +1,79 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import ContactDetails from './ContactDetails';
-import CarDetails from './CarDetails';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loggedInState } from '@/atoms/loginAtom';
-import { toast } from 'react-hot-toast';
-import { useRental } from '@/providers/rentalProvider';
 import { closeModalState } from '@/atoms/closeModal';
-
-type Props = {};
-const re =
-  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+import { loggedInState } from '@/atoms/loginAtom';
+import useGraphql from '@/hooks/useGraphql';
+import { useRental } from '@/providers/rentalProvider';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import Spinner from '../UI/Spinner';
+import CarDetails from './CarDetails';
+import ContactDetails from './ContactDetails';
 
 const RentalDetail = () => {
   const loggedIn = useRecoilValue(loggedInState);
   const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [firstName, setFirstName] = useState<string>('');
-  const { rentals, setRentals } = useRental();
-  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
+  const [phone, setPhone] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const { rentals } = useRental();
+  const setCloseModal = useSetRecoilState(closeModalState);
   const [summary, setSummary] = useState(0);
+  const router = useRouter();
 
   const inputProps = {
-    email,
     phone,
     setPhone,
-    setEmail,
     lastName,
     firstName,
     setLastName,
     setFirstName,
   };
-  const onSubmit = useCallback(() => {
+
+  const {
+    createRentals,
+    updateUserByID,
+    createRentalLoading,
+    updateUserLoading,
+  } = useGraphql();
+
+  const onSubmit = useCallback(async () => {
     if (!loggedIn) return toast.error('Please login to complete your reserve');
 
-    if (!re.test(email) || !email || !phone || !lastName || !firstName) {
-      toast.error('You have to input your information!!!');
+    if (!phone || !lastName || !firstName) {
+      toast.error('You have to enter your information!!!');
       return;
     }
-    // setRentals({ ...rentals, {} })
-  }, [email, lastName, phone, firstName]);
+
+    const userId = Cookies.get('userId');
+    const name = `${firstName} ${lastName}`;
+
+    //1) Save user name to database
+    const responseUser = await updateUserByID(userId!, name, phone);
+
+    if (!responseUser) toast.error('User not found');
+
+    //2) Save rentals to database
+    const response = await createRentals(rentals);
+
+    if (response?.id) {
+      toast.success('Congrats! Successfully created a rental!.');
+    }
+
+    // 3) go to home page
+    router.push('/');
+  }, [
+    lastName,
+    phone,
+    firstName,
+    loggedIn,
+    createRentals,
+    rentals,
+    updateUserByID,
+    router,
+  ]);
+
+  if (createRentalLoading || updateUserLoading) return <Spinner />;
 
   return (
     <div className='flex flex-row justify-between my-4 mx-8 w-full align-top'>

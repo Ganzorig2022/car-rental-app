@@ -141,10 +141,35 @@ export const userResolvers = {
                 throw new GraphQLError(`Already signed up with this email: ${email}`);
             }
         },
+        updateUserById: async (_parent, args) => {
+            const { id, email, name, phone, age } = args;
+            //middleware for checking if user exists or not
+            const userExists = await checkUserExists(id, 'id');
+            if (!userExists) {
+                console.log('User not found');
+                throw new GraphQLError('User not found');
+            }
+            try {
+                const user = await Prisma.user.update({
+                    where: { id },
+                    data: {
+                        email,
+                        name,
+                        phone,
+                        age,
+                    },
+                });
+                return user;
+            }
+            catch (error) {
+                console.log('UPDATE USER ERROR', error);
+                throw new GraphQLError(error);
+            }
+        },
         updateUserByEmail: async (_parent, args) => {
             const { email, name, phone, age } = args;
             //middleware for checking if user exists or not
-            const userExists = await checkUserExists(email);
+            const userExists = await checkUserExists(email, 'email');
             if (!userExists) {
                 console.log('User not found');
                 throw new GraphQLError('User not found');
@@ -169,7 +194,7 @@ export const userResolvers = {
         resetPasswordRequest: async (_parent, args) => {
             const { email } = args;
             //1) Check if user exists or not
-            const user = await checkUserExists(email);
+            const user = await checkUserExists(email, 'email');
             const userId = user === null || user === void 0 ? void 0 : user.id;
             //2) If user not found, then END it here!!!
             if (!userId) {

@@ -9,6 +9,13 @@ interface updateUserInput {
   phone: string;
   age: string;
 }
+interface updateUserInputById {
+  id: string;
+  email: string;
+  name: string;
+  phone: string;
+  age: string;
+}
 
 interface resetPasswordInput {
   token: string;
@@ -23,11 +30,25 @@ interface Rental {
   totalDays: number;
   location: string;
   verified: boolean;
-  renter: User;
+  user: User;
   userId: string;
   createdAt: Date;
   extras: Extras;
+  car: Car;
 }
+
+type CreateRentalType = {
+  id: string;
+  dateRent: string;
+  dateReturn: string;
+  totalDays: number;
+  location: string;
+  verified: boolean;
+  userId: string;
+  createdAt: Date;
+  extras: Extras;
+  car: Car;
+};
 
 type updateRentalType = {
   id: string;
@@ -38,6 +59,18 @@ type updateRentalType = {
   user: User;
   createdAt: Date;
   extras: Extras;
+};
+
+type Car = {
+  id: string;
+  image: string;
+  type: string;
+  typeDefinition: string;
+  model: string;
+  transmission: string;
+  kml: number;
+  passengers: number;
+  price: number;
 };
 
 interface createCarType {

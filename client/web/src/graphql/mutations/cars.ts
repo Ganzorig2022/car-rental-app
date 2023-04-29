@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_RENTAL = gql`
+export const CREATE_CAR = gql`
   mutation CreateCar(
     $image: String
     $type: String

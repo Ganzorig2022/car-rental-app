@@ -2,8 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextIndex"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -32,16 +31,11 @@ model Rental {
   totalDays  Int
   location   String
   verified   Boolean  @default(false)
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
-  userId     String   @db.ObjectId
   createdAt  DateTime @default(now())
   extras     Extras
-}
-
-type Extras {
-  coverage     Boolean @default(false)
-  child_safety Boolean @default(false)
-  GPS          Boolean @default(false)
+  car        CarType
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String   @db.ObjectId
 }
 
 model Car {
@@ -54,24 +48,39 @@ model Car {
   kml            Int
   passengers     Int
   price          Int
-  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade) // onDelete:Cascade means if user is deleted, then this model will be deleted too
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String @db.ObjectId
 }
 
 model Transaction {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique @db.ObjectId
-  createdAt DateTime @default(now())
 }
 
 model Token {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   token  String
   userId String @unique
+}
 
-  // @@fulltext([userId(expire: 1)])
+type Extras {
+  coverage     Boolean @default(false)
+  child_safety Boolean @default(false)
+  GPS          Boolean @default(false)
+}
+
+type CarType {
+  image          String
+  type           String
+  typeDefinition String
+  model          String
+  transmission   String
+  kml            Int
+  passengers     Int
+  price          Int
 }
 
 // enum Role {
@@ -79,4 +88,4 @@ model Token {
 //   ADMIN
 // }
 
-// onDelete:Cascade does not work on MONGODB!!!!!!!!!!!!!!!!
+// onDelete:Cascade does not work on MongoDb!!!!!!!!!!!!!!!!

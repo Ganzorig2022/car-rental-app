@@ -61,7 +61,11 @@ export const rentalResolvers = {
 
   // =================MUTATIONS==========================
   Mutation: {
-    createRental: async (_parent: any, args: Rental, context: ContextType) => {
+    createRental: async (
+      _parent: any,
+      args: CreateRentalType,
+      context: ContextType
+    ) => {
       const {
         userId,
         dateRent,
@@ -70,7 +74,9 @@ export const rentalResolvers = {
         location,
         verified,
         extras,
+        car,
       } = args;
+
       // getting userId from token verify using context middleware in "index.ts"
       const idToken = context.token.id;
 
@@ -91,15 +97,16 @@ export const rentalResolvers = {
             location,
             verified,
             extras,
+            car,
           },
           include: {
             user: true, // User model data will be included. Because in the prisma.schema, User @relation field
           },
         });
-        // will receive request from the frontend side
+
         return rental;
       } catch (error) {
-        console.log('CREATE RENTAL ERROR', error);
+        console.log('CREATE RENTAL ERROR>>>>>>>>>>', error);
         throw new GraphQLError(error);
       }
     },

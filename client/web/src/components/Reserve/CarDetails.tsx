@@ -7,7 +7,7 @@ type Props = {
 };
 
 const CarDetails = ({ setSummary }: Props) => {
-  const { rentals, setRentals } = useRental();
+  const { rentals } = useRental();
   const carCostADay = rentals.car.price;
   const GPScostADay = 4 * rentals.totalDays;
   const totalDays = rentals.totalDays;
@@ -99,17 +99,32 @@ const CarDetails = ({ setSummary }: Props) => {
       <div className='mt-10 w-full'>
         <p className='font-semibold'>Extras</p>
         <div className='flex justify-between text-xs mt-4'>
-          <p>-</p>$ 0.00
+          {rentals.extras.coverage ? (
+            <div>Coverage {totalDays} Day(s) @ $ 4.00 / Day</div>
+          ) : (
+            <p>-</p>
+          )}
+          $ {totalDays * 4}.00
         </div>
         <div className='flex justify-between text-xs mt-2'>
-          <p>-</p>$ 0.00
+          {rentals.extras.child_safety ? (
+            <div>Childe Safety Belts {totalDays} Day(s) @ $ 4.00 / Day</div>
+          ) : (
+            <p>-</p>
+          )}
+          $ {totalDays * 4}.00
         </div>
         <div className='flex justify-between text-xs mt-2'>
-          <p>GPS 1 Day(s) @ $ 4.00 / Day</p>$ {GPScostADay}.00
+          {rentals.extras.GPS ? (
+            <div>GPS {totalDays} Day(s) @ $ 4.00 / Day</div>
+          ) : (
+            <p>-</p>
+          )}
+          $ {totalDays * 4}.00
         </div>
       </div>
       {/* ----------------------------------------------------------------------------- */}
-      <div className='w-full h-0.5 bg-gray-200 mt-8'></div>
+      <div className='w-full h-0.5 bg-gray-200 mt-8' />
       {/* ----------------------------------------------------------------------------- */}
       <div className='mt-8 w-full'>
         <p className='font-normal text-primary text-sm'>Taxes & Fees</p>

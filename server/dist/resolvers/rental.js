@@ -58,7 +58,7 @@ export const rentalResolvers = {
     // =================MUTATIONS==========================
     Mutation: {
         createRental: async (_parent, args, context) => {
-            const { userId, dateRent, dateReturn, totalDays, location, verified, extras, } = args;
+            const { userId, dateRent, dateReturn, totalDays, location, verified, extras, car, } = args;
             // getting userId from token verify using context middleware in "index.ts"
             const idToken = context.token.id;
             const authorized = userId === idToken;
@@ -76,16 +76,16 @@ export const rentalResolvers = {
                         location,
                         verified,
                         extras,
+                        car,
                     },
                     include: {
                         user: true, // User model data will be included. Because in the prisma.schema, User @relation field
                     },
                 });
-                // will receive request from the frontend side
                 return rental;
             }
             catch (error) {
-                console.log('CREATE RENTAL ERROR', error);
+                console.log('CREATE RENTAL ERROR>>>>>>>>>>', error);
                 throw new GraphQLError(error);
             }
         },

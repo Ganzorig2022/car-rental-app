@@ -51,6 +51,30 @@ export const PASSWORD_RESET = gql`
   }
 `;
 
+export const UPDATE_USER_BY_ID = gql`
+  mutation UpdateUserById(
+    $id: String!
+    $email: String
+    $name: String
+    $phone: String
+    $age: String
+  ) {
+    updateUserById(
+      id: $id
+      email: $email
+      name: $name
+      phone: $phone
+      age: $age
+    ) {
+      age
+      createdAt
+      email
+      id
+      name
+      phone
+    }
+  }
+`;
 export const UPDATE_USER_BY_EMAIL = gql`
   mutation UpdateUserByEmail(
     $email: String!
