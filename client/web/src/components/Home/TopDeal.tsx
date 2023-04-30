@@ -10,10 +10,10 @@ const TopDeal = (props: Props) => {
   const router = useRouter();
   return (
     <div className='flex flex-col items-center justify-center mt-10'>
-      <h3 className='uppercase text-[10px] mb-3 font-semibold ml-2 sm:text-sm md:text-base lg:text-xl'>
+      <h3 className='uppercase text-[10px] mb-3 font-semibold ml-2 sm:text-sm md:text-base lg:text-xl dark:text-gray-secondary'>
         Манай шилдэг үйлчилгээ
       </h3>
-      <h3 className='text-sm font-bold ml-2 sm:text-base md:text-xl mb-2 lg:text-3xl'>
+      <h3 className='text-sm font-bold ml-2 sm:text-base md:text-xl mb-2 lg:text-3xl dark:text-gray-secondary'>
         Explore Our Top Deal From Top-Rated Dealer
       </h3>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto'>

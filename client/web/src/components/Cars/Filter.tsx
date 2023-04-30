@@ -67,11 +67,13 @@ const Filter = ({ setCarsData }: Props) => {
 
   return (
     <div className='p-4'>
-      <div className='flex flex-row justify-between space-x-2'>
+      <div className='flex flex-row justify-between space-x-2 '>
         <MapPinIcon className='text-red-primary h-5' />
-        <div className='flex flex-col bg-gray-200 p-2 rounded w-full'>
-          <p className='text-[9px] text-gray-500 '>Available from</p>
-          <p className='text-[10px] text-gray-700 md:text-xs'>
+        <div className='flex flex-col bg-gray-200 dark:bg-gray-700 p-2 rounded w-full'>
+          <p className='text-[9px] text-gray-500 dark:text-gray-secondary'>
+            Available from
+          </p>
+          <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
             {rentals.location}
           </p>
         </div>
@@ -79,18 +81,22 @@ const Filter = ({ setCarsData }: Props) => {
       <div className='divider m-0' />
 
       <div>
-        <p className='text-xs sm:text-sm font-semibold'>Filter By</p>
-        <p className='text-[8px] sm:text-[10px] text-gray-400 mt-2'>Car type</p>
+        <p className='text-xs sm:text-sm font-semibold dark:text-gray-secondary'>
+          Filter By
+        </p>
+        <p className='text-[8px] sm:text-[10px] text-gray-400 mt-2 dark:text-gray-secondary'>
+          Car type
+        </p>
         {/* Vehicle types */}
         <div>
           {vehicles.map((each, idx) => {
             const { id, name, status } = each;
             return (
               <div className='form-control' key={id}>
-                <label className='label cursor-pointer justify-start space-x-4'>
+                <label className='label cursor-pointer justify-start space-x-4 '>
                   <input
                     type='checkbox'
-                    className='h-4 w-4 accent-red-primary'
+                    className='h-4 w-4 accent-red-primary '
                     checked={status}
                     onClick={() => {
                       carTypeHandler(id, name);
@@ -103,7 +109,7 @@ const Filter = ({ setCarsData }: Props) => {
                       );
                     }}
                   />
-                  <span className='label-text text-xs sm:text-sm md:text-base'>
+                  <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
                     {name}
                   </span>
                   <span className='label-text text-[10px] text-gray-400'>
@@ -121,17 +127,19 @@ const Filter = ({ setCarsData }: Props) => {
           <label className='label cursor-pointer justify-start space-x-4'>
             <input
               type='checkbox'
-              className='h-4 w-4 accent-red-primary'
+              className='h-4 w-4 accent-red-primary '
               checked={capacity.lte5}
               onClick={() => {
                 passengersHandler(5);
                 setCapacity({ gte6: false, lte5: !capacity.lte5 });
               }}
             />
-            <span className='label-text text-xs sm:text-sm md:text-base'>
+            <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
               2-5 passengers
             </span>
-            <span className='label-text text-[10px] text-gray-400'>28</span>
+            <span className='label-text text-[10px] text-gray-400 dark:text-gray-secondary'>
+              28
+            </span>
           </label>
         </div>
         <div className='form-control'>
@@ -145,7 +153,7 @@ const Filter = ({ setCarsData }: Props) => {
                 setCapacity({ gte6: !capacity.gte6, lte5: false });
               }}
             />
-            <span className='label-text text-xs sm:text-sm md:text-base'>
+            <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
               6 more passengers
             </span>
             <span className='label-text text-[10px] text-gray-400'>28</span>
@@ -161,17 +169,17 @@ const Filter = ({ setCarsData }: Props) => {
             max='200'
             step='20'
             value={priceRange}
-            className='range range-error range-xs h-3 sm:h-4 bg-gray-primary'
+            className='range range-error range-xs h-3 sm:h-4 bg-gray-primary dark:bg-dark-primary'
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPriceRange(e.target.value)
             }
           />
           <div className='w-full flex items-center justify-between text-[9px] font-semibold'>
-            <span>min.$20</span>
+            <span className='dark:text-gray-secondary'>min.$20</span>
             <span className='text-red-primary text-xs sm:text-sm'>
               $ {priceRange}
             </span>
-            <span>max.$200</span>
+            <span className='dark:text-gray-secondary'>max.$200</span>
           </div>
         </div>
       </div>

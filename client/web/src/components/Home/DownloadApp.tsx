@@ -5,7 +5,7 @@ type Props = {};
 
 const DownloadApp = (props: Props) => {
   return (
-    <div className='my-32'>
+    <div className='mt-32 pb-32'>
       <div className='relative h-[220px] w-full sm:h-[280px] bg-gradient-to-r from-red-primary to-red-secondary rounded-2xl'>
         <div className='flex flex-col space-y-2 w-[150px] sm:w-[200px] md:w-[250px] ml-5 sm:ml-10'>
           <h5 className='text-white font-bold mt-5 sm:text-lg md:text-xl'>

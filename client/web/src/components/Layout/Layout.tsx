@@ -24,10 +24,10 @@ const Layout = ({ children }: Props) => {
   }, []);
 
   return (
-    <div className='bg-white max-w-7xl mx-auto dark:bg-dark-primary transition-all duration-700'>
+    <div className='bg-white dark:bg-dark-primary/[95%] transition-all duration-700'>
       {/* Header */}
       <Header />
-      <main>{children}</main>
+      <main className='max-w-7xl mx-auto'>{children}</main>
       <Footer />
       <Toaster />
     </div>

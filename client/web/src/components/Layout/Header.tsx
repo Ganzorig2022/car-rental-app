@@ -38,7 +38,7 @@ const Header = () => {
 
   return (
     <div
-      className={`sticky top-0 z-50 flex flex-row items-center justify-between py-2 px-2 ${
+      className={`sticky top-0 z-50 flex flex-row items-center justify-between py-2 px-2 dark:!bg-dark-secondary ${
         navbar && 'bg-white shadow-md'
       } transition-all duration-700 dark:bg-slate-800`}
     >
@@ -148,7 +148,7 @@ const Header = () => {
                   </>
                 ) : (
                   <button
-                    className='btn text-white ml-2'
+                    className='btn text-white ml-2 dark:!bg-dark-secondary'
                     onClick={() => {
                       setLoggedIn(false);
                       Cookies.remove('token');
@@ -184,7 +184,7 @@ const Header = () => {
             </>
           ) : (
             <button
-              className='btn text-white ml-2 uppercase'
+              className='btn text-white ml-2 uppercase dark:!bg-dark-secondary'
               onClick={() => {
                 setLoggedIn(false);
                 Cookies.remove('token');

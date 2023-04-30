@@ -22,8 +22,10 @@ const CarDetails = ({ setSummary }: Props) => {
     <div className='w-full'>
       <div className='flex flex-row justify-between'>
         <div className='flex gap-2 flex-col'>
-          <h4 className='card-title md:text-2xl mt-6'>{rentals.car.model}</h4>
-          <p>{rentals.car.type}</p>
+          <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+            {rentals.car.model}
+          </h4>
+          <p className='dark:text-gray-secondary'>{rentals.car.type}</p>
           <div className='flex gap-2 ml-2'>
             <div className='flex gap-2'>
               <Image
@@ -31,7 +33,7 @@ const CarDetails = ({ setSummary }: Props) => {
                 alt='Movie'
                 width={15}
                 height={15}
-                className='object-contain'
+                className='object-contain dark:bg-gray-secondary dark:rounded-full'
               />
               <p className='text-xs text-gray-500'>
                 {rentals.car.transmission}
@@ -43,7 +45,7 @@ const CarDetails = ({ setSummary }: Props) => {
                 alt='Movie'
                 width={15}
                 height={15}
-                className='object-contain'
+                className='object-contain dark:bg-gray-secondary dark:rounded-full'
               />
               <p className='text-xs text-gray-500'>{rentals.car.passengers}</p>
             </div>
@@ -55,7 +57,7 @@ const CarDetails = ({ setSummary }: Props) => {
                 alt='Movie'
                 width={15}
                 height={15}
-                className='object-contain'
+                className='object-contain dark:bg-gray-secondary dark:rounded-full'
               />
               <p className='text-xs text-gray-500'>{rentals.car.kml}KML</p>
             </div>
@@ -65,7 +67,7 @@ const CarDetails = ({ setSummary }: Props) => {
                 alt='Movie'
                 width={15}
                 height={15}
-                className='object-contain'
+                className='object-contain dark:bg-gray-secondary dark:rounded-full'
               />
               <p className='text-xs text-gray-500'>
                 {rentals.car.type === 'SUV' ? '4' : '1'}
@@ -85,60 +87,86 @@ const CarDetails = ({ setSummary }: Props) => {
       </div>
       {/* ----------------------------------------------------------------------------- */}
       <div className='mt-10 w-full'>
-        <p className='font-semibold'>Vehicle</p>
+        <p className='font-semibold dark:text-gray-secondary'>Vehicle</p>
         <div className='flex justify-between text-xs mt-4'>
-          <p>Time & Distance 1 Day(s) @ $ {carCostADay} / Day</p>${' '}
-          {carCostADay * totalDays}.00
+          <p className='dark:text-gray-secondary'>
+            Time & Distance 1 Day(s) @ $ {carCostADay} / Day
+          </p>
+          <span className='dark:text-gray-secondary'>
+            $ {carCostADay * totalDays}.00
+          </span>
         </div>
         <div className='flex justify-between text-xs mt-2'>
-          <p>Unlimited Mileage</p>
-          Included
+          <p className='dark:text-gray-secondary'>Unlimited Mileage</p>
+
+          <span className='dark:text-gray-secondary'>Included</span>
         </div>
       </div>
       {/* ----------------------------------------------------------------------------- */}
       <div className='mt-10 w-full'>
-        <p className='font-semibold'>Extras</p>
+        <p className='font-semibold dark:text-gray-secondary'>Extras</p>
         <div className='flex justify-between text-xs mt-4'>
           {rentals.extras.coverage ? (
-            <div>Coverage {totalDays} Day(s) @ $ 4.00 / Day</div>
+            <div className='dark:text-gray-secondary'>
+              Coverage {totalDays} Day(s) @ $ 4.00 / Day
+            </div>
           ) : (
-            <p>-</p>
+            <p className='dark:text-gray-secondary'>-</p>
           )}
-          $ {totalDays * 4}.00
+          <div className='dark:text-gray-secondary'>
+            {' '}
+            {rentals.extras.coverage ? `$ ${totalDays * 4}.00` : '$ 0.00'}
+          </div>
         </div>
         <div className='flex justify-between text-xs mt-2'>
           {rentals.extras.child_safety ? (
-            <div>Childe Safety Belts {totalDays} Day(s) @ $ 4.00 / Day</div>
+            <div className='dark:text-gray-secondary'>
+              Child Safety Belts {totalDays} Day(s) @ $ 4.00 / Day
+            </div>
           ) : (
-            <p>-</p>
+            <p className='dark:text-gray-secondary'>-</p>
           )}
-          $ {totalDays * 4}.00
+          <div className='dark:text-gray-secondary'>
+            {rentals.extras.child_safety ? `$ ${totalDays * 4}.00` : '$ 0.00'}
+          </div>
         </div>
         <div className='flex justify-between text-xs mt-2'>
           {rentals.extras.GPS ? (
-            <div>GPS {totalDays} Day(s) @ $ 4.00 / Day</div>
+            <div className='dark:text-gray-secondary'>
+              GPS {totalDays} Day(s) @ $ 4.00 / Day
+            </div>
           ) : (
-            <p>-</p>
+            <p className='dark:text-gray-secondary'>-</p>
           )}
-          $ {totalDays * 4}.00
+          <div className='dark:text-gray-secondary'>
+            {rentals.extras.GPS ? `$ ${totalDays * 4}.00` : '$ 0.00'}
+          </div>
         </div>
       </div>
       {/* ----------------------------------------------------------------------------- */}
-      <div className='w-full h-0.5 bg-gray-200 mt-8' />
+      <div className='w-full h-0.5 dark:h-[1px] bg-gray-200 mt-8' />
       {/* ----------------------------------------------------------------------------- */}
       <div className='mt-8 w-full'>
-        <p className='font-normal text-primary text-sm'>Taxes & Fees</p>
+        <p className='font-normal text-primary text-sm '>Taxes & Fees</p>
         <div className='flex justify-between text-xs mt-4'>
-          <p>SALES TAX (10.0%)</p>$ {tax.toFixed(2)}
+          <p className='dark:text-gray-secondary'>SALES TAX (10.0%)</p>
+          <span className='dark:text-gray-secondary'>$ {tax.toFixed(2)}</span>
         </div>
       </div>
       {/* ----------------------------------------------------------------------------- */}
-      <div className='w-full h-0.5 bg-gray-200 mt-8'></div>
+      <div className='w-full h-0.5 dark:h-[1px] bg-gray-200 mt-8'></div>
       {/* ----------------------------------------------------------------------------- */}
       <div className='my-4 w-full'>
-        <p className='font-semibold text-sm'>Estimated Total</p>
+        <p className='font-semibold text-sm dark:text-gray-secondary'>
+          Estimated Total
+        </p>
         <div className='flex justify-between text-sm mt-2 font-semibold'>
-          <p></p>$<span className='text-4xl mt-[-4px]'>{summary}</span>00
+          <p className=''></p>
+          <span className='dark:text-gray-secondary'>$</span>
+          <span className='text-4xl mt-[-4px] dark:text-gray-secondary'>
+            {summary}
+          </span>
+          <span className='dark:text-gray-secondary'>00</span>
         </div>
       </div>
     </div>

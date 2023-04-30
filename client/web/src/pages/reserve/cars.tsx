@@ -1,6 +1,5 @@
 import Filter from '@/components/Cars/Filter';
 import Progress from '@/components/Cars/Progress';
-import Total from '@/components/Cars/Total';
 import Vehicles from '@/components/Cars/Vehicles';
 import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
@@ -53,13 +52,12 @@ const Cars = () => {
 
   return (
     <div>
-      {/* <Total /> */}
       <Progress />
       <div>
         {/* CHOOSE VEHICLE CLASS */}
-        <div className='w-full shadow p-5'>
+        <div className='w-full shadow p-5 bg-white dark:bg-dark-secondary'>
           <div className='flex flex-row items-end space-x-4'>
-            <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none'>
+            <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none dark:text-gray-secondary'>
               Choose a Vehicle Class
             </div>
             <div className='text-gray-500 text-xs sm:text-base'>
@@ -69,9 +67,9 @@ const Cars = () => {
         </div>
       </div>
       {/* CENTER BODY */}
-      <main className='bg-gray-primary py-5'>
+      <main className='bg-gray-primary dark:bg-dark-primary py-5'>
         <div className='flex flex-row space-x-4 mx-auto'>
-          <div className='w-1/3 bg-white rounded-lg'>
+          <div className='w-1/3 bg-white dark:bg-dark-secondary rounded-lg h-full'>
             <Filter setCarsData={setCarsData} />
           </div>
           <div className='w-2/3 rounded-lg'>
@@ -88,7 +86,6 @@ const Cars = () => {
                   onClick={() => {
                     paginationHandler(page);
                     setActive(page);
-                    // getCarsByPagination({ variables: { skip, take } });
                   }}
                 >
                   {page}

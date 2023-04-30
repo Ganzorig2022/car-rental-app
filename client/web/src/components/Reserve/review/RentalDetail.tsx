@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import Spinner from '../UI/Spinner';
+import Spinner from '../../UI/Spinner';
 import CarDetails from './CarDetails';
 import ContactDetails from './ContactDetails';
 
@@ -51,7 +51,7 @@ const RentalDetail = () => {
     //1) Save user name to database
     const responseUser = await updateUserByID(userId!, name, phone);
 
-    if (!responseUser) toast.error('User not found');
+    if (!responseUser) return toast.error('User not found');
 
     //2) Save rentals to database
     const response = await createRentals(rentals);
@@ -78,21 +78,29 @@ const RentalDetail = () => {
   return (
     <div className='flex flex-row justify-between my-4 mx-8 w-full align-top'>
       <div>
-        <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white rounded border border-gray-300'>
-          <div className='card-body w-[365px] p-2'>
-            <h4 className='card-title md:text-2xl mt-6'>Rental Details</h4>
-            <p className='mt-4 font-semibold'>Dates & Times</p>
-            <div className='text-gray-500'>
-              <p>{rentals.dateRent} @ 12:00 PM</p>
-              <p>{rentals.dateReturn} @ 12:00 PM</p>
+        <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
+          <div className='card-body w-[365px] p-2 '>
+            <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+              Rental Details
+            </h4>
+            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+              Dates & Times
+            </p>
+            <div className='text-gray-500 '>
+              <p>{rentals.dateRent} @ 10:00 AM</p>
+              <p>{rentals.dateReturn} @ 10:00 AM</p>
             </div>
-            <p className='mt-4 font-semibold'>Pick-up & Return Location</p>
+            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+              Pick-up & Return Location
+            </p>
             <p className='text-gray-500'>{rentals.location}</p>
-            <p className='mt-4 font-semibold'>Additional Details</p>
+            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+              Additional Details
+            </p>
             <p className='text-gray-500'>Renter Age: 25+</p>
           </div>
         </div>
-        <div className='flex flex-col my-2 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white rounded border border-gray-300'>
+        <div className='flex flex-col my-2 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
           <div className='card-body p-2 w-full'>
             <CarDetails setSummary={setSummary} />
           </div>
@@ -102,7 +110,7 @@ const RentalDetail = () => {
       {/* ============== FORM SECTION =============== */}
       <div className='w-full ml-4'>
         {!loggedIn ? (
-          <div className='relative h-[110px] w-full sm:h-[110px] bg-gradient-to-r from-red-primary to-red-secondary rounded'>
+          <div className='relative h-[110px] w-full sm:h-[110px] bg-gradient-to-r mb-2 from-red-primary to-red-secondary rounded'>
             <div className='flex flex-col w-[730px]'>
               <div className='w-full px-6 md:w-auto md:px-2'>
                 <label
@@ -121,13 +129,21 @@ const RentalDetail = () => {
         <div>
           <ContactDetails states={inputProps} />
         </div>
-        <div className='w-full h-[160px] bg-white rounded border border-gray-300 px-8'>
-          <h4 className='card-title md:text-2xl mt-6'>Contact Details</h4>
+        <div className='w-full h-[160px] bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300 px-8'>
+          <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+            Contact Details
+          </h4>
           <div className='h-0.5 w-full bg-primary'></div>
           <div className='flex flex-row justify-between items-center mt-6'>
-            <p>You will be charged when you pick up your rental.</p>
+            <p className='dark:text-gray-secondary'>
+              You will be charged when you pick up your rental.
+            </p>
             <b className='flex items-start'>
-              $<span className='text-4xl'>{summary}</span>00
+              <span className='dark:text-gray-secondary'>$</span>
+              <span className='text-4xl font-semibold dark:text-gray-secondary'>
+                {summary}
+              </span>
+              <span className='dark:text-gray-secondary'> 00</span>
             </b>
           </div>
         </div>

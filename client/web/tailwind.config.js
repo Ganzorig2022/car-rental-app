@@ -12,10 +12,15 @@ module.exports = {
         gray: {
           primary: '#EDEDED',
           secondary: '#D2D2D2',
+          third: '#ffffffeb',
         },
         dark: {
           primary: '#1E293B',
+          secondary: '#0F172A',
         },
+      },
+      fontFamily: {
+        body: ['Poppins', 'sans-serif'],
       },
     },
   },
@@ -37,5 +42,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui'), require('tailwind-scrollbar')],
 };

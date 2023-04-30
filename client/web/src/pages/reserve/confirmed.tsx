@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 const Checklist = [
   'Familiarize yourself with your Pick-Up and Return location(s)',
@@ -15,21 +16,32 @@ const Checklist = [
 ];
 
 const Confirmed = () => {
+  const router = useRouter();
   const { rentals } = useRental();
   const { getUserByID, getUserByIdLoading } = useGraphql();
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState<UserData>();
+  const [rentalData, setRentalData] = useState<RentalType>();
+  const extrasCost =
+    rentalData?.extras &&
+    Object.values(rentalData?.extras!).filter((el) => el === true).length * 4;
 
+  const salesTax = rentalData?.totalDays! * userData?.cars[0].price! * 0.1;
+  const summaryCost =
+    rentalData?.totalDays! * userData?.cars[0].price! + salesTax + extrasCost!;
+
+  // when page first renders, fetch data from server
   useEffect(() => {
     (async () => {
       const id = Cookies.get('userId');
       const response = await getUserByID(id!);
-      if (response?.email !== '') setUserData({ ...response });
+      if (response?.email !== '') {
+        setUserData({ ...response });
+        setRentalData(response?.rentals[response?.rentals.length - 1]);
+      }
       if (!response) toast.error('No user data found');
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(userData);
 
   if (getUserByIdLoading) return <Spinner />;
 
@@ -46,12 +58,12 @@ const Confirmed = () => {
               alt='comfirmed'
             />
             <div className='flex-col gap-y-[10px] max-w-[326px] flex-wrap'>
-              <h1 className='font-semibold text-[25px] dark:text-white duration-300'>
+              <h1 className='font-semibold text-[25px] dark:text-gray-secondary duration-300'>
                 Reservation Confirmed
               </h1>
-              <p className='font-normal dark:text-white duration-300 text-[10px]'>
-                Thanks USERNAME! We look forward to seeing you on April 20, 2023
-                Confirmation Number: 12345678
+              <p className='font-normal dark:text-gray-secondary duration-300 text-[10px]'>
+                Thanks {userData?.name}! We look forward to seeing you on April
+                20, 2023 Confirmation Number: 12345678
               </p>
             </div>
           </div>
@@ -76,34 +88,34 @@ const Confirmed = () => {
             />
           </button>
           <div className='py-[15px] pl-[30px] sm:w-1/2 w-full border-r border-r-[#E5E7E9]'>
-            <h4 className='font-semibold text-[12px] dark:text-white duration-300 flex flex-col gap-[7px]'>
+            <h4 className='font-semibold text-[12px] dark:text-gray-secondary duration-300 flex flex-col gap-[7px]'>
               PICK-UP
             </h4>
             <div className='max-w-[250px] flex-wrap'>
-              <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-white'>
+              <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
                 {rentals.location}
               </p>
-              <p className='text-[#777777] font-medium text-[11px] dark:text-white'>
+              <p className='text-[#777777] font-medium text-[11px] dark:text-gray-secondary'>
                 {rentals.dateRent}
               </p>
             </div>
           </div>
           <div className='py-[15px] pl-[30px] sm:w-1/2 w-full'>
-            <h4 className='font-semibold text-[12px] dark:text-white duration-300 flex flex-col gap-[7px]'>
+            <h4 className='font-semibold text-[12px] dark:text-gray-secondary duration-300 flex flex-col gap-[7px]'>
               RETURN
             </h4>
             <div className='max-w-[250px] flex-wrap'>
-              <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-white'>
+              <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
                 {rentals.location}
               </p>
-              <p className='text-[#777777] font-medium text-[11px] dark:text-white'>
+              <p className='text-[#777777] font-medium text-[11px] dark:text-gray-secondary'>
                 {rentals.dateReturn}
               </p>
             </div>
           </div>
         </div>
         <div className='py-[25px] flex items-center justify-between sm:flex-row flex-col gap-[15px]'>
-          <p className='font-normal text-[12px] dark:text-white duration-300 text-center'>
+          <p className='font-normal text-[12px] dark:text-gray-secondary duration-300 text-center'>
             A confirmation email has been sent to the email address provided.
           </p>
           <div className='flex items-center gap-[20px]'>
@@ -119,81 +131,89 @@ const Confirmed = () => {
 
       <div className='pt-[30px] flex flex-col gap-[30px] sm:flex-row'>
         <div className='w-full h-auto p-[30px] flex flex-col gap-[25px] items-start'>
-          <h1 className='font-semibold text-[20px] dark:text-white'>
+          <h1 className='font-semibold text-[20px] dark:text-gray-secondary'>
             Rental Details
           </h1>
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
-              <h4 className='font-semibold text-base dark:text-white'>
+              <h4 className='font-semibold text-base dark:text-gray-secondary'>
                 User Details
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                Driver Name: <strong>TEMUUJIN</strong>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                Driver Name: <strong>{userData?.name}</strong>
               </h4>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                Email Address: <strong>s*****a@gmail.com</strong>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                Email Address: <strong>{userData?.email}</strong>
               </h4>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                Phone Number: <strong>******6010</strong>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                Phone Number: <strong>{userData?.phone}</strong>
               </h4>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                Age: <strong>25+</strong>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                Age: <strong>{userData?.age}</strong>
               </h4>
             </div>
           </div>
 
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
-              <h4 className='font-semibold text-base'>Vehicle Class</h4>
+              <h4 className='font-semibold text-base dark:text-gray-secondary'>
+                Vehicle Class
+              </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                Vehicle Class: <strong>BMW X6</strong>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary '>
+                Vehicle Class: <strong>{userData?.cars[0].model}</strong>
               </h4>
               <ul className='pl-[30px]'>
-                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>
-                  Automatic
+                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  {userData?.cars[0].transmission}
                 </li>
-                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>
-                  4 door
+                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  {userData?.cars[0].type === 'Bus' ? '1' : '4'} door
                 </li>
-                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-white'>
-                  5 passengers
+                <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  {userData?.cars[0].passengers} passengers
                 </li>
               </ul>
               <div className='w-full flex justify-between items-center'>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  Time & Distance 1 Day(s) @ $ 106.09 / Day
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  Time & Distance {rentalData?.totalDays} Day(s) @ ${' '}
+                  {userData?.cars[0].price} / Day
                 </h4>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  $ 700.00
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  $ {rentalData?.totalDays! * userData?.cars[0].price!}.00
                 </h4>
               </div>
               <div className='w-full flex justify-between items-center'>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   Unlimited Mileage
                 </h4>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  Inclueded
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  Included
                 </h4>
               </div>
-              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'></h4>
+              <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'></h4>
             </div>
           </div>
 
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
-              <h4 className='font-semibold text-base'>Extras</h4>
+              <h4 className='font-semibold text-base dark:text-gray-secondary'>
+                Extras
+              </h4>
             </div>
+
             <div className='flex flex-col gap-[12px]'>
               <div className='w-full flex justify-between items-center'>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  GPS:
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  {rentalData?.extras.GPS && 'GPS'}
+                  {rentalData?.extras.child_safety && 'Child safety belt'}
+                  {rentalData?.extras.coverage && 'Coverage'}
                 </h4>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  $ 28.00
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  $ {extrasCost}.00
                 </h4>
               </div>
             </div>
@@ -201,15 +221,17 @@ const Confirmed = () => {
 
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
-              <h4 className='font-semibold text-base'>Taxes & Fees</h4>
+              <h4 className='font-semibold text-base dark:text-gray-secondary'>
+                Taxes & Fees
+              </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
               <div className='w-full flex justify-between items-center'>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   SALES TAX (10.0%)
                 </h4>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-white'>
-                  $ 72.80
+                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                  $ {salesTax}.00
                 </h4>
               </div>
             </div>
@@ -217,22 +239,24 @@ const Confirmed = () => {
 
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
-              <h4 className='font-semibold text-base'>Estimated Total</h4>
+              <h4 className='font-semibold text-base dark:text-gray-secondary'>
+                Estimated Total
+              </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
               <div className='w-full flex justify-between items-center'>
                 <div className='flex flex-col gap-[10px]'>
-                  <h5 className='font-normal text-[#404040] dark:text-white text-[12px]'>
+                  <h5 className='font-normal text-[#404040] dark:text-gray-secondary text-[12px]'>
                     Estimated Total due at the counter
                   </h5>
-                  <p className='font-normal text-[10px] text-black dark:text-white max-w-[321px]'>
+                  <p className='font-normal text-[10px] text-black dark:text-gray-secondary max-w-[321px]'>
                     Rates, taxes and fees do not reflect rates, taxes and fees
                     applicable to non-included optional caverages or extras
                     added later.
                   </p>
                 </div>
-                <h1 className='font-medium text-[18px] text-black dark:text-white flex items-center'>
-                  $ <strong className='text-[28px]'>72.80</strong>
+                <h1 className='font-medium text-[18px] text-black dark:text-gray-secondary flex items-center'>
+                  $ <strong className='text-[28px]'>{summaryCost}.00</strong>
                 </h1>
               </div>
             </div>
@@ -240,11 +264,14 @@ const Confirmed = () => {
         </div>
 
         <div className='w-full sm:w-[683px] flex flex-col gap-[17px] px-[5px]'>
-          <button className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium'>
+          <button
+            className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium'
+            onClick={() => router.push('/')}
+          >
             Start Another Reservation
           </button>
           <div className='px-[20px] py-[25px] flex flex-col gap-[24px]'>
-            <h1 className='font-semibold text-[16px] text-[#303030] dark:text-white'>
+            <h1 className='font-semibold text-[16px] text-[#303030] dark:text-gray-secondary'>
               Rental Checklist
             </h1>
             {Checklist.map((text, idx) => (
@@ -256,7 +283,7 @@ const Confirmed = () => {
                   src='/logos/confirmation.png'
                   alt='confirmation'
                 />
-                <p className='font-normal text-[10px] text-[#525252] dark:text-white'>
+                <p className='font-normal text-[10px] text-[#525252] dark:text-gray-secondary'>
                   {text}
                 </p>
               </div>
@@ -272,7 +299,7 @@ const Confirmed = () => {
                 src='/icons/location-red.png'
                 alt='location'
               />
-              <p className='font-medium text-[12px] text-[#616161] dark:text-white'>
+              <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
                 Khan-Uul district 17 Ulaanbaatar, Mongolia
               </p>
             </div>
@@ -284,8 +311,8 @@ const Confirmed = () => {
                 src='/icons/phone.png'
                 alt='phone'
               />
-              <p className='font-medium text-[12px] text-[#616161] dark:text-white'>
-                +976 9999 9999
+              <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
+                +976 99022052
               </p>
             </div>
             <div className='flex items-center gap-[10px]'>
@@ -296,7 +323,7 @@ const Confirmed = () => {
                 src='/icons/email.png'
                 alt='email'
               />
-              <p className='font-medium text-[12px] text-[#616161] dark:text-white'>
+              <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
                 info@carrent.mn
               </p>
             </div>
@@ -308,7 +335,7 @@ const Confirmed = () => {
                 src='/icons/clock.png'
                 alt='clock'
               />
-              <p className='font-medium text-[12px] text-[#616161] dark:text-white'>
+              <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
                 mon - fri 08:00 - 18:00
               </p>
             </div>

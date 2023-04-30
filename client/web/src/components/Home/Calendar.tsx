@@ -28,6 +28,8 @@ const Calendar = ({ setStartDate, setEndDate, startDate, endDate }: Props) => {
         rangeColors={['#FD5B61']}
         onChange={handleSelect}
         showDateDisplay={false}
+        className='dark:bg-dark-primary dark:text-red-500'
+        // color='blue'
       />
     </>
   );

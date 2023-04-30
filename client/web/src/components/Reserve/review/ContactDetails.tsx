@@ -5,15 +5,19 @@ const ContactDetails = (props: any) => {
     props.states;
 
   return (
-    <div className='my-2'>
-      <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white rounded border border-gray-300'>
+    <div className=''>
+      <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
         <div className='card-body w-[600px] p-4'>
-          <h4 className='card-title md:text-2xl mt-6'>Contact Details</h4>
+          <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+            Contact Details
+          </h4>
           <div className='h-0.5 w-full bg-primary'></div>
           <div className='flex flex-row justify-between'>
             <div className='form-control w-full'>
               <label className='label'>
-                <span className='label-text font-semibold'>First Name</span>
+                <span className='label-text font-semibold dark:text-gray-secondary'>
+                  First Name
+                </span>
               </label>
               <input
                 type='text'
@@ -25,7 +29,9 @@ const ContactDetails = (props: any) => {
             </div>
             <div className='form-control w-full ml-4'>
               <label className='label'>
-                <span className='label-text font-semibold'>Last Name</span>
+                <span className='label-text font-semibold dark:text-gray-secondary'>
+                  Last Name
+                </span>
               </label>
               <input
                 type='text'
@@ -38,7 +44,9 @@ const ContactDetails = (props: any) => {
           </div>
           <div className='form-control w-full mt-6'>
             <label className='label'>
-              <span className='label-text font-semibold'>Phone Number</span>
+              <span className='label-text font-semibold dark:text-gray-secondary'>
+                Phone Number
+              </span>
             </label>
             <input
               type='phone'
@@ -65,7 +73,7 @@ const ContactDetails = (props: any) => {
 
           <div className='form-control w-full mt-2'>
             <label className='label'>
-              <span className='label-text font-semibold'>
+              <span className='label-text font-semibold dark:text-gray-400'>
                 Would you like to receive SMS notifications from Enterprise
                 about this rental?
               </span>
@@ -78,7 +86,7 @@ const ContactDetails = (props: any) => {
                   className='radio radio-error'
                   checked
                 />
-                <span className='label-text text-xs text-gray-700'>
+                <span className='label-text text-xs text-gray-700 dark:text-gray-500'>
                   Yes, I would like to receive text messages about this rental
                   to the phone number on this reservation
                 </span>
@@ -89,7 +97,7 @@ const ContactDetails = (props: any) => {
                   name='radio-8'
                   className='radio radio-error'
                 />
-                <span className='label-text text-xs text-gray-700'>
+                <span className='label-text text-xs text-gray-700 dark:text-gray-500'>
                   No, By selecting {'Yes'} above, message and data rates may
                   apply. Message frequency varies and depends on the activity of
                   your reservation.
@@ -99,11 +107,11 @@ const ContactDetails = (props: any) => {
             {/*  ================ sign-up checkbox =============== */}
             <div className='flex mt-10 items-center gap-4'>
               <input type='checkbox' name='checkbox' className='w-5 h-5' />
-              <span className='label-text text-xs text-gray-700'>
+              <span className='label-text text-xs text-gray-700 dark:text-gray-500'>
                 Sign up for Car Rental Email Specials
               </span>
             </div>
-            <span className='mt-2 ml-9 mb-10 label-text text-xs text-gray-700'>
+            <span className='mt-2 ml-9 mb-10 label-text text-xs text-gray-700 dark:text-gray-500'>
               By selecting this box, you would like to receive our latest
               benefits and updates from Car Rental and its affiliates. Note that
               your email interactions can be used to perform analytics and

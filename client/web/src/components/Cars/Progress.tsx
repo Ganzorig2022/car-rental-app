@@ -5,9 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-type Props = {};
-
-const Progress = (props: Props) => {
+const Progress = () => {
   const [activePage, setActivePage] = useRecoilState(activeProgress);
   const { rentals, setRentals } = useRental();
   const router = useRouter();
@@ -23,7 +21,7 @@ const Progress = (props: Props) => {
 
   return (
     <>
-      <div className='bg-gray-secondary'>
+      <div className='bg-gray-secondary dark:bg-dark-primary'>
         <div className='flex flex-row justify-center flex-wrap lg:flex-nowrap items-start'>
           {/* 1) RENTAL DETAILS */}
           <div
@@ -33,11 +31,11 @@ const Progress = (props: Props) => {
             <div className='flex flex-col space-y-2 sm:space-y-4'>
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
-                  <span className='flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2'>
+                  <span className='flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2 dark:text-gray-secondary'>
                     1
                   </span>
                 </div>
-                <label className='font-bold text-[10px] sm:text-xs md:text-sm'>
+                <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
                   RENTAL DETAILS
                 </label>
               </div>
@@ -49,7 +47,7 @@ const Progress = (props: Props) => {
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
-              <ArrowRightIcon className='h-4 md:h-6' />
+              <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
           {/* 2) PICKUP RETURN */}
@@ -60,11 +58,11 @@ const Progress = (props: Props) => {
             <div className='flex flex-col space-y-2 sm:space-y-4'>
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
-                  <span className='flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2'>
+                  <span className='flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2 dark:text-gray-secondary'>
                     2
                   </span>
                 </div>
-                <label className='font-bold text-[10px] sm:text-xs md:text-sm'>
+                <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
                   PICK UP & RETURN
                 </label>
               </div>
@@ -73,7 +71,7 @@ const Progress = (props: Props) => {
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
-              <ArrowRightIcon className='h-4 md:h-6' />
+              <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
           {/* 3) VEHICLE */}
@@ -85,28 +83,28 @@ const Progress = (props: Props) => {
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
                   <span
-                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2.5 ${
+                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-2 border-gray-600 text-xs md:text-sm p-2.5 dark:text-gray-secondary ${
                       activePage.page_car &&
-                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0 border-transparent'
+                      'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0 border-transparent '
                     } `}
                   >
                     3
                   </span>
                 </div>
-                <label className='font-bold text-[10px] sm:text-xs md:text-sm'>
+                <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
                   VEHICLE
                 </label>
               </div>
               <div className='flex flex-col'>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 font-semibold ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.car?.model && 'text-red-500'
                   }`}
                 >
                   {rentals.car?.model ? rentals.car?.model : 'Select'}
                 </div>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 font-semibold ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.car?.model && 'text-red-500'
                   }`}
                 >
@@ -115,7 +113,7 @@ const Progress = (props: Props) => {
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
-              <ArrowRightIcon className='h-4 md:h-6' />
+              <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
           {/* 4) EXTRAS */}
@@ -127,7 +125,7 @@ const Progress = (props: Props) => {
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
                   <span
-                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-gray-600 border-2 text-xs md:text-sm p-2.5 ${
+                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full dark:text-gray-secondary border-gray-600 border-2 text-xs md:text-sm p-2.5 ${
                       activePage.page_extras &&
                       'bg-gradient-to-r from-red-primary to-red-secondary text-white border-0 border-transparent'
                     } `}
@@ -135,27 +133,27 @@ const Progress = (props: Props) => {
                     4
                   </span>
                 </div>
-                <label className='font-bold text-[10px] sm:text-xs md:text-sm'>
+                <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
                   EXTRAS
                 </label>
               </div>
               <div className='flex flex-col'>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 font-semibold ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.extras.coverage && 'text-red-500'
                   }`}
                 >
                   {rentals.extras.GPS && 'GPS'}
                 </div>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 font-semibold ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.extras.child_safety && 'text-red-500'
                   }`}
                 >
                   {rentals.extras.child_safety && 'Child Safety'}
                 </div>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 font-semibold ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.extras.coverage && 'text-red-500'
                   }`}
                 >
@@ -164,7 +162,7 @@ const Progress = (props: Props) => {
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
-              <ArrowRightIcon className='h-4 md:h-6' />
+              <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
           {/* 5) EXTRAS */}
@@ -176,7 +174,7 @@ const Progress = (props: Props) => {
               <div className='flex flex-row items-center space-x-2'>
                 <div className='cursor-pointer'>
                   <span
-                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-gray-600 border-2 ${
+                    className={`flex h-4 w-4 md:h-6 md:w-6 items-center justify-center rounded-full border-gray-600 border-2 dark:text-gray-secondary ${
                       activePage.page_review &&
                       'bg-gradient-to-r from-red-primary to-red-secondary border-0 border-transparent text-white'
                     } text-xs md:text-sm  p-2.5`}
@@ -184,13 +182,13 @@ const Progress = (props: Props) => {
                     5
                   </span>
                 </div>
-                <label className='font-bold text-[10px] sm:text-xs md:text-sm'>
+                <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
                   REVIEW & RESERVE
                 </label>
               </div>
             </div>
             <div className='pl-2 md:pl-5'>
-              <ArrowRightIcon className='h-4 md:h-6' />
+              <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
         </div>

@@ -8,18 +8,6 @@ type User = {
   role: Role;
 };
 
-interface Posts {
-  author: Author;
-  commentsCount: number;
-  createdAt: string;
-  likesCount: number;
-  parent: string;
-  text: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-}
-
 type Inputs = {
   email: string;
   password: string;
@@ -72,3 +60,24 @@ type RentalType = {
   };
   car: CarType;
 };
+
+interface UserData {
+  email: string;
+  name: string;
+  phone: string;
+  age: string;
+  role: string;
+  rentals: RentalType;
+  cars: CarsType[];
+}
+
+interface CarsType {
+  image: string;
+  type: string;
+  typeDefinition: string;
+  model: string;
+  transmission: string;
+  kml: number;
+  passengers: number;
+  price: number;
+}
