@@ -19,7 +19,7 @@ const TopDeal = (props: Props) => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto'>
         {[1, 2, 3, 4, 5].map((e) => (
           <div
-            className='relative h-[250px] w-[200px] sm:h-[300px] sm:w-[300px] bg-gradient-to-b from-red-primary to-red-secondary rounded-2xl m-5 hover:scale-105 transition-all duration-300 ease-in-out'
+            className='relative h-[250px] w-[200px] sm:h-[300px] sm:w-[280px] bg-gradient-to-b from-red-primary to-red-secondary rounded-2xl m-5 hover:scale-105 transition-all duration-300 ease-in-out'
             key={e}
           >
             <div className='flex flex-row justify-between items-center m-2'>
@@ -53,7 +53,7 @@ const TopDeal = (props: Props) => {
               height={200}
               width={200}
               alt='wrangler'
-              className='sm:w-[300px] md:w-[400px] lg:w-[600px] object-contain z-20 absolute top-20 left-8'
+              className='sm:w-[300px] md:w-[400px] lg:w-[600px] object-contain z-20 absolute top-20 left-5 sm:left-0 md:left-10'
             />
           </div>
         ))}

@@ -81,3 +81,9 @@ interface CarsType {
   passengers: number;
   price: number;
 }
+
+interface SearchResultsType {
+  name: string;
+  mapbox_id: string;
+  place_formatted: string;
+}
