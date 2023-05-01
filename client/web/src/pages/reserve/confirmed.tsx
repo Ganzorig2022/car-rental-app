@@ -33,7 +33,6 @@ const Confirmed = () => {
     (async () => {
       const id = Cookies.get('userId');
       const response = await getUserByID(id!);
-      console.log(response);
 
       if (response?.email !== '') {
         setUserData({ ...response });
@@ -220,16 +219,17 @@ const Confirmed = () => {
                   </h4>
                 </div>
                 <div>
-                  {Object.values(!rentalData?.extras!)
-                    .filter((el) => el === true)
-                    .map((el, i) => (
-                      <h4
-                        key={i}
-                        className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'
-                      >
-                        $ {eachExtraCost}.00
-                      </h4>
-                    ))}
+                  {rentalData?.extras &&
+                    Object.values(rentalData?.extras!)
+                      .filter((el) => el === true)
+                      .map((el, i) => (
+                        <h4
+                          key={i}
+                          className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'
+                        >
+                          $ {eachExtraCost}.00
+                        </h4>
+                      ))}
                 </div>
               </div>
             </div>
