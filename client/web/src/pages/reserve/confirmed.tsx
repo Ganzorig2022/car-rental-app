@@ -1,12 +1,11 @@
 import DownloadApp from '@/components/Home/DownloadApp';
 import Spinner from '@/components/UI/Spinner';
 import useGraphql from '@/hooks/useGraphql';
-import { useRental } from '@/providers/rentalProvider';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/router';
 
 const Checklist = [
   'Familiarize yourself with your Pick-Up and Return location(s)',
@@ -17,15 +16,14 @@ const Checklist = [
 
 const Confirmed = () => {
   const router = useRouter();
-  const { rentals } = useRental();
   const { getUserByID, getUserByIdLoading } = useGraphql();
   const [userData, setUserData] = useState<UserData>();
   const [rentalData, setRentalData] = useState<RentalType>();
-  const totalExtras = Object.values(rentalData?.extras!).filter(
-    (el) => el === true
-  ).length;
-  const extrasCost = rentalData?.extras && totalExtras * totalExtras * 4;
-  const eachExtraCost = rentalData?.extras && totalExtras * 4;
+  const totalExtras =
+    rentalData?.extras &&
+    Object.values(rentalData?.extras!).filter((el) => el === true).length;
+  const extrasCost = rentalData?.extras && totalExtras! * totalExtras! * 4;
+  const eachExtraCost = rentalData?.extras && totalExtras! * 4;
 
   const salesTax = rentalData?.totalDays! * rentalData?.car?.price! * 0.1;
   const summaryCost =
@@ -35,6 +33,8 @@ const Confirmed = () => {
     (async () => {
       const id = Cookies.get('userId');
       const response = await getUserByID(id!);
+      console.log(response);
+
       if (response?.email !== '') {
         setUserData({ ...response });
         setRentalData(response?.rentals[response?.rentals.length - 1]);
@@ -220,7 +220,7 @@ const Confirmed = () => {
                   </h4>
                 </div>
                 <div>
-                  {Object.values(rentalData?.extras!)
+                  {Object.values(!rentalData?.extras!)
                     .filter((el) => el === true)
                     .map((el, i) => (
                       <h4

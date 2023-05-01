@@ -58,10 +58,9 @@ const RentalDetail = () => {
 
     if (response?.id) {
       toast.success('Congrats! Successfully created a rental!.');
+      // 3) go to home page
+      router.push('/reserve/confirmed');
     }
-
-    // 3) go to home page
-    router.push('/reserve/confirmed');
   }, [
     lastName,
     phone,

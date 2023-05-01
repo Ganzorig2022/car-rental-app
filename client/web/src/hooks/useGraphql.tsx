@@ -16,8 +16,10 @@ import { toast } from 'react-hot-toast';
 
 const useGraphql = () => {
   // USER QUERIES
-  const [getUserById, { loading: getUserByIdLoading }] =
-    useLazyQuery(GET_USER_BY_ID);
+  const [getUserById, { loading: getUserByIdLoading }] = useLazyQuery(
+    GET_USER_BY_ID,
+    { pollInterval: 500 }
+  );
 
   // USER MUTATIONS
   const [createNewUser, { loading: createUserLoading }] =
