@@ -28,6 +28,7 @@ const Confirmed = () => {
   const salesTax = rentalData?.totalDays! * rentalData?.car?.price! * 0.1;
   const summaryCost =
     rentalData?.totalDays! * rentalData?.car?.price! + salesTax + extrasCost!;
+
   // when page first renders, fetch data from server
   useEffect(() => {
     (async () => {
@@ -71,7 +72,7 @@ const Confirmed = () => {
             <Image
               width={100}
               height={100}
-              src='/cars/test.png'
+              src={rentalData?.car.image!}
               className='object-contain w-full'
               alt='car'
             />
@@ -312,7 +313,7 @@ const Confirmed = () => {
                 width={100}
                 height={100}
                 className='w-[26px] h-[29]'
-                src='/icons/location-red.png'
+                src='/icons/location.png'
                 alt='location'
               />
               <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
