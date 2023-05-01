@@ -1,4 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
+import { UserPlusIcon } from '@heroicons/react/24/solid';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,7 +21,6 @@ const Header = () => {
   const [navbar, setNavbar] = useState(false);
 
   const changeBackground = () => {
-    // console.log(window.scrollY);
     if (window.scrollY >= 40) {
       setNavbar(true);
     } else {
@@ -43,18 +43,26 @@ const Header = () => {
       } transition-all duration-700 dark:bg-slate-800`}
     >
       {/* LEFT */}
-      <div className='' onClick={() => router.push('/')}>
-        <Image
-          src='/logo.png'
-          width={50}
-          height={50}
-          className='object-contain sm:h-14 sm:w-14 md:h-14 md:w-20'
-          alt='logo'
-        />
+      <div className='cursor-pointer' onClick={() => router.push('/')}>
+        <div className='flex items-center space-x-2'>
+          <Image
+            src='/logo.png'
+            width={30}
+            height={30}
+            className='object-contain sm:h-10 sm:w-10 md:h-12 md:w-16'
+            alt='logo'
+          />
+          <div className=''>
+            <p className='text-xs font-[500] sm:text-sm sm:leading-3 dark:text-gray-secondary'>
+              CAR RENTAL
+            </p>
+            <p className='text-[10px] dark:text-gray-secondary'>Need a car?</p>
+          </div>
+        </div>
       </div>
 
       {/* Center Menu */}
-      <div className='hidden sm:flex items-center justify-between space-x-4'>
+      <div className='hidden md:flex items-center justify-between space-x-4'>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
           <Link href='/'>Захиалга</Link>
         </div>
@@ -70,7 +78,7 @@ const Header = () => {
       </div>
 
       {/* menu for mobile device */}
-      <div className='flex-none sm:hidden'>
+      <div className='flex-none md:hidden'>
         <div className='dropdown'>
           <label tabIndex={0} className='m-1 '>
             <svg
@@ -110,12 +118,15 @@ const Header = () => {
       {/* RIGHT BUTTONS */}
       <div className='flex items-center justify-end space-x-2'>
         <div className='flex-none sm:hidden'>
-          <ul className='menu menu-horizontal px-1'>
+          <ul className='menu menu-horizontal px-1 items-center'>
+            <div className='mr-2'>
+              <DarkModeButton />
+            </div>
             <li tabIndex={0} className=''>
-              <a className='dark:text-white'>
-                Buttons
+              <a className='dark:text-white bg-red-primary'>
+                <UserPlusIcon className='h-4 text-white' />
                 <svg
-                  className='fill-current'
+                  className='fill-current text-white'
                   xmlns='http://www.w3.org/2000/svg'
                   width='20'
                   height='20'
@@ -126,7 +137,6 @@ const Header = () => {
               </a>
               {/* The button to open modal */}
               <ul className='p-2 bg-base-100 w-full items-center'>
-                <DarkModeButton />
                 <div className='divider m-0' />
                 {!loggedIn ? (
                   <>

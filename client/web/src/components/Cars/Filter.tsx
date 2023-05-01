@@ -3,6 +3,9 @@ import { useRental } from '@/providers/rentalProvider';
 import { MapPinIcon } from '@heroicons/react/24/solid';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import Spinner from '../UI/Spinner';
+import { useRecoilState } from 'recoil';
+import { closeModalState } from '@/atoms/closeModal';
+import Map from '../Modal/Map';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;
@@ -18,6 +21,8 @@ const Filter = ({ setCarsData }: Props) => {
     getCarsByTypeLoading,
   } = useGraphql();
   const { rentals } = useRental();
+  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
+
   const [vehicles, setVehicles] = useState([
     { id: 0, name: 'SUV', status: false },
     { id: 1, name: 'Standard', status: false },
@@ -73,10 +78,18 @@ const Filter = ({ setCarsData }: Props) => {
           <p className='text-[9px] text-gray-500 dark:text-gray-secondary'>
             Available from
           </p>
+          <label
+            htmlFor='map'
+            className='text-[10px] p-2 py-0 text-gray-700  cursor-pointer'
+            onClick={() => setCloseModal(true)}
+          >
+            Газрын зураг дээр харах
+          </label>
           <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
             {rentals.location}
           </p>
         </div>
+        {closeModal && <Map />}
       </div>
       <div className='divider m-0' />
 
