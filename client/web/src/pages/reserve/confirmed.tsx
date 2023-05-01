@@ -21,14 +21,15 @@ const Confirmed = () => {
   const { getUserByID, getUserByIdLoading } = useGraphql();
   const [userData, setUserData] = useState<UserData>();
   const [rentalData, setRentalData] = useState<RentalType>();
-  const extrasCost =
-    rentalData?.extras &&
-    Object.values(rentalData?.extras!).filter((el) => el === true).length * 4;
+  const totalExtras = Object.values(rentalData?.extras!).filter(
+    (el) => el === true
+  ).length;
+  const extrasCost = rentalData?.extras && totalExtras * totalExtras * 4;
+  const eachExtraCost = rentalData?.extras && totalExtras * 4;
 
-  const salesTax = rentalData?.totalDays! * userData?.cars[0].price! * 0.1;
+  const salesTax = rentalData?.totalDays! * rentalData?.car?.price! * 0.1;
   const summaryCost =
-    rentalData?.totalDays! * userData?.cars[0].price! + salesTax + extrasCost!;
-
+    rentalData?.totalDays! * rentalData?.car?.price! + salesTax + extrasCost!;
   // when page first renders, fetch data from server
   useEffect(() => {
     (async () => {
@@ -93,10 +94,10 @@ const Confirmed = () => {
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
-                {rentals.location}
+                {rentalData?.location}
               </p>
               <p className='text-[#777777] font-medium text-[11px] dark:text-gray-secondary'>
-                {rentals.dateRent}
+                {rentalData?.dateRent}
               </p>
             </div>
           </div>
@@ -106,15 +107,15 @@ const Confirmed = () => {
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
-                {rentals.location}
+                {rentalData?.location}
               </p>
               <p className='text-[#777777] font-medium text-[11px] dark:text-gray-secondary'>
-                {rentals.dateReturn}
+                {rentalData?.dateReturn}
               </p>
             </div>
           </div>
         </div>
-        <div className='py-[25px] flex items-center justify-between sm:flex-row flex-col gap-[15px]'>
+        {/* <div className='py-[25px] flex items-center justify-between sm:flex-row flex-col gap-[15px]'>
           <p className='font-normal text-[12px] dark:text-gray-secondary duration-300 text-center'>
             A confirmation email has been sent to the email address provided.
           </p>
@@ -126,7 +127,7 @@ const Confirmed = () => {
               Cancel Reservation
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className='pt-[30px] flex flex-col gap-[30px] sm:flex-row'>
@@ -164,26 +165,26 @@ const Confirmed = () => {
             </div>
             <div className='flex flex-col gap-[12px]'>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary '>
-                Vehicle Class: <strong>{userData?.cars[0].model}</strong>
+                Vehicle Class: <strong>{rentalData?.car?.model}</strong>
               </h4>
               <ul className='pl-[30px]'>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {userData?.cars[0].transmission}
+                  {rentalData?.car?.transmission}
                 </li>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {userData?.cars[0].type === 'Bus' ? '1' : '4'} door
+                  {rentalData?.car?.type === 'Bus' ? '1' : '4'} door
                 </li>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {userData?.cars[0].passengers} passengers
+                  {rentalData?.car?.passengers} passengers
                 </li>
               </ul>
               <div className='w-full flex justify-between items-center'>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   Time & Distance {rentalData?.totalDays} Day(s) @ ${' '}
-                  {userData?.cars[0].price} / Day
+                  {rentalData?.car?.price} / Day
                 </h4>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  $ {rentalData?.totalDays! * userData?.cars[0].price!}.00
+                  $ {rentalData?.totalDays! * rentalData?.car?.price!}.00
                 </h4>
               </div>
               <div className='w-full flex justify-between items-center'>
@@ -206,15 +207,30 @@ const Confirmed = () => {
             </div>
 
             <div className='flex flex-col gap-[12px]'>
-              <div className='w-full flex justify-between items-center'>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {rentalData?.extras.GPS && 'GPS'}
-                  {rentalData?.extras.child_safety && 'Child safety belt'}
-                  {rentalData?.extras.coverage && 'Coverage'}
-                </h4>
-                <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  $ {extrasCost}.00
-                </h4>
+              <div className='w-full flex justify-between items-start'>
+                <div>
+                  <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                    {rentalData?.extras.GPS && 'GPS'}
+                  </h4>
+                  <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                    {rentalData?.extras.child_safety && 'Child safety belt'}
+                  </h4>
+                  <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
+                    {rentalData?.extras.coverage && 'Coverage'}
+                  </h4>
+                </div>
+                <div>
+                  {Object.values(rentalData?.extras!)
+                    .filter((el) => el === true)
+                    .map((el, i) => (
+                      <h4
+                        key={i}
+                        className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'
+                      >
+                        $ {eachExtraCost}.00
+                      </h4>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
@@ -265,7 +281,7 @@ const Confirmed = () => {
 
         <div className='w-full sm:w-[683px] flex flex-col gap-[17px] px-[5px]'>
           <button
-            className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium'
+            className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium dark:bg-red-primary dark:text-white'
             onClick={() => router.push('/')}
           >
             Start Another Reservation

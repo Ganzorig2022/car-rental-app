@@ -61,7 +61,7 @@ const CarDetails = ({ setSummary }: Props) => {
               />
               <p className='text-xs text-gray-500'>{rentals.car.kml}KML</p>
             </div>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 ml-2'>
               <Image
                 src={'/icons/door.png'}
                 alt='Movie'
@@ -98,7 +98,6 @@ const CarDetails = ({ setSummary }: Props) => {
         </div>
         <div className='flex justify-between text-xs mt-2'>
           <p className='dark:text-gray-secondary'>Unlimited Mileage</p>
-
           <span className='dark:text-gray-secondary'>Included</span>
         </div>
       </div>
@@ -157,16 +156,18 @@ const CarDetails = ({ setSummary }: Props) => {
       <div className='w-full h-0.5 dark:h-[1px] bg-gray-200 mt-8'></div>
       {/* ----------------------------------------------------------------------------- */}
       <div className='my-4 w-full'>
-        <p className='font-semibold text-sm dark:text-gray-secondary'>
+        <p className='font-semibold text-xs sm:text-sm dark:text-gray-secondary'>
           Estimated Total
         </p>
         <div className='flex justify-between text-sm mt-2 font-semibold'>
-          <p className=''></p>
+          <p className='' />
           <span className='dark:text-gray-secondary'>$</span>
-          <span className='text-4xl mt-[-4px] dark:text-gray-secondary'>
+          <span className='text-2xl md:text-4xl mt-[-4px] dark:text-gray-secondary'>
             {summary}
           </span>
-          <span className='dark:text-gray-secondary'>00</span>
+          <span className='text-xs sm:text-sm dark:text-gray-secondary'>
+            00
+          </span>
         </div>
       </div>
     </div>

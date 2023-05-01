@@ -31,16 +31,15 @@ const PickUp = () => {
     }));
   }, [startDate, endDate, setRentals, location, userId]);
 
-  console.log(rentals);
   return (
     <>
       <div className='absolute -bottom-10 left-1/2 md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-white dark:bg-dark-secondary p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-[500px] md:w-[800px]'>
-        <div className='flex flex-col space-y-2 md:flex-row justify-between items-center'>
+        <div className='flex flex-col justify-between items-center space-y-2 md:flex-row'>
           {/* LOCATION */}
           {/* <GooglePlaces /> */}
-          <div>
+          <div className=''>
             <select
-              className='select w-full max-w-[200px] border-white dark:bg-dark-primary dark:border-white dark:border-1 dark:text-gray-secondary '
+              className='select w-full max-w-[200px] bg-gray-50 border-white dark:bg-dark-primary dark:border-white dark:border-1 dark:text-gray-secondary '
               onChange={(e) => setLocation(e.target.value)}
             >
               <option disabled selected>
@@ -55,7 +54,7 @@ const PickUp = () => {
           </div>
 
           {/* PICKUP date */}
-          <div className='dropdown dropdown-bottom !m-0'>
+          <div className='dropdown dropdown-bottom md:!m-0 flex flex-col md:flex-row md:items-center'>
             <label
               tabIndex={0}
               className='btn bg-white border-white dark:bg-dark-primary dark:border-white dark:border-1 text-black dark:text-gray-secondary focus:bg-white hover:bg-gray-100 mr-2'
@@ -72,7 +71,7 @@ const PickUp = () => {
             </label>
             <label
               tabIndex={0}
-              className='btn bg-white border-white dark:bg-dark-primary dark:border-white dark:border-1 text-black dark:text-gray-secondary focus:bg-white hover:bg-gray-100 mr-2'
+              className='btn bg-white border-white dark:bg-dark-primary dark:border-white dark:border-1 text-black dark:text-gray-secondary focus:bg-white hover:bg-gray-100 mr-2 mt-2 md:mt-0'
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>

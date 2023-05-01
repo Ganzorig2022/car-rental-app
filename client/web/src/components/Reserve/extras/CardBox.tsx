@@ -27,7 +27,6 @@ const CardBox = ({ image, typeDefinition, text, price }: any) => {
         extras: { ...prev.extras, GPS: !prev.extras.GPS },
       }));
   };
-  console.log('RENTALS', rentals);
 
   return (
     <div className='mx-6 my-4 w-full'>

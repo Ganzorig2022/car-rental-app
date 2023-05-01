@@ -10,7 +10,7 @@ const BestServices = (props: Props) => {
       <div className='flex flex-row items-center'>
         <div className='w-1/2'>
           <Image
-            src='/cars/range_rover.png'
+            src='/cars/range_rover1.png'
             height={200}
             width={200}
             alt='wrangler'
@@ -61,10 +61,10 @@ const BestServices = (props: Props) => {
           </div>
           <div className='flex flex-row space-y-2 hover:scale-105 transition-all duration-300 ease-in-out'>
             <Image
-              src='/logos/support_24/7.png'
+              src='/logos/deals.png'
               height={50}
               width={50}
-              alt='wrangler'
+              alt='support'
               className='sm:w-[60px] md:w-[80px]'
             />
             <div className='flex flex-col'>
