@@ -16,9 +16,11 @@ const Banner = () => {
         />
       </div>
       <div className='w-full'>
-        <p className='absolute top-10 left-10 z-10 text-lg sm:text-xl md:text-3xl lg:text-4xl sm:top-20 sm:left-20 md:left-44 md:top-40 font-bold dark:text-white md:w-40 lg:w-60'>
-          Та өөрт тохирох төмөр хүлгээ түрээслэхэд бэлэн үү?
-        </p>
+        <div className='absolute top-10 left-10 z-10 text-lg sm:text-xl md:text-3xl lg:text-4xl sm:top-20 sm:left-20 md:left-44 md:top-40'>
+          <p className='relative font-bold dark:text-white md:w-40 lg:w-60 before:absolute before:-bottom-5 before:left-0 before:border-b-[3px] before:border-red-primary before:w-[70px]'>
+            Та өөрт тохирох төмөр хүлгээ түрээслэхэд бэлэн үү?
+          </p>
+        </div>
       </div>
 
       <div className='absolute sm:right-20 md:left-1/2 md:-translate-x-1/2 lg:-translate-x-0 bg-gradient-to-b from-red-primary to-red-secondary w-[400px] md:w-[700px] lg:w-[513px] sm:h-[500px] md:h-[627px] xl:h-[800px] h-[400px] rounded-2xl' />

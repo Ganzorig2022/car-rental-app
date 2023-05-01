@@ -58,10 +58,9 @@ const RentalDetail = () => {
 
     if (response?.id) {
       toast.success('Congrats! Successfully created a rental!.');
+      // 3) go to home page
+      router.push('/reserve/confirmed');
     }
-
-    // 3) go to home page
-    router.push('/reserve/confirmed');
   }, [
     lastName,
     phone,
@@ -76,25 +75,25 @@ const RentalDetail = () => {
   if (createRentalLoading || updateUserLoading) return <Spinner />;
 
   return (
-    <div className='flex flex-row justify-between my-4 mx-8 w-full align-top'>
-      <div>
+    <div className='flex flex-row justify-between my-4 mx-auto w-full'>
+      <div className='w-2/5 md:w-1/4'>
         <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
-          <div className='card-body w-[365px] p-2 '>
-            <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+          <div className='card-body p-2'>
+            <h4 className='card-title text-base md:text-2xl mt-6 dark:text-gray-secondary'>
               Rental Details
             </h4>
-            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+            <p className='mt-4 text-xs sm:text-sm font-semibold dark:text-gray-secondary'>
               Dates & Times
             </p>
-            <div className='text-gray-500 '>
+            <div className='text-gray-500'>
               <p>{rentals.dateRent} @ 10:00 AM</p>
               <p>{rentals.dateReturn} @ 10:00 AM</p>
             </div>
-            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+            <p className='mt-4 text-sm sm:text-base  font-semibold dark:text-gray-secondary'>
               Pick-up & Return Location
             </p>
             <p className='text-gray-500'>{rentals.location}</p>
-            <p className='mt-4 font-semibold dark:text-gray-secondary'>
+            <p className='mt-4 text-sm sm:text-base font-semibold dark:text-gray-secondary'>
               Additional Details
             </p>
             <p className='text-gray-500'>Renter Age: 25+</p>
@@ -108,11 +107,11 @@ const RentalDetail = () => {
       </div>
 
       {/* ============== FORM SECTION =============== */}
-      <div className='w-full ml-4'>
-        {!loggedIn ? (
+      <div className='w-3/5 md:w-3/4 ml-4'>
+        {!loggedIn && (
           <div className='relative h-[110px] w-full sm:h-[110px] bg-gradient-to-r mb-2 from-red-primary to-red-secondary rounded'>
-            <div className='flex flex-col w-[730px]'>
-              <div className='w-full px-6 md:w-auto md:px-2'>
+            <div className='flex flex-col'>
+              <div className='px-6 md:w-auto md:px-2'>
                 <label
                   htmlFor='signin'
                   className='absolute right-8 top-8 bg-transparent hover:bg-white text-white font-semibold hover:text-primary py-2 px-6 border-2 border-white hover:border-transparent rounded-full'
@@ -123,33 +122,34 @@ const RentalDetail = () => {
               </div>
             </div>
           </div>
-        ) : (
-          <div className='w-[730px]' />
         )}
         <div>
           <ContactDetails states={inputProps} />
         </div>
         <div className='w-full h-[160px] bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300 px-8'>
-          <h4 className='card-title md:text-2xl mt-6 dark:text-gray-secondary'>
+          <h4 className='card-title text-sm md:text-2xl mt-6 pt-5 dark:text-gray-secondary'>
             Contact Details
           </h4>
           <div className='h-0.5 w-full bg-primary'></div>
           <div className='flex flex-row justify-between items-center mt-6'>
-            <p className='dark:text-gray-secondary'>
+            <p className='dark:text-gray-secondary text-[10px] sm:text-sm md:text-base'>
               You will be charged when you pick up your rental.
             </p>
             <b className='flex items-start'>
               <span className='dark:text-gray-secondary'>$</span>
-              <span className='text-4xl font-semibold dark:text-gray-secondary'>
+              <span className='text-2xl md:text-4xl font-semibold dark:text-gray-secondary'>
                 {summary}
               </span>
-              <span className='dark:text-gray-secondary'> 00</span>
+              <span className='text-xs md:text-base dark:text-gray-secondary'>
+                {' '}
+                00
+              </span>
             </b>
           </div>
         </div>
-        <div className='flex w-full justify-end mt-4'>
+        <div className='flex w-full md:justify-end mt-4'>
           <button
-            className='btn btn-primary text-white normal-case rounded-3xl py-2'
+            className='btn-sm md:btn-md btn-primary text-xs md:text-base text-white normal-case rounded-3xl'
             onClick={onSubmit}
           >
             Reserve Now

@@ -91,7 +91,7 @@ export const carsResolvers = {
                 const cars = await Prisma.car.findMany({
                     where: { userId: args.userId },
                     orderBy: {
-                        price: 'desc',
+                        price: 'asc',
                     },
                     include: {
                         user: true, // User model data will be included. Because in the prisma.schema, User @relation field

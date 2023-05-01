@@ -46,7 +46,7 @@ const PickUp = () => {
 
   return (
     <>
-      <div className='absolute -bottom-10 left-1/2 sm:-bottom-52  md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-white dark:bg-dark-secondary p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-auto md:w-[800px]'>
+      <div className='absolute -bottom-10 left-1/2 sm:-bottom-52  md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-white dark:bg-dark-secondary p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-auto md:w-[760px]'>
         <div className='flex flex-col justify-between items-center space-y-2 md:flex-row '>
           {/* 1) <Mapbox Search API /> */}
           <div className=''>

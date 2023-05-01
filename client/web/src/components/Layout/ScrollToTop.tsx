@@ -9,7 +9,7 @@ const ScrollToTop = (props: Props) => {
         onClick={() => {
           window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
-        className='btn'
+        className='btn opacity-50 hover:opacity-90'
       >
         <ArrowUpIcon className='h-4 text-white font-bold' />
       </button>
