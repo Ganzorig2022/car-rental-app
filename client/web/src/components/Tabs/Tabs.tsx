@@ -78,7 +78,7 @@ function Tabs() {
               <div className="flex">
                 <div className="flex">
                   <div className="absolute top-[-250px] flex flex-col items-center gap-4">
-                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
                       <Image
                         width={30}
                         height={30}
@@ -100,7 +100,7 @@ function Tabs() {
 
                 <div className="flex">
                   <div className="absolute top-[-250px] left-[400px] flex flex-col items-center gap-4">
-                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
                       <Image
                         width={35}
                         height={35}
@@ -123,7 +123,7 @@ function Tabs() {
 
                 <div className="flex">
                   <div className="absolute top-[-250px] right-10 flex flex-col items-center gap-4">
-                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
                       <Image
                         width={30}
                         height={30}
@@ -147,7 +147,7 @@ function Tabs() {
               {/* ------------ row ------------- */}
               <div className="flex">
                 <div className="absolute top-[520px] flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
                     <Image
                       width={35}
                       height={35}
@@ -160,7 +160,7 @@ function Tabs() {
                   <p className="mt-[-20px]">Auto Warrenties</p>
                 </div>
                 <div className="absolute top-[520px] left-[400px] flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
                     <Image
                       width={35}
                       height={35}
@@ -173,7 +173,7 @@ function Tabs() {
                   <p className="mt-[-20px]">Assistance 24/7</p>
                 </div>
                 <div className="absolute top-[520px] right-10 flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md">
+                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
                     <Image
                       width={35}
                       height={35}
