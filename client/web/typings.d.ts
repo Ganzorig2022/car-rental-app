@@ -81,3 +81,4 @@ interface CarsType {
   passengers: number;
   price: number;
 }
+
