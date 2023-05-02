@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { closeModalState } from '../../atoms/closeModal';
 import { loggedInState } from '../../atoms/loginAtom';
 import { MapPinIcon } from '@heroicons/react/24/solid';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import 'mapbox-gl/dist/mapbox-gl.css'; // this is important for Marker's strange behaviour
 
 type Props = {};
 
