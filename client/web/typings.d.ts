@@ -87,3 +87,9 @@ interface SearchResultsType {
   mapbox_id: string;
   place_formatted: string;
 }
+interface SearchResultsGeocode {
+  center: number[]; // [ 106.9177016, 47.9184676 ]
+  place_name: string; //Ulaanbaatar, Mongolia
+  id: string;
+  text: string; //Ulaanbaatar
+}

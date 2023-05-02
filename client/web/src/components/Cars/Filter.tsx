@@ -78,16 +78,16 @@ const Filter = ({ setCarsData }: Props) => {
           <p className='text-[9px] text-gray-500 dark:text-gray-secondary'>
             Available from
           </p>
+          <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
+            {rentals.location}
+          </p>
           <label
             htmlFor='map'
-            className='text-[10px] p-2 py-0 text-gray-700  cursor-pointer'
+            className='text-[10px] text-red-primary  cursor-pointer'
             onClick={() => setCloseModal(true)}
           >
             Газрын зураг дээр харах
           </label>
-          <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
-            {rentals.location}
-          </p>
         </div>
         {closeModal && <Map />}
       </div>
