@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import DownloadApp from "@/components/Home/DownloadApp";
 import ScrollToTop from "@/components/Layout/ScrollToTop";
 import Tabs from "@/components/Tabs/Tabs";
@@ -15,7 +16,7 @@ const Account = () => {
       />
       <h1 className="text-2xl font-medium">Our Team</h1>
       <div className="flex flex-col items-center">
-        <div className="flex justify-between w-11/12 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-20 sm:gap-2">
           <div className="flex flex-col items-center">
             <Image
               width={163}
@@ -32,7 +33,7 @@ const Account = () => {
               width={163}
               height={255}
               className="hover:scale-95 duration-200"
-              src="/about/maira.png"
+              src="/about/mairaa.png"
               alt="maira"
             />
             <span className="mt-6">Maira</span>

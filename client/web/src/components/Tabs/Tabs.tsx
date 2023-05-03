@@ -44,12 +44,12 @@ function Tabs() {
   return (
     <div className="flex flex-col">
       {/* -------------- Buttons --------------- */}
-      <div className="flex gap-6 justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {btnArray.map((btn, i) => (
           <button
             key={i}
             onClick={handleClick}
-            className="btn glass font-medium text-gray-700 capitalize"
+            className="btn glass font-medium text-gray-700 capitalize text-base sm:text-xs text-xs"
           >
             <Image
               width={50}
@@ -77,7 +77,7 @@ function Tabs() {
               {/* ------------ row -------------- */}
               <div className="flex">
                 <div className="flex">
-                  <div className="absolute top-[-250px] flex flex-col items-center gap-4">
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[-200px] top-[-250px] flex flex-col items-center gap-4">
                     <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
                       <Image
                         width={30}
@@ -92,14 +92,14 @@ function Tabs() {
                   <Image
                     width={104}
                     height={180}
-                    className="absolute top-[-190px] left-40"
+                    className="absolute top-[-190px] left-40 max-md:hidden"
                     src="/about/top-left.png"
                     alt="cars"
                   />
                 </div>
 
                 <div className="flex">
-                  <div className="absolute top-[-250px] left-[400px] flex flex-col items-center gap-4">
+                  <div className="absolute max-sm:text-xs max-md:text-sm top-[-250px] lg:left-[400px] md:left-[250px] sm:left-[150px] max-sm:left-[150px] flex flex-col items-center gap-4 ">
                     <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
                       <Image
                         width={35}
@@ -109,20 +109,20 @@ function Tabs() {
                         alt="cars"
                       />
                     </div>
-                    <p>Easier Rent</p>
+                    <p className="">Easier Rent</p>
                     <p className="mt-[-20px]">On Your Budget</p>
                   </div>
                   <Image
                     width={21}
                     height={73}
-                    className="absolute top-[-82px] left-[450px]"
+                    className="absolute top-[-82px] left-[450px] max-lg:left-[300px] max-md:hidden"
                     src="/about/top-middle.png"
                     alt="cars"
                   />
                 </div>
 
                 <div className="flex">
-                  <div className="absolute top-[-250px] right-10 flex flex-col items-center gap-4">
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[-200px] top-[-250px] right-10 flex flex-col items-center gap-4">
                     <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
                       <Image
                         width={30}
@@ -138,7 +138,7 @@ function Tabs() {
                   <Image
                     width={104}
                     height={180}
-                    className="absolute top-[-190px] right-[200px]"
+                    className="absolute top-[-190px] right-[200px] max-lg:left-[350px] max-md:hidden"
                     src="/about/top-right.png"
                     alt="cars"
                   />
@@ -146,20 +146,32 @@ function Tabs() {
               </div>
               {/* ------------ row ------------- */}
               <div className="flex">
-                <div className="absolute top-[520px] flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
-                    <Image
-                      width={35}
-                      height={35}
-                      className=""
-                      src="/about/budget_icon.png"
-                      alt="cars"
-                    />
+
+                <div className="flex">
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] top-[600px] flex flex-col items-center gap-4">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
+                      <Image
+                        width={35}
+                        height={35}
+                        className=""
+                        src="/about/budget_icon.png"
+                        alt="cars"
+                      />
+                    </div>
+                    <p>The Best Extended</p>
+                    <p className="mt-[-20px]">Auto Warrenties</p>
                   </div>
-                  <p>The Best Extended</p>
-                  <p className="mt-[-20px]">Auto Warrenties</p>
+                  <Image
+                    width={104}
+                    height={180}
+                    className="absolute top-[480px] max-lg:top-[280px] left-[170px] max-md:hidden"
+                    src="/about/bottom-left.png"
+                    alt="cars"
+                  />
                 </div>
-                <div className="absolute top-[520px] left-[400px] flex flex-col items-center gap-4">
+
+                <div className="flex">
+                <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[300px] top-[600px] max-md:left-[150px] left-[400px] flex flex-col items-center gap-4">
                   <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
                     <Image
                       width={35}
@@ -172,7 +184,17 @@ function Tabs() {
                   <p>Roadside</p>
                   <p className="mt-[-20px]">Assistance 24/7</p>
                 </div>
-                <div className="absolute top-[520px] right-10 flex flex-col items-center gap-4">
+                <Image
+                    width={21}
+                    height={73}
+                    className="absolute top-[480px] max-lg:top-[280px] left-[450px] max-lg:left-[310px] max-md:hidden"
+                    src="/about/bottom-middle.png"
+                    alt="cars"
+                  />
+                </div>
+
+                <div className="flex">
+                <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] top-[600px] right-10 flex flex-col items-center gap-4">
                   <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
                     <Image
                       width={35}
@@ -185,6 +207,16 @@ function Tabs() {
                   <p>Your Choice</p>
                   <p className="mt-[-20px]">of Mechanic</p>
                 </div>
+                <Image
+                    width={104}
+                    height={180}
+                    className="absolute top-[480px] max-lg:top-[280px] right-[200px] max-lg:left-[380px] max-md:hidden"
+                    src="/about/bottom-right.png"
+                    alt="cars"
+                  />
+                </div>
+
+
               </div>
             </div>
           ) : null}
