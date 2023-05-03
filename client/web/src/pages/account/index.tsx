@@ -9,14 +9,14 @@ const Account = () => {
         firstname: "Temuujin",
         lastname: "Erdene",
         email: "temuujin@gmail.com",
-        pjoneNumber: "99999999",
+        phoneNumber: "99999999",
         password: "qwerty",
         address: "Khan-Uul district 17 Ulaanbaatar Mongolia",
         pickUpDate: "Sat, Apr22, 2023",
         pickUpTime: "12:00 PM",
         returnDate: "Sun, Apr23, 2023",
         returnTime: "12:00 PM",
-        carModel: "Vehicle",
+        
         carType: "Standart SUV",
         carNumber: "BMW x6 or similar",
         carMex: "Automatic",
@@ -41,12 +41,12 @@ const Account = () => {
                     <button className={`w-full main-button`}>Reserve Redeem</button>
                 </div>
             </div>
-            <div className="mx-auto w-[900px] h-[600px] bg-purple-300 flex flex-col items-center  ">
-                <div className="w-[400px] mx-auto h-[35px] bg-[#393939]  rounded-xl">
+            <div className="mx-auto w-4/5 h-[700px] bg-white flex flex-col items-center  ">
+                <div className="lg:w-1/3 md:w-1/3 w-2/3 mx-auto h-[40px] bg-[#393939]  rounded-xl flex justify-center items-center">
 
                 <div
                   
-                    className="w-[350px] mx-auto h-[35px] flex flex-row items-center px-[3xl] rounded-xl overflow-hidden shadow-2xl shadow-900/20 transition bg-[#393939]"
+                    className="w-5/6 mx-auto h-[35px] flex flex-row items-center px-[3xl] rounded-xl overflow-hidden shadow-2xl shadow-900/20 transition bg-[#393939]"
                 >
                     <div
                     
@@ -54,7 +54,7 @@ const Account = () => {
                         onClick={() => toggleTab(1)}
                     >
                         <span 
-                        className= "text-white text-center"
+                        className= "text-white text-center text-xs lg:text-base md:text-sm"
                         
                         > My Rentals</span>
                     </div>
@@ -62,28 +62,21 @@ const Account = () => {
                         className={toggle === 2 ? "tabs active-tabs bg-[#ff2f01] w-1/2 h-full rounded-xl flex items-center justify-center" : "tabs w-1/2 flex items-center justify-center"}
                         onClick={() => toggleTab(2)}
                     >
-                        <span className="text-white"> My profile</span>
+                        <span className="text-white text-xs lg:text-base md:text-sm"> My profile</span>
                     </div>
                 </div>
                 </div>
-                <div className="mt-6 relative rounded-3xl bg-white-300 w-[300px] h-[300px]">
+                <div className="mt-6 relative rounded-3xl bg-white w-full h-[300px] flex justify-center">
 
                     <div
-                        role="tabpanel"
-                        id="panel-1"
-                        className={toggle === 1 ? "absolute visible top-0  opacity-1 tab-panel p-6 transition duration-300 bg-slate-400" : "absolute top-0 invisible opacity-0 tab-panel p-6 transition duration-300 bg-slate-400"}
+                        className={toggle === 1 ? " w-full h-[650px] absolute visible top-0  opacity-1 p-6 transition duration-300 bg-white" : " invisible opacity-0"}
                     >
-                        <h2 className="tex-xl font-semibold text-gray-800"> first tab panel</h2>
-                       <MyRental/>
+                       <MyRental data={data}/>
                     </div>
                     <div
-                        role="tabpanel"
-                        id="panel-2"
-                        className={toggle === 2 ? "absolute visible top-0  opacity-1 tab-panel p-6 transition duration-300 bg-slate-400" : "absolute top-0 invisible opacity-0 tab-panel p-6 transition duration-300 bg-slate-400"}
-                    // className="absolute inisible top-0 opacity-0 tab-panel p-6 transition duration-300 bg-slate-400"
+                        className={toggle === 2 ? "w-full h-[650px] absolute visible top-0  opacity-1 p-8 transition duration-300 bg-white" : " invisible opacity-0 "}
                     >
-                        <h2 className="tex-xl font-semibold text-gray-800"> second tab panel</h2>
-                        <MyProfile/>
+                        <MyProfile data={data}/>
                     </div>
                 </div>
 
