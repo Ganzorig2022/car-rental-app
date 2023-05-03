@@ -148,7 +148,7 @@ function Tabs() {
               <div className="flex">
 
                 <div className="flex">
-                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] top-[600px] flex flex-col items-center gap-4">
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] max-lg:top-[400px] top-[600px] flex flex-col items-center gap-4">
                     <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-6 duration-200">
                       <Image
                         width={35}
@@ -171,46 +171,46 @@ function Tabs() {
                 </div>
 
                 <div className="flex">
-                <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[300px] top-[600px] max-md:left-[150px] left-[400px] flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
-                    <Image
-                      width={35}
-                      height={35}
-                      className=""
-                      src="/about/assist_icon.png"
-                      alt="cars"
-                    />
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[300px] max-lg:top-[400px] top-[600px] max-md:left-[150px] max-lg:left-[250px] left-[400px] flex flex-col items-center gap-4">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:scale-105 duration-200">
+                      <Image
+                        width={35}
+                        height={35}
+                        className=""
+                        src="/about/assist_icon.png"
+                        alt="cars"
+                      />
+                    </div>
+                    <p>Roadside</p>
+                    <p className="mt-[-20px]">Assistance 24/7</p>
                   </div>
-                  <p>Roadside</p>
-                  <p className="mt-[-20px]">Assistance 24/7</p>
-                </div>
-                <Image
+                  <Image
                     width={21}
                     height={73}
-                    className="absolute top-[480px] max-lg:top-[280px] left-[450px] max-lg:left-[310px] max-md:hidden"
+                    className="absolute top-[480px] max-lg:top-[280px] left-[450px] max-lg:left-[300px] max-md:hidden"
                     src="/about/bottom-middle.png"
                     alt="cars"
                   />
                 </div>
 
                 <div className="flex">
-                <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] top-[600px] right-10 flex flex-col items-center gap-4">
-                  <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
-                    <Image
-                      width={35}
-                      height={35}
-                      className=""
-                      src="/about/service_icon.png"
-                      alt="cars"
-                    />
+                  <div className="absolute max-sm:text-xs max-md:text-sm max-md:top-[250px] max-lg:top-[400px] top-[600px] right-10 flex flex-col items-center gap-4">
+                    <div className="w-[100px] h-[100px] flex items-center justify-center bg-white shadow-xl rounded-md hover:rotate-[-6deg] duration-200">
+                      <Image
+                        width={35}
+                        height={35}
+                        className=""
+                        src="/about/service_icon.png"
+                        alt="cars"
+                      />
+                    </div>
+                    <p>Your Choice</p>
+                    <p className="mt-[-20px]">of Mechanic</p>
                   </div>
-                  <p>Your Choice</p>
-                  <p className="mt-[-20px]">of Mechanic</p>
-                </div>
-                <Image
+                  <Image
                     width={104}
                     height={180}
-                    className="absolute top-[480px] max-lg:top-[280px] right-[200px] max-lg:left-[380px] max-md:hidden"
+                    className="absolute top-[480px] max-lg:top-[280px] right-[200px] max-lg:left-[350px] max-md:hidden"
                     src="/about/bottom-right.png"
                     alt="cars"
                   />

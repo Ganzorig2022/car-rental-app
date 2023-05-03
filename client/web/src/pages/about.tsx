@@ -16,7 +16,7 @@ const Account = () => {
       />
       <h1 className="text-2xl font-medium">Our Team</h1>
       <div className="flex flex-col items-center">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-20 sm:gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-20 sm:gap-2">
           <div className="flex flex-col items-center">
             <Image
               width={163}
