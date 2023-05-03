@@ -1,3 +1,4 @@
+import { CREATE_CAR } from '@/graphql/mutations/cars';
 import { CREATE_RENTAL } from '@/graphql/mutations/rentals';
 import {
   CREATE_NEW_USER,
@@ -42,6 +43,9 @@ const useGraphql = () => {
     GET_CARS_BY_TYPE,
     { pollInterval: 500 }
   );
+
+  // CARS MUTATIONS
+  const [createCar, { loading: createCarLoading }] = useMutation(CREATE_CAR);
 
   // RENTALS MUTATIONS
   const [createRental, { loading: createRentalLoading }] =
@@ -140,6 +144,47 @@ const useGraphql = () => {
       const errors = new Error(error);
       toast.error(errors?.message);
       return false;
+    }
+  };
+
+  const createCarData = async (params: createCarDataType) => {
+    const {
+      image,
+      type,
+      typeDefinition,
+      model,
+      kml,
+      transmission,
+      passengers,
+      price,
+      userId,
+    } = params;
+
+    try {
+      const response = (
+        await createCar({
+          variables: {
+            image,
+            type,
+            typeDefinition,
+            model,
+            kml,
+            transmission,
+            passengers,
+            price,
+            userId,
+          },
+        })
+      ).data;
+
+      if (response) {
+        const { createCar: data } = response;
+        return data;
+      }
+    } catch (error: any) {
+      console.log('ERROR with createCar', error);
+      const errors = new Error(error);
+      toast.error('Something wrong with user id');
     }
   };
 
@@ -248,6 +293,7 @@ const useGraphql = () => {
     createRentalLoading,
     updateUserLoading,
     getUserByIdLoading,
+    createCarLoading,
     signUp,
     login,
     updateUserByID,
@@ -256,6 +302,7 @@ const useGraphql = () => {
     getAllCarsByPeople,
     getAllCarsByType,
     createRentals,
+    createCarData,
   };
 };
 

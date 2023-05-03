@@ -46,6 +46,10 @@ interface CarType {
   price: number;
 }
 
+interface createCarDataType extends CarType {
+  userId: string;
+}
+
 type RentalType = {
   userId: string;
   dateRent: string;
@@ -69,17 +73,6 @@ interface UserData {
   role: string;
   rentals: RentalType;
   cars: CarsType[];
-}
-
-interface CarsType {
-  image: string;
-  type: string;
-  typeDefinition: string;
-  model: string;
-  transmission: string;
-  kml: number;
-  passengers: number;
-  price: number;
 }
 
 interface SearchResultsType {

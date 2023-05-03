@@ -2,10 +2,10 @@ import useGraphql from '@/hooks/useGraphql';
 import { useRental } from '@/providers/rentalProvider';
 import { MapPinIcon } from '@heroicons/react/24/solid';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import Spinner from '../UI/Spinner';
+import Spinner from '../../UI/Spinner';
 import { useRecoilState } from 'recoil';
 import { closeModalState } from '@/atoms/closeModal';
-import Map from '../Modal/Map';
+import Map from '../../Modal/Map';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;

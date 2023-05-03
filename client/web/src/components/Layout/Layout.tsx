@@ -29,7 +29,12 @@ const Layout = ({ children }: Props) => {
       <Header />
       <main className='max-w-7xl mx-auto'>{children}</main>
       <Footer />
-      <Toaster />
+      <Toaster
+        position='top-center'
+        toastOptions={{
+          duration: 2000,
+        }}
+      />
     </div>
   );
 };

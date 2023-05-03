@@ -6,11 +6,11 @@ export const CREATE_CAR = gql`
     $type: String
     $typeDefinition: String
     $model: String
-    $kml: Int
     $transmission: String
+    $userId: String
+    $kml: Int
     $passengers: Int
     $price: Int
-    $userId: String
   ) {
     createCar(
       image: $image

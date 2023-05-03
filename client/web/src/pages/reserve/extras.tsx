@@ -1,4 +1,4 @@
-import Progress from '@/components/Cars/Progress';
+import Progress from '@/components/Reserve/cars/Progress';
 import DownloadApp from '@/components/Home/DownloadApp';
 import ScrollToTop from '@/components/Layout/ScrollToTop';
 import AddExtras from '@/components/Reserve/extras/AddExtras';

@@ -69,9 +69,12 @@ const Header = () => {
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
           <Link href='/about'>Бидний тухай</Link>
         </div>
-        <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/account'>Аккаунт</Link>
-        </div>
+        {loggedIn && (
+          <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
+            <Link href='/account'>Аккаунт</Link>
+          </div>
+        )}
+
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
           <Link href='/contact'>Холбогдох</Link>
         </div>
