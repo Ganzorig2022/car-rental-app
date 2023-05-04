@@ -205,18 +205,26 @@ const useGraphql = () => {
     }
   };
 
-  const getAllCarsByPage = async (skip: number, take: number) => {
+  const getAllCarsByPage = async (
+    skip: number,
+    take: number,
+    priceSort: string
+  ) => {
     try {
       const response = (
         await getCarsByPagination({
           variables: {
             skip,
             take,
+            priceSort,
           },
         })
       ).data;
 
-      return response;
+      if (response) {
+        const { getAllCarsWithPagination: data } = response;
+        return data;
+      }
     } catch (error: any) {
       console.log('ERROR with getAllCarsByPage', error);
       const errors = new Error(error);

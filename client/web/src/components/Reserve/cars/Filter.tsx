@@ -42,20 +42,23 @@ const Filter = ({ setCarsData }: Props) => {
   const carTypeHandler = async (id: number, name: string) => {
     const unchecked = vehicles[id].status;
 
+    // when checkbox is unchecked, then fetch all types
     if (unchecked) {
-      const data = await getAllCarsByPage(0, 5);
+      const data = await getAllCarsByPage(0, 5, 'desc');
 
       if (data) {
-        setCarsData([...data?.getAllCarsWithPagination]);
+        setCarsData([...data]);
       } else {
         setCarsData([]);
       }
-    }
 
-    const response = await getAllCarsByType(name);
+      // when checkbox is checked, then fetch specific type (by SUV, by Bus etc.)
+    } else {
+      const response = await getAllCarsByType(name);
 
-    if (response) {
-      setCarsData([...response]);
+      if (response) {
+        setCarsData([...response]);
+      }
     }
   };
 
@@ -81,13 +84,15 @@ const Filter = ({ setCarsData }: Props) => {
           <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
             {rentals.location}
           </p>
-          <label
-            htmlFor='map'
-            className='text-[10px] text-red-primary  cursor-pointer'
-            onClick={() => setCloseModal(true)}
-          >
-            Газрын зураг дээр харах
-          </label>
+          {rentals.location !== '' && (
+            <label
+              htmlFor='map'
+              className='text-[10px] text-red-primary  cursor-pointer'
+              onClick={() => setCloseModal(true)}
+            >
+              Газрын зураг дээр харах
+            </label>
+          )}
         </div>
         {closeModal && <Map />}
       </div>

@@ -6,7 +6,7 @@ type Props = {};
 const Spinner = (props: Props) => {
   return (
     <div className='backdrop'>
-      <PuffLoader color='#00ffcc' className='text-center' size={120} />
+      <PuffLoader color='#00ffcc' className='' size={120} />
     </div>
   );
 };

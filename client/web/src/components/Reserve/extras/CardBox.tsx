@@ -2,9 +2,14 @@ import { useRental } from '@/providers/rentalProvider';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-type Props = {};
+type Props = {
+  image: string;
+  typeDefinition: string;
+  text: string;
+  price: string;
+};
 
-const CardBox = ({ image, typeDefinition, text, price }: any) => {
+const CardBox = ({ image, typeDefinition, text, price }: Props) => {
   const [clicked, setClicked] = useState(false);
   const { rentals, setRentals } = useRental();
 
@@ -21,11 +26,12 @@ const CardBox = ({ image, typeDefinition, text, price }: any) => {
         ...prev,
         extras: { ...prev.extras, child_safety: !prev.extras.child_safety },
       }));
-    if (extras === 'GPS')
+    if (extras === 'GPS') {
       setRentals((prev) => ({
         ...prev,
         extras: { ...prev.extras, GPS: !prev.extras.GPS },
       }));
+    }
   };
 
   return (

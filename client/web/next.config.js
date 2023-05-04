@@ -13,6 +13,8 @@ const nextConfig = {
       'cdn-icons-png.flaticon.com',
       'firebasestorage.googleapis.com',
       'res.cloudinary.com',
+      'images.unsplash.com',
+      'toyota-topmotors.mn',
     ],
   },
 };

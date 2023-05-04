@@ -108,21 +108,42 @@ export const carsResolvers = {
         },
         getAllCarsWithPagination: async (_parent, args) => {
             // https://www.prisma.io/docs/concepts/components/prisma-client/pagination
+            const { skip, take, priceSort } = args;
             try {
-                // if there are no records, "findMany" returns EMPTY[]
-                const cars = await Prisma.car.findMany({
-                    skip: args.skip,
-                    take: args.take,
-                    orderBy: {
-                        price: 'desc',
-                    },
-                    include: {
-                        user: true, // User model data will be included. Because in the prisma.schema, User @relation field
-                    },
-                });
-                if (cars.length === 0)
-                    throw new GraphQLError(`No cars found `);
-                return cars;
+                if (priceSort === 'desc') {
+                    // if there are no records, "findMany" returns EMPTY[]
+                    const cars = await Prisma.car.findMany({
+                        // pagination by number
+                        skip,
+                        take,
+                        orderBy: {
+                            price: 'desc', // $150, $140, $130 etc.
+                        },
+                        include: {
+                            user: true,
+                        },
+                    });
+                    if (cars.length === 0)
+                        throw new GraphQLError(`No cars found `);
+                    return cars;
+                }
+                if (priceSort === 'asc') {
+                    // if there are no records, "findMany" returns EMPTY[]
+                    const cars = await Prisma.car.findMany({
+                        // pagination by number
+                        skip,
+                        take,
+                        orderBy: {
+                            price: 'asc', // $130, $140, $150 etc.
+                        },
+                        include: {
+                            user: true,
+                        },
+                    });
+                    if (cars.length === 0)
+                        throw new GraphQLError(`No cars found `);
+                    return cars;
+                }
             }
             catch (error) {
                 console.log('GET ALL CARS ERROR', error);

@@ -140,7 +140,7 @@ const Progress = () => {
               <div className='flex flex-col'>
                 <div
                   className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
-                    rentals.extras.coverage && 'text-red-500'
+                    rentals.extras.GPS && 'text-red-500'
                   }`}
                 >
                   {rentals.extras.GPS && 'GPS'}
@@ -165,7 +165,7 @@ const Progress = () => {
               <ArrowRightIcon className='h-4 md:h-6 dark:text-gray-secondary' />
             </div>
           </div>
-          {/* 5) EXTRAS */}
+          {/* 5) REVIEW & RESERVE */}
           <div
             className='flex flex-row items-center space-x-2 p-2 sm:p-4 cursor-pointer'
             onClick={() => router.push('/reserve/review&reserve')}

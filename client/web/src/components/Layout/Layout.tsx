@@ -24,7 +24,7 @@ const Layout = ({ children }: Props) => {
   }, []);
 
   return (
-    <div className='bg-white dark:bg-dark-primary transition-all duration-700'>
+    <div className='bg-white dark:bg-dark-primary transition-all duration-500'>
       {/* Header */}
       <Header />
       <main className='max-w-7xl mx-auto'>{children}</main>

@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
 import CardBox from './CardBox';
 
-type Props = {};
-
-export const AddExtras = (props: Props) => {
-  const [addExtrasArray, setAddExtrasArray] = useState([
+export const AddExtras = () => {
+  const addExtrasArray = [
     {
       id: '1',
       image: 'https://cdn-icons-png.flaticon.com/512/4544/4544523.png',
@@ -26,7 +23,7 @@ export const AddExtras = (props: Props) => {
       text: 'Find your destination easier with this GPS device',
       price: '$ 7.00 / day',
     },
-  ]);
+  ];
 
   return (
     <div>
