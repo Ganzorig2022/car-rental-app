@@ -49,6 +49,8 @@ const MyProfile = ({ userData }: Props) => {
     )
       return toast.error('Таны мэдээлэл өөрчлөгдөөгүй байна!');
 
+    if (email === '') return toast.error('Таны имэйлийн талбар хоосон байна!');
+
     // 3.2) Update user data to mongoDb
     const responseUser = await updateUserByID(userId!, name, phone, email);
 
