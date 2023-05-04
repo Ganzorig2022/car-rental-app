@@ -161,7 +161,7 @@ const Header = () => {
                   </>
                 ) : (
                   <button
-                    className='btn text-white ml-2 dark:!bg-dark-secondary'
+                    className='btn text-white ml-2 dark:!bg-dark-secondary '
                     onClick={() => {
                       setLoggedIn(false);
                       Cookies.remove('token');
@@ -197,7 +197,7 @@ const Header = () => {
             </>
           ) : (
             <button
-              className='btn text-white ml-2 uppercase dark:!bg-dark-secondary'
+              className='btn text-white ml-2 uppercase dark:!bg-dark-secondary dark:border-gray-secondary'
               onClick={() => {
                 setLoggedIn(false);
                 Cookies.remove('token');

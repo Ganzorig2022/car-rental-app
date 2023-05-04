@@ -86,3 +86,19 @@ interface SearchResultsGeocode {
   id: string;
   text: string; //Ulaanbaatar
 }
+
+type RentalDataType = {
+  id: string;
+  dateRent: string;
+  dateReturn: string;
+  totalDays: number;
+  location: string;
+  verified: boolean;
+  createdAt: number;
+  extras: {
+    coverage: boolean;
+    child_safety: boolean;
+    GPS: boolean;
+  };
+  car: CarType;
+};

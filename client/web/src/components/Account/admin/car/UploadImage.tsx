@@ -82,13 +82,12 @@ const UploadImage = ({ setCarImage }: Props) => {
         </label>
         <input
           type='file'
-          className='file-input file-input-bordered file-input-sm max-w-xs file-input-secondary'
+          className='file-input file-input-sm max-w-xs file-input-secondary dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary'
           max='1'
           // required
         />
-
         <button
-          className={`btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white ml-2 gap-2 ${
+          className={`btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary ${
             loading && 'loading'
           }`}
         >

@@ -1,19 +1,23 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 type Props = {
+  userData: UserData | undefined;
   children: ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ userData, children }: Props) => {
   return (
     <>
-      <main className='overflow-hidden'>
+      <main className='overflow-hidden h-screen'>
         <div className='flex flex-col md:flex-row justify-between md:items-center m-8 '>
           <div className=''>
-            <h6 className='text-sm md:text-base lg:text-2xl font-normal '>
-              TEMUUJIN ERDENE
-            </h6>
-            <p className='lg:text-[10px] md:text-[8px] text-[8px] mt-2'>
+            <div className='text-sm md:text-base lg:text-2xl font-normal flex flex-row items-center dark:text-gray-secondary'>
+              {userData && userData.name ? userData.name : 'No user name'}
+              <p className='bg-black text-white text-xs md:text-sm px-2 ml-2'>
+                #{userData?.role}
+              </p>
+            </div>
+            <p className='md:text-xs text-[10px] mt-2 dark:text-gray-secondary'>
               Start a reservation to earn and redeem points. While making a
               reservation, you will have the option to use your points on
               qualifying rentals by selecting the number of days you wish to

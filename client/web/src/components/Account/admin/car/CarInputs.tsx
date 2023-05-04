@@ -23,15 +23,15 @@ const CarInputs = (props: Props) => {
     price: 0,
   });
 
-  //1)
+  // 1) Destructuring variables
   const { type, typeDefinition, model, transmission, kml, passengers, price } =
     carInputData;
 
-  //2)
+  // 2) Save car data to mongoDb
   const onSubmitHandler = async () => {
     const userId = Cookies.get('userId');
 
-    //2.1) Validations
+    // 2.1) Validations
     if (!userId) return toast.error('No user id');
     if (carImage === '') return toast.error('Please upload car image!');
 
@@ -46,7 +46,7 @@ const CarInputs = (props: Props) => {
     )
       return toast.error('All input fields must not be empty!');
 
-    //2.2) Save data to mongoDb
+    // 2.2) Request to mongoDb
     const response = await createCarData({
       ...carInputData,
       image: carImage,
@@ -59,11 +59,11 @@ const CarInputs = (props: Props) => {
   if (createCarLoading) return <Spinner />;
 
   return (
-    <div className='flex flex-col space-y-2'>
+    <div className='flex flex-col space-y-2 w-fit mx-auto'>
       <UploadImage setCarImage={setCarImage} />
       <UploadData setCarInputData={setCarInputData} />
       <button
-        className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white gap-2'
+        className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white gap-2 dark:bg-transparent dark:hover:border-gray-secondary'
         onClick={onSubmitHandler}
       >
         Save All

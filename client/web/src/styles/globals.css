@@ -14,6 +14,9 @@
   .main-button {
     @apply btn-primary btn bg-red-primary border-none hover:bg-slate-500 text-white normal-case focus:bg-red-primary active:bg-red-primary;
   }
+  .bg-gradient {
+    @apply bg-gradient-to-r from-red-primary to-red-secondary;
+  }
 }
 
 /*to hide left panel from date range picker */

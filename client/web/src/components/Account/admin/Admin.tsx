@@ -1,13 +1,13 @@
 import { generateReactHelpers } from '@uploadthing/react';
 import { useState } from 'react';
 import type { OurFileRouter } from '../../../pages/api/server/uploadthing';
-import ProfileInputs from './ProfileInputs';
-import CarInputs from './CarInputs';
+import ProfileInputs from '../ProfileInputs';
+import CarInputs from './car/CarInputs';
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
-type Props = {};
+type Props = { userData: UserData | undefined };
 
-const Upload = (props: Props) => {
+const AdminPage = ({ userData }: Props) => {
   const [toggle, setToggle] = useState(1);
 
   const toggleTab = (index: number) => {
@@ -45,14 +45,14 @@ const Upload = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className='mt-6 p-5'>
-          {toggle === 1 && <ProfileInputs />}
+        <div className='mt-6 p-5 w-2/3'>
+          {toggle === 1 && <ProfileInputs userData={userData} />}
           {toggle === 2 && <CarInputs />}
         </div>
       </div>
     </>
   );
 };
-export default Upload;
+export default AdminPage;
 
 //https://www.youtube.com/watch?v=7lhUsK-FxYI&t=259s

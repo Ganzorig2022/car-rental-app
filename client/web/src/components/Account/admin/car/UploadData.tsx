@@ -26,10 +26,10 @@ const UploadData = ({ setCarInputData }: Props) => {
         </label>
         <div className='form-control space-y-2'>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Type</span>
+            <span className='bg-gradient text-white text-sm'>Type</span>
 
             <select
-              className='select select-bordered w-full select-sm max-w-[250px] font-normal'
+              className='select select-bordered w-full select-sm max-w-[250px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               id='type'
               onChange={onChangeHandler}
             >
@@ -44,9 +44,9 @@ const UploadData = ({ setCarInputData }: Props) => {
             </select>
           </label>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Model</span>
+            <span className='bg-gradient text-white text-sm'>Model</span>
             <select
-              className='select select-bordered w-full select-sm max-w-[240px] font-normal'
+              className='select select-bordered w-full select-sm max-w-[240px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               id='model'
               onChange={onChangeHandler}
             >
@@ -60,9 +60,9 @@ const UploadData = ({ setCarInputData }: Props) => {
             </select>
           </label>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Gear</span>
+            <span className='bg-gradient text-white text-sm'>Gear</span>
             <select
-              className='select select-bordered w-full select-sm max-w-[250px] font-normal'
+              className='select select-bordered w-full select-sm max-w-[250px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               id='transmission'
               onChange={onChangeHandler}
             >
@@ -75,44 +75,44 @@ const UploadData = ({ setCarInputData }: Props) => {
           </label>
           {/* Inputs */}
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Detail</span>
+            <span className='bg-gradient text-white text-sm'>Detail</span>
             <input
               type='text'
               placeholder='details'
-              className='input input-bordered w-full input-sm'
+              className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='typeDefinition'
               onChange={onChangeHandler}
             />
           </label>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Kml</span>
+            <span className='bg-gradient text-white text-sm'>Kml</span>
             <input
               type='number'
               placeholder='km per litre'
-              className='input input-bordered w-full input-sm'
+              className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='kml'
               onChange={onChangeHandler}
             />
           </label>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>People</span>
+            <span className='bg-gradient text-white text-sm'>People</span>
             <input
               type='number'
               placeholder='passengers number'
-              className='input input-bordered w-full input-sm'
+              className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='passengers'
               onChange={onChangeHandler}
             />
           </label>
           <label className='input-group'>
-            <span className='bg-red-secondary text-sm'>Price</span>
+            <span className='bg-gradient text-white text-sm'>Price</span>
             <input
               type='number'
               placeholder='$ price / 1 day'
-              className='input input-bordered w-full input-sm'
+              className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='price'
               onChange={onChangeHandler}

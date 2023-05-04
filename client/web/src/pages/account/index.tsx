@@ -1,14 +1,17 @@
 import { loggedInState } from '@/atoms/loginAtom';
+import { refreshUserData } from '@/atoms/userSaved';
 import Layout from '@/components/Account/Layout';
 import Admin from '@/components/Account/admin/Admin';
 import User from '@/components/Account/user/User';
 import Spinner from '@/components/UI/Spinner';
+import { GET_USER_BY_ID } from '@/graphql/queries/users';
 import useGraphql from '@/hooks/useGraphql';
+import { useQuery } from '@apollo/client';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 type Props = {};
 
@@ -17,6 +20,7 @@ const Account = (props: Props) => {
   const [userData, setUserData] = useState<UserData>();
   const loggedIn = useRecoilValue(loggedInState);
   const router = useRouter();
+  const [persistUserData, setPersistUserData] = useRecoilState(refreshUserData);
 
   // 1) when page first renders, fetch user data from server
   useEffect(() => {
@@ -37,15 +41,30 @@ const Account = (props: Props) => {
     if (!loggedIn) router.push('/');
   }, [loggedIn, router]);
 
+  const userId = Cookies.get('userId');
+
+  const { data, error } = useQuery(GET_USER_BY_ID, {
+    variables: { id: userId! },
+  });
+
+  // 3) Persisting user data when user data is changed
+  useEffect(() => {
+    if (persistUserData) {
+      if (data?.getUserById) {
+        setUserData({ ...data?.getUserById });
+      }
+    }
+  }, [persistUserData, data]);
+
   if (getUserByIdLoading) return <Spinner />;
 
   return (
-    <div className=''>
-      <Layout>
-        {userData?.role === 'admin' && <Admin />}
-        {userData?.role === 'user' && <User />}
+    <>
+      <Layout userData={userData}>
+        {userData?.role === 'admin' && <Admin userData={userData} />}
+        {userData?.role === 'user' && <User userData={userData} />}
       </Layout>
-    </div>
+    </>
   );
 };
 

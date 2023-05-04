@@ -12,6 +12,7 @@ const nextConfig = {
       'e7.pngegg.com',
       'cdn-icons-png.flaticon.com',
       'firebasestorage.googleapis.com',
+      'res.cloudinary.com',
     ],
   },
 };
