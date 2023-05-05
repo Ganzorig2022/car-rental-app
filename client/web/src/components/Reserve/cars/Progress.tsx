@@ -2,7 +2,7 @@ import { activeProgress } from '@/atoms/activeProgress';
 import { useRental } from '@/providers/rentalProvider';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 const Progress = () => {
@@ -197,4 +197,4 @@ const Progress = () => {
   );
 };
 
-export default Progress;
+export default memo(Progress);

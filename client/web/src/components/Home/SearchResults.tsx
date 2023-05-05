@@ -1,7 +1,7 @@
 import { geocodeCenter } from '@/atoms/geocodeCenter';
 import { useRental } from '@/providers/rentalProvider';
 import { MapIcon } from '@heroicons/react/24/outline';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, memo } from 'react';
 import { useRecoilState } from 'recoil';
 
 type Props = {

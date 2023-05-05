@@ -1,6 +1,6 @@
 import useGraphql from '@/hooks/useGraphql';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
@@ -31,7 +31,7 @@ const SignIn = (props: Props) => {
   // 2) getting user data from MONGODB using Apollo Client
   const { login, loginUserLoading: loading } = useGraphql();
 
-  //2)
+  //3) Getting inputs
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -39,7 +39,8 @@ const SignIn = (props: Props) => {
     }));
   };
 
-  const onSubmit: SubmitHandler<Inputs> = async () => {
+  //4)
+  const onSubmit: SubmitHandler<Inputs> = useCallback(async () => {
     const response = await login(email, password);
 
     if (response) {
@@ -47,7 +48,7 @@ const SignIn = (props: Props) => {
       setLoggedIn(true);
       setCloseModal(false);
     }
-  };
+  }, [email, login, password, setCloseModal, setLoggedIn]);
 
   //If press click here button
   const goToPasswordRequestPage = () => {

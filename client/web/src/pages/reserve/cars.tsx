@@ -1,8 +1,8 @@
+import DownloadApp from '@/components/Home/DownloadApp';
+import ScrollToTop from '@/components/Layout/ScrollToTop';
 import Filter from '@/components/Reserve/cars/Filter';
 import Progress from '@/components/Reserve/cars/Progress';
 import Vehicles from '@/components/Reserve/cars/Vehicles';
-import DownloadApp from '@/components/Home/DownloadApp';
-import ScrollToTop from '@/components/Layout/ScrollToTop';
 import Spinner from '@/components/UI/Spinner';
 import useGraphql from '@/hooks/useGraphql';
 import { useRental } from '@/providers/rentalProvider';
@@ -92,6 +92,7 @@ const Cars = () => {
               <select
                 className='select select-bordered border border-gray-300 shadow-lg w-full max-w-xs select-xs sm:select-sm hover:border-gray-500'
                 onChange={onSelectHandler}
+                defaultChecked
               >
                 <option>Price: High to Low</option>
                 <option>Price: Low to High</option>
@@ -114,9 +115,11 @@ const Cars = () => {
         <div className='flex flex-row items-center justify-center mt-2'>
           <div className='btn-group'>
             {[1, 2, 3, 4].map((page) => (
-              <>
+              <div key={page}>
                 <button
-                  className={`btn ${active === page && 'btn-active'}`}
+                  className={`btn ${
+                    active === page && 'btn-active bg-red-primary'
+                  }`}
                   onClick={() => {
                     paginationHandler(page);
                     setActive(page);
@@ -124,7 +127,7 @@ const Cars = () => {
                 >
                   {page}
                 </button>
-              </>
+              </div>
             ))}
           </div>
         </div>
@@ -138,10 +141,20 @@ const Cars = () => {
 export default Cars;
 
 // refresh hiihed data baga zereg udaj unshij bsan tul hurdan unshihiin tuld SSR ashjiglaw.
-// export async function getServerSideProps(context: NextPageContext) {
+// export async function getServerSideProps() {
+//   const clientS = client();
+//   const data = await clientS.query({
+//     query: GET_ALL_CARS_WITH_PAGINATION,
+//     variables: {
+//       take: 0,
+//       skip: 5,
+//       priceSort: 'desc',
+//     },
+//   });
+
 //   return {
 //     props: {
-//       session,
+//       data,
 //     },
 //   };
 // }

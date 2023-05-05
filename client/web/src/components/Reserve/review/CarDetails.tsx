@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction, memo, useEffect } from 'react';
 import Image from 'next/image';
 import { useRental } from '@/providers/rentalProvider';
 
@@ -173,4 +173,4 @@ const CarDetails = ({ setSummary }: Props) => {
     </div>
   );
 };
-export default CarDetails;
+export default memo(CarDetails);

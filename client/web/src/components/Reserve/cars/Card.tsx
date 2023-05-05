@@ -1,9 +1,8 @@
 import { useRental } from '@/providers/rentalProvider';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-
-type Props = {};
 
 const Card = ({
   image,
@@ -19,7 +18,7 @@ const Card = ({
   const router = useRouter();
   const totalDays = rentals.totalDays;
 
-  const goToExtrasPage = () => {
+  const goToExtrasPage = useCallback(() => {
     if (totalDays === 0) return toast.error('Please choose date');
 
     setRentals((prev) => ({
@@ -37,7 +36,19 @@ const Card = ({
     }));
 
     router.push('/reserve/extras');
-  };
+  }, [
+    image,
+    kml,
+    price,
+    router,
+    model,
+    passengers,
+    totalDays,
+    transmission,
+    typeDefinition,
+    type,
+    setRentals,
+  ]);
 
   return (
     <div className='mb-5'>
@@ -49,6 +60,7 @@ const Card = ({
             width={150}
             height={150}
             className='md:w-[400px]'
+            priority={true}
           />
         </figure>
         <div className='card-body p-4 w-full'>

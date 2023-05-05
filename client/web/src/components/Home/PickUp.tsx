@@ -10,8 +10,6 @@ import { toast } from 'react-hot-toast';
 import Calendar from './Calendar';
 import SearchResults from './SearchResults';
 
-type Props = {};
-
 const PickUp = () => {
   const router = useRouter();
   const { rentals, setRentals } = useRental();

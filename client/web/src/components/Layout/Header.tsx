@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { closeModalState } from '../../atoms/closeModal';
 import { loggedInState } from '../../atoms/loginAtom';
-import SignIn from '../Modal/SignIn';
-import SignUp from '../Modal/SignUp';
 import DarkModeButton from '../UI/DarkModeButton';
 import Spinner from '../UI/Spinner';
+import SignIn from '../Modal/SignIn';
+import SignUp from '../Modal/SignUp';
 
 const Header = () => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);

@@ -47,4 +47,4 @@ const DownloadApp = (props: Props) => {
   );
 };
 
-export default DownloadApp;
+export default React.memo(DownloadApp);

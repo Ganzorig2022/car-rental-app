@@ -1,7 +1,7 @@
 import useGraphql from '@/hooks/useGraphql';
 import { useRental } from '@/providers/rentalProvider';
 import { MapPinIcon } from '@heroicons/react/24/solid';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import Spinner from '../../UI/Spinner';
 import { useRecoilState } from 'recoil';
 import { closeModalState } from '@/atoms/closeModal';
@@ -116,6 +116,7 @@ const Filter = ({ setCarsData }: Props) => {
                     type='checkbox'
                     className='h-4 w-4 accent-red-primary '
                     checked={status}
+                    readOnly
                     onClick={() => {
                       carTypeHandler(id, name);
                       setVehicles(
@@ -147,6 +148,7 @@ const Filter = ({ setCarsData }: Props) => {
               type='checkbox'
               className='h-4 w-4 accent-red-primary '
               checked={capacity.lte5}
+              readOnly
               onClick={() => {
                 passengersHandler(5);
                 setCapacity({ gte6: false, lte5: !capacity.lte5 });
@@ -166,6 +168,7 @@ const Filter = ({ setCarsData }: Props) => {
               type='checkbox'
               className='h-4 w-4 accent-red-primary'
               checked={capacity.gte6}
+              readOnly
               onClick={() => {
                 passengersHandler(6);
                 setCapacity({ gte6: !capacity.gte6, lte5: false });
@@ -188,7 +191,7 @@ const Filter = ({ setCarsData }: Props) => {
             step='20'
             value={priceRange}
             className='range range-error range-xs h-3 sm:h-4 bg-gray-primary dark:bg-dark-primary'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPriceRange(e.target.value)
             }
           />
@@ -205,4 +208,4 @@ const Filter = ({ setCarsData }: Props) => {
   );
 };
 
-export default Filter;
+export default React.memo(Filter);

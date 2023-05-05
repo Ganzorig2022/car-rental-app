@@ -1,6 +1,6 @@
 // "use client";
 import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 const DarkModeButton = () => {
@@ -33,4 +33,4 @@ const DarkModeButton = () => {
   );
 };
 
-export default DarkModeButton;
+export default memo(DarkModeButton);

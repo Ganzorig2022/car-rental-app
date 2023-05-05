@@ -6,6 +6,8 @@ import React, {
   Dispatch,
   FormEvent,
   SetStateAction,
+  memo,
+  useCallback,
   useState,
 } from 'react';
 import { toast } from 'react-hot-toast';
@@ -23,10 +25,9 @@ const UploadImage = ({ setCarImage }: Props) => {
   const [previewImage, setPreviewImage] = useState(
     'https://datawow.s3.amazonaws.com/blog/43/image_1/facial-recognition-connected-real-estate.png'
   );
-  const [imageId, setImageId] = useState('');
 
   // 1) Get image data from input
-  const onGetFiles = (e: ChangeEvent<HTMLFormElement>) => {
+  const onGetFiles = useCallback((e: ChangeEvent<HTMLFormElement>) => {
     const reader = new FileReader();
 
     if (!e.target.files) return;
@@ -38,39 +39,37 @@ const UploadImage = ({ setCarImage }: Props) => {
     reader.readAsDataURL(e.target.files[0]);
     // setFileToUpload(e.target.files[0]);
     setPreviewImage(URL.createObjectURL(e.target.files[0]));
-  };
+  }, []);
 
   //2) Upload image to CLOUDINARY databse, then save img url to MongoDB database
-  const handleOnSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleOnSubmit = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
-    if (fileToUpload === '') return toast.error('Please upload car image!');
+      if (fileToUpload === '') return toast.error('Please upload car image!');
 
-    setLoading(true);
-    //2.1)
-    let formData = new FormData();
-    setImageId(imageId);
+      setLoading(true);
+      //2.1)
+      let formData = new FormData();
 
-    formData.append('file', fileToUpload!);
-    formData.append('upload_preset', 'car_images'); // car_images folder, inside of it image will be there with unique id
+      formData.append('file', fileToUpload!);
+      formData.append('upload_preset', 'car_images'); // car_images folder, inside of it image will be there with unique id
 
-    // upload image using cloudinary UNSIGNED method
-    const data = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    ).then((r) => r.json());
+      // upload image using cloudinary UNSIGNED method
+      const data = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      ).then((r) => r.json());
 
-    setLoading(false);
+      setLoading(false);
 
-    setCarImage(data.secure_url);
-
-    //2.2) Save image URL to mongoDb
-    //2.3) Save car informations to mongoDb
-    //2.4) Get user data from mongoDb for checking if user is admin or not!!!!!
-  };
+      setCarImage(data.secure_url);
+    },
+    [fileToUpload, , setCarImage]
+  );
 
   return (
     <div>
@@ -115,4 +114,4 @@ const UploadImage = ({ setCarImage }: Props) => {
   );
 };
 
-export default UploadImage;
+export default memo(UploadImage);
