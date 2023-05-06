@@ -69,14 +69,14 @@ const MyProfile = ({ userData }: Props) => {
       <div className=''>
         <div className=' flex justify-between'>
           <h2 className='tex-xl text-gray-800 lg:text-2xl md:text-xl text-base font-semibold dark:text-gray-secondary'>
-            Contact Details
+            Хувийн мэдээлэл
           </h2>
           {toggle === 1 ? (
             <button
               className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary'
               onClick={() => toggleButton(2)}
             >
-              Modify
+              Өөрчлөх
             </button>
           ) : (
             <div className='flex flex-row space-x-2'>
@@ -87,13 +87,13 @@ const MyProfile = ({ userData }: Props) => {
                   onSubmitHandler();
                 }}
               >
-                Save
+                Хадгалах
               </button>
               <button
                 className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary'
                 onClick={() => toggleButton(1)}
               >
-                Cancel
+                Болих
               </button>
             </div>
           )}
@@ -101,7 +101,7 @@ const MyProfile = ({ userData }: Props) => {
         <div className='border-b-4 border-[#848484] my-4 ' />
         <div className='table dark:text-gray-secondary w-full'>
           <div className='flex flex-row w-full'>
-            <div className='text-xs font-semibold my-auto'>Name:</div>
+            <div className='text-xs font-semibold my-auto'>Нэр:</div>
             <div className='ml-4 w-2/4'>
               <input
                 className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
@@ -116,7 +116,7 @@ const MyProfile = ({ userData }: Props) => {
 
           <div className='border-b border-[#848484] my-3 w-full'> </div>
           <div className='flex flex-row  w-full '>
-            <div className='text-xs font-semibold my-auto'>Email Address:</div>
+            <div className='text-xs font-semibold my-auto'>Имэйл Address:</div>
             <div className='ml-4 w-2/4'>
               <input
                 className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
@@ -131,7 +131,7 @@ const MyProfile = ({ userData }: Props) => {
           <div className='border-b border-[#848484] my-3 w-full'> </div>
 
           <div className='flex flex-row  w-full '>
-            <div className='text-xs font-semibold my-auto'>Phone Number:</div>
+            <div className='text-xs font-semibold my-auto'>Утас:</div>
             <div className='ml-4 w-2/4'>
               <input
                 className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
@@ -147,22 +147,22 @@ const MyProfile = ({ userData }: Props) => {
         </div>
         <div className=' flex justify-between my-8'>
           <h2 className='tex-xl text-gray-800 lg:text-2xl md:text-xl text-base font-semibold dark:text-gray-secondary'>
-            Saved Payment Methods
+            Хадгалагдсан төлбөрийн хэрэгсэл
           </h2>
           <button className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case'>
-            + Add Payment Methods
+            + Төлбөрийн хэрэгсэл нэмэх
           </button>
         </div>
         <div className='border-b-4 border-[#848484] my-4 '> </div>
         <div className=' flex justify-between my-8'>
           <h2 className='tex-xl text-gray-800 lg:text-2xl md:text-xl text-base  font-semibold dark:text-gray-secondary'>
-            Password
+            Нууц үг
           </h2>
           <button
             className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case'
             onClick={() => router.push('/password/request')}
           >
-            Modify
+            Өөрчлөх
           </button>
         </div>
         <div className='border-b-4 border-[#848484] my-4 '> </div>

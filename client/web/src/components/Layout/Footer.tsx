@@ -6,18 +6,19 @@ const Footer = () => {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
         <div className='flex flex-row items-center justify-between'>
           <h5 className='font-bold text-sm sm:text-base md:text-lg dark:text-gray-secondary'>
-            CAR RENTAL
+            МАШИН ТҮРЭЭС
           </h5>
           <p className='text-[10px] sm:text-[12px] dark:text-gray-secondary'>
-            @2023 CAR RENTAL. All rights Reserved | Designed by Temuujin.E
+            @2023 МАШИН ТҮРЭЭС. Бүх эрх хуулиар хамгаалагдсан | Дизайнер
+            Э.Тэмүүжин
           </p>
         </div>
         <div className='flex flex-row items-center justify-between px-5'>
           <p className='text-[10px] sm:text-[12px] md:text-sm dark:text-gray-secondary'>
-            Books
+            Захиалга
           </p>
           <p className='text-[10px] sm:text-[12px] md:text-sm dark:text-gray-secondary'>
-            My Rentals
+            Бидний тухай
           </p>
           <p className='text-[10px] sm:text-[12px] md:text-sm dark:text-gray-secondary'>
             Investors

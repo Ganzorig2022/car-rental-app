@@ -65,7 +65,7 @@ const PickUp = () => {
               <MapPinIcon className='h-8 text-red-primary rounded-full p-1 cursor-pointer' />
               <input
                 type='text'
-                placeholder={placeholder || 'Search location'}
+                placeholder={placeholder || 'Байршил хайх'}
                 className='pl-2 bg-transparent outline-none w-full placeholder:text-sm md:placeholder:text-base dark:placeholder:text-gray-secondary dark:text-gray-secondary'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
@@ -81,7 +81,7 @@ const PickUp = () => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div className='normal-case'>Pickup date</div>
+                  <div className='normal-case'>Авах өдөр</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
                 <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
@@ -95,7 +95,7 @@ const PickUp = () => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div className='normal-case'>Drop-off date</div>
+                  <div className='normal-case'>Хүргэх өдөр</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
                 <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
@@ -105,7 +105,7 @@ const PickUp = () => {
             </label>
             <ul
               tabIndex={0}
-              className='dropdown-content menu p-2 shadow bg-white mt-2 -translate-x-20'
+              className='dropdown-content menu shadow bg-white mt-2 -translate-x-24'
             >
               <li className=''>
                 <Calendar
@@ -125,7 +125,7 @@ const PickUp = () => {
                 : router.push('/reserve/cars');
             }}
           >
-            Browse Vehicles
+            Машин сонгох
           </button>
         </div>
       </div>

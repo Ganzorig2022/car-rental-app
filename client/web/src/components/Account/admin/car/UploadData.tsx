@@ -26,7 +26,7 @@ const UploadData = ({ setCarInputData }: Props) => {
         </label>
         <div className='form-control space-y-2'>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Type</span>
+            <span className='bg-gradient text-white text-sm'>Төрөл</span>
 
             <select
               className='select select-bordered w-full select-sm max-w-[250px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
@@ -34,7 +34,7 @@ const UploadData = ({ setCarInputData }: Props) => {
               onChange={onChangeHandler}
             >
               <option disabled selected>
-                Pick car type
+                Төрөл сонгох
               </option>
               <option>SUV</option>
               <option>Bus</option>
@@ -44,14 +44,14 @@ const UploadData = ({ setCarInputData }: Props) => {
             </select>
           </label>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Model</span>
+            <span className='bg-gradient text-white text-sm'>Загвар</span>
             <select
               className='select select-bordered w-full select-sm max-w-[240px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               id='model'
               onChange={onChangeHandler}
             >
               <option disabled selected>
-                Pick car model
+                Модель сонгох
               </option>
               <option>Toyota</option>
               <option>Nissan</option>
@@ -60,7 +60,7 @@ const UploadData = ({ setCarInputData }: Props) => {
             </select>
           </label>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Gear</span>
+            <span className='bg-gradient text-white text-sm'>Араа</span>
             <select
               className='select select-bordered w-full select-sm max-w-[250px] font-normal dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               id='transmission'
@@ -75,10 +75,10 @@ const UploadData = ({ setCarInputData }: Props) => {
           </label>
           {/* Inputs */}
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Detail</span>
+            <span className='bg-gradient text-white text-sm'>Дэлгэрэнгүй</span>
             <input
               type='text'
-              placeholder='details'
+              placeholder='нэмэлт'
               className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='typeDefinition'
@@ -86,10 +86,10 @@ const UploadData = ({ setCarInputData }: Props) => {
             />
           </label>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Kml</span>
+            <span className='bg-gradient text-white text-sm'>кмл</span>
             <input
               type='number'
-              placeholder='km per litre'
+              placeholder='1 литр зарцуулах км'
               className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='kml'
@@ -97,10 +97,10 @@ const UploadData = ({ setCarInputData }: Props) => {
             />
           </label>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>People</span>
+            <span className='bg-gradient text-white text-sm'>Зорчигч</span>
             <input
               type='number'
-              placeholder='passengers number'
+              placeholder='зорчигчийн тоо'
               className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='passengers'
@@ -108,10 +108,10 @@ const UploadData = ({ setCarInputData }: Props) => {
             />
           </label>
           <label className='input-group'>
-            <span className='bg-gradient text-white text-sm'>Price</span>
+            <span className='bg-gradient text-white text-sm'>Үнэ</span>
             <input
               type='number'
-              placeholder='$ price / 1 day'
+              placeholder='$ үнэ / 1 өдөр'
               className='input input-bordered w-full input-sm dark:bg-transparent dark:hover:border-gray-secondary dark:text-gray-secondary dark:border-gray-secondary'
               required
               id='price'

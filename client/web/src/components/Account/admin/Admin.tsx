@@ -28,7 +28,7 @@ const AdminPage = ({ userData }: Props) => {
               onClick={() => toggleTab(1)}
             >
               <span className='text-white text-center text-xs lg:text-base md:text-sm'>
-                My Profile
+                Профайл
               </span>
             </div>
             <div
@@ -40,7 +40,7 @@ const AdminPage = ({ userData }: Props) => {
               onClick={() => toggleTab(2)}
             >
               <span className='text-white text-xs lg:text-base md:text-sm'>
-                My car
+                Машин
               </span>
             </div>
           </div>

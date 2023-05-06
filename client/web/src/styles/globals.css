@@ -12,7 +12,7 @@
 
 @layer components {
   .main-button {
-    @apply btn-primary btn bg-red-primary border-none hover:bg-slate-500 text-white normal-case focus:bg-red-primary active:bg-red-primary;
+    @apply btn-primary btn bg-red-primary border-none text-white normal-case focus:bg-red-primary active:bg-red-primary hover:bg-red-primary/80 btn-sm md:btn-md;
   }
   .bg-gradient {
     @apply bg-gradient-to-r from-red-primary to-red-secondary;

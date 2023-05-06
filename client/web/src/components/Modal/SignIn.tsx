@@ -62,13 +62,13 @@ const SignIn = (props: Props) => {
     <>
       <input type='checkbox' id='signin' className='modal-toggle' />
       <div className='modal modal-middle'>
-        <div className='modal-box'>
-          <h3 className='text-lg font-boldtext-lg md:text-2xl font-bold text-center uppercase'>
-            Sign In
+        <div className='modal-box dark:bg-dark-secondary dark:border'>
+          <h3 className='text-lg font-boldtext-lg md:text-2xl font-bold text-center uppercase dark:text-gray-secondary'>
+            Нэвтрэх
           </h3>
           <label
             htmlFor='signin'
-            className='btn-sm btn-circle btn absolute right-2 top-2'
+            className='btn-sm btn-circle btn absolute right-2 top-2 dark:bg-gray-secondary dark:text-black'
             onClick={() => setCloseModal(false)}
           >
             ✕
@@ -81,7 +81,9 @@ const SignIn = (props: Props) => {
             <div className='space-y-4'>
               <label className='inline-block w-full'>
                 <label className='label'>
-                  <span className='label-text'>Email</span>
+                  <span className='label-text dark:text-gray-secondary'>
+                    Имэйл
+                  </span>
                 </label>
                 <input
                   type='email'
@@ -100,7 +102,9 @@ const SignIn = (props: Props) => {
               </label>
               <label className='inline-block w-full'>
                 <label className='label'>
-                  <span className='label-text'>Password</span>
+                  <span className='label-text dark:text-gray-secondary'>
+                    Нууц үг
+                  </span>
                 </label>
                 <input
                   type='password'
@@ -119,17 +123,17 @@ const SignIn = (props: Props) => {
               </label>
             </div>
             <button className={`w-full main-button ${loading && 'loading'}`}>
-              Login
+              Нэвтрэх
             </button>
           </form>
           <div className='flex flex-row items-center justify-center mt-5'>
-            <p className='text-[gray]'>Forgot password?</p>
+            <p className='text-[gray]'>Нууц үгээ мартсан уу?</p>
             <button
               className='cursor-pointer font-semibold hover:underline ml-1 text-red-400'
               onClick={goToPasswordRequestPage}
               type='submit'
             >
-              Click here
+              Энд дар
             </button>
           </div>
         </div>

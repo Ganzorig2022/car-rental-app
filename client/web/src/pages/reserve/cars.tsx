@@ -1,5 +1,4 @@
 import DownloadApp from '@/components/Home/DownloadApp';
-import ScrollToTop from '@/components/Layout/ScrollToTop';
 import Filter from '@/components/Reserve/cars/Filter';
 import Progress from '@/components/Reserve/cars/Progress';
 import Vehicles from '@/components/Reserve/cars/Vehicles';
@@ -82,7 +81,7 @@ const Cars = () => {
           <div className='flex flex-row items-center justify-between space-x-4'>
             <div className='flex flex-row items-end space-x-4'>
               <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none dark:text-gray-secondary'>
-                Choose a Vehicle Class
+                Машины төрлөөл сонгох
               </div>
               <div className='text-gray-500 text-xs sm:text-base'>
                 {carsData.length} үр дүн
@@ -105,7 +104,7 @@ const Cars = () => {
       <main className='bg-gray-primary dark:bg-dark-primary py-5'>
         <div className='flex flex-row space-x-4 mx-auto'>
           <div className='w-1/3 bg-white dark:bg-dark-secondary rounded-lg h-full'>
-            <Filter setCarsData={setCarsData} />
+            <Filter setCarsData={setCarsData} carsData={carsData} />
           </div>
           <div className='w-2/3 rounded-lg'>
             <Vehicles carsData={carsData} />
@@ -117,8 +116,8 @@ const Cars = () => {
             {[1, 2, 3, 4].map((page) => (
               <div key={page}>
                 <button
-                  className={`btn ${
-                    active === page && 'btn-active bg-red-primary'
+                  className={`btn btn-sm hover:bg-gray-500 ${
+                    active === page && 'btn-active  bg-red-primary'
                   }`}
                   onClick={() => {
                     paginationHandler(page);
@@ -133,28 +132,8 @@ const Cars = () => {
         </div>
       </main>
       <DownloadApp />
-      <ScrollToTop />
     </main>
   );
 };
 
 export default Cars;
-
-// refresh hiihed data baga zereg udaj unshij bsan tul hurdan unshihiin tuld SSR ashjiglaw.
-// export async function getServerSideProps() {
-//   const clientS = client();
-//   const data = await clientS.query({
-//     query: GET_ALL_CARS_WITH_PAGINATION,
-//     variables: {
-//       take: 0,
-//       skip: 5,
-//       priceSort: 'desc',
-//     },
-//   });
-
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }

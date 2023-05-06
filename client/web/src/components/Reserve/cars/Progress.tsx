@@ -36,7 +36,7 @@ const Progress = () => {
                   </span>
                 </div>
                 <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
-                  RENTAL DETAILS
+                  БАЙРШИЛ
                 </label>
               </div>
               <div className='text-red-500 text-[9px] sm:text-[10px] md:text-xs ml-2'>
@@ -63,7 +63,7 @@ const Progress = () => {
                   </span>
                 </div>
                 <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
-                  PICK UP & RETURN
+                  АВАХ, ӨГӨХ
                 </label>
               </div>
               <div className='text-red-500 text-[9px] sm:text-[10px] md:text-xs ml-2'>
@@ -92,12 +92,12 @@ const Progress = () => {
                   </span>
                 </div>
                 <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
-                  VEHICLE
+                  МАШИН
                 </label>
               </div>
               <div className='flex flex-col'>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 dark:text-gray-secondary ${
                     rentals.car?.model && 'text-red-500'
                   }`}
                 >
@@ -134,7 +134,7 @@ const Progress = () => {
                   </span>
                 </div>
                 <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
-                  EXTRAS
+                  НЭМЭЛТ
                 </label>
               </div>
               <div className='flex flex-col'>
@@ -183,7 +183,7 @@ const Progress = () => {
                   </span>
                 </div>
                 <label className='font-bold text-[10px] sm:text-xs md:text-sm dark:text-gray-secondary'>
-                  REVIEW & RESERVE
+                  НЯГТЛАХ, ЗАХИАЛАХ
                 </label>
               </div>
             </div>

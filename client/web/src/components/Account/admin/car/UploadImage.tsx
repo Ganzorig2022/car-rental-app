@@ -90,7 +90,7 @@ const UploadImage = ({ setCarImage }: Props) => {
             loading && 'loading'
           }`}
         >
-          Upload
+          Хадгалах
           <ArrowUpTrayIcon className='h-4' />
         </button>
       </form>

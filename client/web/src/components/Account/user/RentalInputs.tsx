@@ -14,13 +14,13 @@ const RentalInputs = ({ rentalData }: Props) => {
           <thead className=''>
             <tr className='hover'>
               <th className='text-center'>#</th>
-              <th className='text-center'>Date Rent</th>
-              <th className='text-center'>Date Return</th>
-              <th className='text-center'>Days</th>
-              <th className='text-center'>Location</th>
-              <th className='text-center'>Verified</th>
-              <th className='text-center'>Created at</th>
-              <th className='text-center'>Car</th>
+              <th className='text-center'>Авах өдөр</th>
+              <th className='text-center'>Өгөх өдөр</th>
+              <th className='text-center'>Нийт өдөр</th>
+              <th className='text-center'>Байршил</th>
+              <th className='text-center'>Баталгаажсан</th>
+              <th className='text-center'>Үүссэн огноо</th>
+              <th className='text-center'>Машин</th>
             </tr>
           </thead>
           <tbody className='border'>
@@ -54,7 +54,7 @@ const RentalInputs = ({ rentalData }: Props) => {
                       {location}
                     </td>
                     <td className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black text-center'>
-                      {verified ? 'yes' : 'no'}
+                      {verified ? 'тийм' : 'үгүй'}
                     </td>
                     <td className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black'>
                       {moment(createdAt).format().slice(0, 10)}

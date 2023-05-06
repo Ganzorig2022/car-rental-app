@@ -4,6 +4,7 @@ import Footer from './Footer';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import dynamic from 'next/dynamic';
+import ScrollToTop from './ScrollToTop';
 
 type Props = {
   children: ReactNode;
@@ -29,6 +30,7 @@ const Layout = ({ children }: Props) => {
       <Header />
       <main className='max-w-7xl mx-auto'>{children}</main>
       <Footer />
+      <ScrollToTop />
       <Toaster
         position='top-center'
         toastOptions={{

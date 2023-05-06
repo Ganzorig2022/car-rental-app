@@ -120,10 +120,10 @@ const Card = ({
           </div>
           <div
             tabIndex={0}
-            className='collapse collapse-arrow bg-gray-100 dark:bg-transparent rounded-box p-2! w-full'
+            className='collapse collapse-arrow bg-gray-100 dark:bg-transparent rounded-box w-full '
           >
-            <div className='collapse-title text-sm lg:text-lg font-medium text-red-primary dark:bg-dark-primary'>
-              More details
+            <div className='collapse-title text-sm lg:text-lg font-medium text-red-primary dark:bg-dark-primary '>
+              Дэлгэрэнгүй
             </div>
             <div className='collapse-content flex flex-row flex-wrap space-x-2 md:grid dark:bg-dark-primary'>
               <div>
@@ -136,7 +136,7 @@ const Card = ({
               </div>
               <div>
                 <span className='text-xs sm:text-sm dark:text-gray-secondary'>
-                  Model:{' '}
+                  Загвар:{' '}
                 </span>
                 <span className='text-xs sm:text-sm font-semibold dark:text-gray-secondary'>
                   {model}
@@ -144,7 +144,7 @@ const Card = ({
               </div>
               <div>
                 <span className='text-xs sm:text-sm dark:text-gray-secondary'>
-                  Year:{' '}
+                  Он:{' '}
                 </span>
                 <span className='text-xs sm:text-sm font-semibold dark:text-gray-secondary'>
                   {2020}
@@ -155,7 +155,7 @@ const Card = ({
         </div>
         <div className='w-full px-6 md:w-auto md:px-2'>
           <div>
-            <p className='dark:text-gray-secondary'>Pay later</p>
+            <p className='dark:text-gray-secondary'>Дараа төлөх</p>
             <div className='divider m-0 before:h-[1px] after:h-[1px] dark:before:bg-gray-secondary dark:after:bg-gray-secondary' />
 
             <div className='flex flex-row justify-end '>
@@ -172,7 +172,7 @@ const Card = ({
                       .00
                     </span>
                   </div>
-                  <p className='text-gray-400 text-sm'>Per Day</p>
+                  <p className='text-gray-400 text-sm'>1 өдөр</p>
                 </div>
               </div>
               <div className='divider divider-horizontal h-9 mt-5 before:h-[1px] after:h-[1px] dark:before:bg-gray-secondary dark:after:bg-gray-secondary' />
@@ -189,17 +189,17 @@ const Card = ({
                       .00
                     </span>
                   </div>
-                  <p className='text-gray-400 text-sm'>Total</p>
+                  <p className='text-gray-400 text-sm'>Нийт</p>
                 </div>
               </div>
             </div>
           </div>
 
           <button
-            className='btn btn-primary normal-case rounded-3xl py-2 w-full'
+            className='btn btn-primary btn-xs sm:btn-sm md:btn-md normal-case rounded-3xl py-2 w-full'
             onClick={goToExtrasPage}
           >
-            Select
+            Сонгох
           </button>
         </div>
       </div>

@@ -24,9 +24,9 @@ const Layout = ({ userData, children }: Props) => {
               redeem.
             </p>
           </div>
-          <div className='lg:w-[156px] md:w-[100px] w-[156px] h-[20px] lg:h-[36px] md:h-[30px] mx-auto lg:m-10 m-1'>
+          {/* <div className='lg:w-[156px] md:w-[100px] w-[156px] h-[20px] lg:h-[36px] md:h-[30px] mx-auto lg:m-10 m-1'>
             <button className={`w-full main-button`}>Reserve Redeem</button>
-          </div>
+          </div> */}
         </div>
         {children}
       </main>

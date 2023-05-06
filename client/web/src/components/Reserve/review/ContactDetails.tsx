@@ -9,20 +9,20 @@ const ContactDetails = (props: any) => {
       <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
         <div className='card-body p-4'>
           <h4 className='card-title text-base md:text-2xl mt-6 dark:text-gray-secondary'>
-            Contact Details
+            Холбоо барих
           </h4>
           <div className='h-0.5 w-full bg-primary'></div>
           <div className='flex flex-col justify-between md:flex-row'>
             <div className='form-control w-[150px] sm:w-full'>
               <label className='label'>
                 <span className='label-text font-semibold dark:text-gray-secondary text-xs md:text-sm'>
-                  First Name
+                  Нэр
                 </span>
               </label>
               <input
                 type='text'
-                placeholder='First Name'
-                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs'
+                placeholder='Нэр'
+                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -30,13 +30,13 @@ const ContactDetails = (props: any) => {
             <div className='form-control w-[150px] sm:w-full md:ml-4'>
               <label className='label'>
                 <span className='label-text font-semibold dark:text-gray-secondary text-xs md:text-sm '>
-                  Last Name
+                  Овог
                 </span>
               </label>
               <input
                 type='text'
-                placeholder='Last Name'
-                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs'
+                placeholder='Овог'
+                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -45,32 +45,18 @@ const ContactDetails = (props: any) => {
           <div className='form-control w-[150px] sm:w-full md:mt-6'>
             <label className='label'>
               <span className='label-text font-semibold dark:text-gray-secondary text-xs md:text-sm'>
-                Phone Number
+                Утас
               </span>
             </label>
             <input
               type='phone'
-              placeholder='Phone number'
-              className='input w-full bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs'
+              placeholder='Утас'
+              className='input w-full bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
             />
           </div>
-          {/* <div className='form-control w-full mt-6'>
-            <label className='label'>
-              <span className='label-text font-semibold'>Email</span>
-            </label>
-            <input
-              type='email'
-              placeholder='Email Address'
-              className='input w-full bg-white border border-gray-300 rounded focus:outline-primary'
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-          </div> */}
-
           {/*  =============== checkbox ============= */}
-
           <div className='form-control w-full mt-2'>
             <label className='label'>
               <span className='label-text text-xs sm:text-sm font-semibold dark:text-gray-400'>

@@ -9,10 +9,11 @@ import Map from '../../Modal/Map';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;
+  carsData: CarsType[];
 };
 
 //===========Rendering===================
-const Filter = ({ setCarsData }: Props) => {
+const Filter = ({ setCarsData, carsData }: Props) => {
   const {
     getAllCarsByPage,
     getAllCarsByPeople,
@@ -79,7 +80,7 @@ const Filter = ({ setCarsData }: Props) => {
         <MapPinIcon className='text-red-primary h-5' />
         <div className='flex flex-col bg-gray-200 dark:bg-gray-700 p-2 rounded w-full'>
           <p className='text-[9px] text-gray-500 dark:text-gray-secondary'>
-            Available from
+            Хаанаас авах
           </p>
           <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
             {rentals.location}
@@ -103,7 +104,7 @@ const Filter = ({ setCarsData }: Props) => {
           Filter By
         </p>
         <p className='text-[8px] sm:text-[10px] text-gray-400 mt-2 dark:text-gray-secondary'>
-          Car type
+          Машины төрөл
         </p>
         {/* Vehicle types */}
         <div>
@@ -128,11 +129,12 @@ const Filter = ({ setCarsData }: Props) => {
                       );
                     }}
                   />
-                  <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
+                  <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
                     {name}
                   </span>
                   <span className='label-text text-[10px] text-gray-400'>
-                    10
+                    {carsData.length > 0 &&
+                      carsData.filter((car) => car.type === name).length}
                   </span>
                 </label>
               </div>
@@ -141,7 +143,7 @@ const Filter = ({ setCarsData }: Props) => {
         </div>
         {/* Capacity */}
         <div className='divider m-0' />
-        <p className='text-[8px] sm:text-[10px] text-gray-400'>Capacity</p>
+        <p className='text-[8px] sm:text-[10px] text-gray-400'>Зорчигч тоо</p>
         <div className='form-control'>
           <label className='label cursor-pointer justify-start space-x-4'>
             <input
@@ -154,11 +156,12 @@ const Filter = ({ setCarsData }: Props) => {
                 setCapacity({ gte6: false, lte5: !capacity.lte5 });
               }}
             />
-            <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
-              2-5 passengers
+            <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
+              2-5 зорчигч
             </span>
             <span className='label-text text-[10px] text-gray-400 dark:text-gray-secondary'>
-              28
+              {carsData.length > 0 &&
+                carsData.filter((car) => car.passengers <= 5).length}
             </span>
           </label>
         </div>
@@ -174,14 +177,17 @@ const Filter = ({ setCarsData }: Props) => {
                 setCapacity({ gte6: !capacity.gte6, lte5: false });
               }}
             />
-            <span className='label-text text-xs sm:text-sm md:text-base dark:text-gray-secondary'>
-              6 more passengers
+            <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
+              6 дээш зорчигч
             </span>
-            <span className='label-text text-[10px] text-gray-400'>28</span>
+            <span className='label-text text-[10px] text-gray-400'>
+              {carsData.length > 0 &&
+                carsData.filter((car) => car.passengers > 5).length}
+            </span>
           </label>
         </div>
         <div className='divider m-0' />
-        <p className='text-[8px] sm:text-[10px] text-gray-400'>Daily price</p>
+        <p className='text-[8px] sm:text-[10px] text-gray-400'>1 өдрийн үнэ</p>
 
         <div className='mt-2'>
           <input
@@ -195,11 +201,9 @@ const Filter = ({ setCarsData }: Props) => {
               setPriceRange(e.target.value)
             }
           />
-          <div className='w-full flex items-center justify-between text-[9px] font-semibold'>
+          <div className='w-full flex items-center justify-between text-[8px] sm:text-[10px] font-semibold'>
             <span className='dark:text-gray-secondary'>min.$20</span>
-            <span className='text-red-primary text-xs sm:text-sm'>
-              $ {priceRange}
-            </span>
+            <span className='text-red-primary sm:text-xs'>$ {priceRange}</span>
             <span className='dark:text-gray-secondary'>max.$200</span>
           </div>
         </div>

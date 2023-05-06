@@ -21,7 +21,6 @@ const Home: NextPage = () => {
         <TopDeal />
         <BestServices />
         <DownloadApp />
-        <ScrollToTop />
       </main>
     </>
   );

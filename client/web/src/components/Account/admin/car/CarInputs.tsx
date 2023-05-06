@@ -66,7 +66,7 @@ const CarInputs = (props: Props) => {
         className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white gap-2 dark:bg-transparent dark:hover:border-gray-secondary'
         onClick={onSubmitHandler}
       >
-        Save All
+        Бүгдийг хадгалах
         <CloudArrowUpIcon className='h-4' />
       </button>
     </div>

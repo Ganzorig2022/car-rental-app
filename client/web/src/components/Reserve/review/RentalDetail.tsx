@@ -80,23 +80,23 @@ const RentalDetail = () => {
         <div className='flex flex-col md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
           <div className='card-body p-2'>
             <h4 className='card-title text-base md:text-2xl mt-6 dark:text-gray-secondary'>
-              Rental Details
+              Захиалгын Дэлгэрэнгүй
             </h4>
             <p className='mt-4 text-xs sm:text-sm font-semibold dark:text-gray-secondary'>
-              Dates & Times
+              Огноо
             </p>
             <div className='text-gray-500'>
               <p>{rentals.dateRent} @ 10:00 AM</p>
               <p>{rentals.dateReturn} @ 10:00 AM</p>
             </div>
             <p className='mt-4 text-sm sm:text-base  font-semibold dark:text-gray-secondary'>
-              Pick-up & Return Location
+              Авах, өгөх байршил
             </p>
             <p className='text-gray-500'>{rentals.location}</p>
             <p className='mt-4 text-sm sm:text-base font-semibold dark:text-gray-secondary'>
-              Additional Details
+              Нэмэлт дэлгэрэнгүй
             </p>
-            <p className='text-gray-500'>Renter Age: 25+</p>
+            <p className='text-gray-500'>Нас: 25+</p>
           </div>
         </div>
         <div className='flex flex-col my-2 md:px-5 items-center justify-center md:flex-row md:justify-between bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300'>
@@ -109,12 +109,12 @@ const RentalDetail = () => {
       {/* ============== FORM SECTION =============== */}
       <div className='w-3/5 md:w-3/4 ml-4'>
         {!loggedIn && (
-          <div className='relative h-[110px] w-full sm:h-[110px] bg-gradient-to-r mb-2 from-red-primary to-red-secondary rounded'>
+          <div className='relative w-full h-[80px] bg-gradient-to-r mb-2 from-red-primary to-red-secondary rounded'>
             <div className='flex flex-col'>
               <div className='px-6 md:w-auto md:px-2'>
                 <label
                   htmlFor='signin'
-                  className='absolute right-8 top-8 bg-transparent hover:bg-white text-white font-semibold hover:text-primary py-2 px-6 border-2 border-white hover:border-transparent rounded-full'
+                  className='absolute right-8 top-5 bg-transparent hover:bg-white text-white font-semibold hover:text-primary py-2 px-6 border-2 border-white hover:border-transparent rounded-full'
                   onClick={() => setCloseModal(true)}
                 >
                   Нэвтрэх
@@ -128,12 +128,12 @@ const RentalDetail = () => {
         </div>
         <div className='w-full h-[160px] bg-white dark:bg-dark-secondary dark:border-none rounded border border-gray-300 px-8'>
           <h4 className='card-title text-sm md:text-2xl mt-6 pt-5 dark:text-gray-secondary'>
-            Contact Details
+            НИЙТ ДҮН
           </h4>
           <div className='h-0.5 w-full bg-primary'></div>
           <div className='flex flex-row justify-between items-center mt-6'>
             <p className='dark:text-gray-secondary text-[10px] sm:text-sm md:text-base'>
-              You will be charged when you pick up your rental.
+              Та захиалсан машинаа авахад таны төлбөр бодогдох болно.
             </p>
             <b className='flex items-start'>
               <span className='dark:text-gray-secondary'>$</span>
@@ -152,7 +152,7 @@ const RentalDetail = () => {
             className='btn-sm md:btn-md btn-primary text-xs md:text-base text-white normal-case rounded-3xl'
             onClick={onSubmit}
           >
-            Reserve Now
+            Одоо Захиалах
           </button>
         </div>
       </div>

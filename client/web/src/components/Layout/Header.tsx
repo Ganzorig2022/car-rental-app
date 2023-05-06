@@ -103,16 +103,20 @@ const Header = () => {
             className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44'
           >
             <li className='text-sm '>
-              <Link href='/'>Book</Link>
+              <Link href='/'>Захиалга</Link>
             </li>
             <li className='text-sm '>
-              <Link href='/rentals'>My Rentals</Link>
+              <Link href='/about'>Бидний тухай</Link>
             </li>
+
+            {loggedIn && (
+              <li className='text-sm '>
+                <Link href='/account'>Аккаунт</Link>
+              </li>
+            )}
+
             <li className='text-sm '>
-              <Link href='/'>Account</Link>
-            </li>
-            <li className='text-sm '>
-              <Link href='/rentals'>My Resources</Link>
+              <Link href='/contact'>Холбогдох</Link>
             </li>
           </ul>
         </div>
@@ -145,7 +149,7 @@ const Header = () => {
                   <>
                     <label
                       htmlFor='signup'
-                      className='text-[10px] p-2 py-0 '
+                      className='text-[10px] p-2 py-0 normal-case'
                       onClick={() => setCloseModal(true)}
                     >
                       Бүртгүүлэх
@@ -153,7 +157,7 @@ const Header = () => {
                     <div className='divider m-0' />
                     <label
                       htmlFor='signin'
-                      className='text-[10px] p-2 py-0 uppercase'
+                      className='text-[10px] p-2 py-0 normal-case'
                       onClick={() => setCloseModal(true)}
                     >
                       Нэвтрэх
@@ -182,7 +186,7 @@ const Header = () => {
             <>
               <label
                 htmlFor='signup'
-                className='btn-ghost btn dark:text-white'
+                className='btn-ghost btn dark:text-white normal-case'
                 onClick={() => setCloseModal(true)}
               >
                 Бүртгүүлэх
