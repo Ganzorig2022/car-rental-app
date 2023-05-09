@@ -34,10 +34,20 @@ const Filter = ({ setCarsData, carsData }: Props) => {
 
   const [priceRange, setPriceRange] = useState('160');
 
-  const [capacity, setCapacity] = useState({
-    lte5: false,
-    gte6: false,
-  });
+  const [capacity, setCapacity] = useState([
+    {
+      id: 0,
+      text: '2-5 зорчигч',
+      passengers: 4,
+      status: false,
+    },
+    {
+      id: 1,
+      text: '6 дээш зорчигч',
+      passengers: 6,
+      status: false,
+    },
+  ]);
 
   // Getting cars by type. etc. "SUV" or "Bus"
   const carTypeHandler = async (id: number, name: string) => {
@@ -64,11 +74,26 @@ const Filter = ({ setCarsData, carsData }: Props) => {
   };
 
   // Getting cars by Passengers Number
-  const passengersHandler = async (people: number) => {
-    const response = await getAllCarsByPeople(people);
+  const passengersHandler = async (id: number, passengers: number) => {
+    const unchecked = capacity[id].status;
 
-    if (response.length > 0) {
-      setCarsData([...response]);
+    // when checkbox is unchecked, then fetch all types
+    if (unchecked) {
+      const data = await getAllCarsByPage(0, 5, 'desc');
+
+      if (data) {
+        setCarsData([...data]);
+      } else {
+        setCarsData([]);
+      }
+
+      // when checkbox is checked, then fetch specific type (by SUV, by Bus etc.)
+    } else {
+      const response = await getAllCarsByPeople(passengers);
+
+      if (response.length > 0) {
+        setCarsData([...response]);
+      }
     }
   };
 
@@ -144,48 +169,36 @@ const Filter = ({ setCarsData, carsData }: Props) => {
         {/* Capacity */}
         <div className='divider m-0' />
         <p className='text-[8px] sm:text-[10px] text-gray-400'>Зорчигч тоо</p>
-        <div className='form-control'>
-          <label className='label cursor-pointer justify-start space-x-4'>
-            <input
-              type='checkbox'
-              className='h-4 w-4 accent-red-primary '
-              checked={capacity.lte5}
-              readOnly
-              onClick={() => {
-                passengersHandler(5);
-                setCapacity({ gte6: false, lte5: !capacity.lte5 });
-              }}
-            />
-            <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
-              2-5 зорчигч
-            </span>
-            <span className='label-text text-[10px] text-gray-400 dark:text-gray-secondary'>
-              {carsData.length > 0 &&
-                carsData.filter((car) => car.passengers <= 5).length}
-            </span>
-          </label>
-        </div>
-        <div className='form-control'>
-          <label className='label cursor-pointer justify-start space-x-4'>
-            <input
-              type='checkbox'
-              className='h-4 w-4 accent-red-primary'
-              checked={capacity.gte6}
-              readOnly
-              onClick={() => {
-                passengersHandler(6);
-                setCapacity({ gte6: !capacity.gte6, lte5: false });
-              }}
-            />
-            <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
-              6 дээш зорчигч
-            </span>
-            <span className='label-text text-[10px] text-gray-400'>
-              {carsData.length > 0 &&
-                carsData.filter((car) => car.passengers > 5).length}
-            </span>
-          </label>
-        </div>
+        {capacity.map((people) => (
+          <div className='form-control' key={people.id}>
+            <label className='label cursor-pointer justify-start space-x-4'>
+              <input
+                type='checkbox'
+                className='h-4 w-4 accent-red-primary'
+                checked={people.status}
+                readOnly
+                onClick={() => {
+                  passengersHandler(people.id, people.passengers);
+                  setCapacity(
+                    capacity.map((item) =>
+                      item.id === people.id
+                        ? { ...item, status: !item.status }
+                        : { ...item, status: false }
+                    )
+                  );
+                }}
+              />
+              <span className='label-text text-[10px] sm:text-sm md:text-base dark:text-gray-secondary'>
+                {people.text}
+              </span>
+              <span className='label-text text-[10px] text-gray-400'>
+                {carsData.length > 0 &&
+                  carsData.filter((car) => car.passengers > 5).length}
+              </span>
+            </label>
+          </div>
+        ))}
+
         <div className='divider m-0' />
         <p className='text-[8px] sm:text-[10px] text-gray-400'>1 өдрийн үнэ</p>
 

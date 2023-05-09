@@ -81,7 +81,7 @@ const Cars = () => {
           <div className='flex flex-row items-center justify-between space-x-4'>
             <div className='flex flex-row items-end space-x-4'>
               <div className='text-lg sm:text-2xl md:text-3xl font-bold leading-none dark:text-gray-secondary'>
-                Машины төрлөөл сонгох
+                Машины төрлөөр сонгох
               </div>
               <div className='text-gray-500 text-xs sm:text-base'>
                 {carsData.length} үр дүн
