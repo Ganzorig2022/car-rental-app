@@ -86,7 +86,7 @@ const UploadImage = ({ setCarImage }: Props) => {
           // required
         />
         <button
-          className={`btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary ${
+          className={`btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary text-[10px] sm:text-xs md:text-sm ${
             loading && 'loading'
           }`}
         >

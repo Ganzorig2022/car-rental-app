@@ -109,8 +109,8 @@ export const DELETE_USER_BY_EMAIL = gql`
   }
 `;
 export const DELETE_USER_BY_ID = gql`
-  mutation DeleteUserById($id: String!) {
-    deleteUserById(id: $id) {
+  mutation DeleteUserById($id: String!, $token: String!) {
+    deleteUserById(id: $id, token: $token) {
       success
     }
   }

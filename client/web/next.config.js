@@ -15,6 +15,7 @@ const nextConfig = {
       'res.cloudinary.com',
       'images.unsplash.com',
       'toyota-topmotors.mn',
+      'i.pinimg.com',
     ],
   },
 };

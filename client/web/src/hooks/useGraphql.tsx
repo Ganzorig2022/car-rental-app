@@ -1,7 +1,8 @@
-import { CREATE_CAR } from '@/graphql/mutations/cars';
+import { CREATE_CAR, DELETE_CAR_BY_ID } from '@/graphql/mutations/cars';
 import { CREATE_RENTAL } from '@/graphql/mutations/rentals';
 import {
   CREATE_NEW_USER,
+  DELETE_USER_BY_ID,
   LOGIN_USER,
   UPDATE_USER_BY_ID,
 } from '@/graphql/mutations/users';
@@ -9,6 +10,7 @@ import {
   GET_ALL_CARS_WITH_PAGINATION,
   GET_CARS_BY_PASSENGERS,
   GET_CARS_BY_TYPE,
+  GET_OWN_CARS_BY_ID,
 } from '@/graphql/queries/cars';
 import { GET_OWN_RENTALS } from '@/graphql/queries/rentals';
 import { GET_USER_BY_ID } from '@/graphql/queries/users';
@@ -17,6 +19,8 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-hot-toast';
 
 const useGraphql = () => {
+  const userId = Cookies.get('userId');
+
   // USER QUERIES
   const [getUserById, { loading: getUserByIdLoading }] = useLazyQuery(
     GET_USER_BY_ID,
@@ -35,6 +39,9 @@ const useGraphql = () => {
   const [updateUserById, { loading: updateUserLoading }] =
     useMutation(UPDATE_USER_BY_ID);
 
+  const [deleteUserById, { loading: deleteUserByIdLoading }] =
+    useMutation(DELETE_USER_BY_ID);
+
   // CARS QUERIES
   const [getCarsByPagination, { loading: getCarsByPageLoading }] = useLazyQuery(
     GET_ALL_CARS_WITH_PAGINATION,
@@ -49,8 +56,28 @@ const useGraphql = () => {
     { pollInterval: 500 }
   );
 
+  const [getOwnCarsById, { loading: getOwnCarsLoading }] = useLazyQuery(
+    GET_OWN_CARS_BY_ID,
+    {
+      pollInterval: 100,
+      fetchPolicy: 'no-cache',
+      nextFetchPolicy: 'no-cache',
+    }
+  );
+
   // CARS MUTATIONS
   const [createCar, { loading: createCarLoading }] = useMutation(CREATE_CAR);
+  const [deleteCar, { loading: deleteCarLoading }] = useMutation(
+    DELETE_CAR_BY_ID,
+    {
+      refetchQueries: [
+        {
+          query: GET_OWN_CARS_BY_ID,
+          variables: { userId: Cookies.get('userId') },
+        },
+      ],
+    }
+  );
 
   // RENTALS QUERIES
   const [getOwnRentals, { loading: getOwnRentalsLoading }] = useLazyQuery(
@@ -163,7 +190,29 @@ const useGraphql = () => {
       return false;
     }
   };
+  const deleteUserByID = async (id: string, token: string) => {
+    try {
+      const response = (
+        await deleteUserById({
+          variables: {
+            id,
+            token,
+          },
+        })
+      ).data;
 
+      const { deleteUserById: data } = response;
+
+      return data;
+    } catch (error: any) {
+      console.log('error from apollo/updateUser', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+      return false;
+    }
+  };
+
+  // ===================CARS======================
   const createCarData = async (params: createCarDataType) => {
     const {
       image,
@@ -202,6 +251,26 @@ const useGraphql = () => {
       console.log('ERROR with createCar', error);
       const errors = new Error(error);
       toast.error('Something wrong with user id');
+    }
+  };
+
+  const deleteCarById = async (id: string) => {
+    try {
+      const response = (
+        await deleteCar({
+          variables: {
+            id,
+          },
+        })
+      ).data;
+
+      const data = response?.deleteCarById;
+
+      return data;
+    } catch (error: any) {
+      console.log('ERROR with getAllCarsByPage', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
     }
   };
 
@@ -250,6 +319,7 @@ const useGraphql = () => {
       toast.error(errors?.message);
     }
   };
+
   const getAllCarsByType = async (type: string) => {
     try {
       const response = (
@@ -270,6 +340,29 @@ const useGraphql = () => {
       toast.error(errors?.message);
     }
   };
+
+  const getOwnCarsByID = async (userId: string) => {
+    try {
+      const response = (
+        await getOwnCarsById({
+          variables: {
+            userId,
+          },
+        })
+      ).data;
+
+      // if (!response) toast.error(`No cars found with this id: ${userId}`);
+
+      const data = response?.getOwnCars;
+      return data;
+    } catch (error: any) {
+      console.log('ERROR with getAllCarsByPassengers', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+    }
+  };
+
+  // ===================RENTALS======================
   const createRentals = async (args: RentalType) => {
     const {
       userId,
@@ -332,22 +425,28 @@ const useGraphql = () => {
   return {
     createUserLoading,
     loginUserLoading,
+    getUserByIdLoading,
+    deleteUserByIdLoading,
     getCarsByPageLoading,
     getCarsByPassengerLoading,
     getCarsByTypeLoading,
-    createRentalLoading,
+    getOwnCarsLoading,
     updateUserLoading,
-    getUserByIdLoading,
     createCarLoading,
+    deleteCarLoading,
+    createRentalLoading,
     getOwnRentalsLoading,
     signUp,
     login,
     updateUserByID,
     getUserByID,
+    deleteUserByID,
     createCarData,
+    deleteCarById,
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
+    getOwnCarsByID,
     createRentals,
     getOwnRentalsById,
   };

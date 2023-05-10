@@ -1,16 +1,22 @@
 import { geocodeCenter } from '@/atoms/geocodeCenter';
 import { useRental } from '@/providers/rentalProvider';
 import { MapIcon } from '@heroicons/react/24/outline';
-import { Dispatch, SetStateAction, memo } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { useRecoilState } from 'recoil';
 
 type Props = {
   places: SearchResultsGeocode[];
   setSearchInput: Dispatch<SetStateAction<string>>;
   setPlaceHolder: Dispatch<SetStateAction<string>>;
+  isFetching: boolean;
 };
 
-const SearchResults = ({ places, setPlaceHolder, setSearchInput }: Props) => {
+const SearchResults = ({
+  places,
+  setPlaceHolder,
+  setSearchInput,
+  isFetching,
+}: Props) => {
   const { setRentals } = useRental();
   const [geoCenter, setGeoCenter] = useRecoilState(geocodeCenter);
 

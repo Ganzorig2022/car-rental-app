@@ -206,10 +206,10 @@ export const carsResolvers = {
             }
         },
         deleteCarById: async (_parent, args) => {
-            const id = args.id;
+            const { id } = args;
             try {
                 // if there is no record, "delete" returns only ERROR
-                const result = await Prisma.car.delete({
+                await Prisma.car.delete({
                     where: {
                         id,
                     },

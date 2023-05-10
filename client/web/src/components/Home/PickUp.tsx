@@ -5,8 +5,9 @@ import { ChevronDownIcon, MapPinIcon } from '@heroicons/react/24/solid';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { ClipLoader } from 'react-spinners';
 import Calendar from './Calendar';
 import SearchResults from './SearchResults';
 
@@ -18,7 +19,11 @@ const PickUp = () => {
   const userId = Cookies.get('userId') as string;
   const [searchInput, setSearchInput] = useState('');
   const [placeholder, setPlaceHolder] = useState('');
-  const { data: places, refetch } = useQuery({
+  const {
+    data: places,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: ['places'],
     queryFn: async () => searchInput && (await fetchPlaces(searchInput)),
   });
@@ -50,11 +55,13 @@ const PickUp = () => {
           <div className=''>
             {searchInput && (
               <div className='absolute top-16 left-1/2 md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-gray-100 dark:bg-dark-primary p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-[500px] md:w-[800px] h-fit'>
-                {places && (
+                {isFetching && <ClipLoader color='black' size={30} />}
+                {!isFetching && places && (
                   <SearchResults
                     places={places}
                     setSearchInput={setSearchInput}
                     setPlaceHolder={setPlaceHolder}
+                    isFetching={isFetching}
                   />
                 )}
               </div>

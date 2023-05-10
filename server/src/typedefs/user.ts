@@ -141,7 +141,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    deleteUserById(id: String!): IsSuccess
+    deleteUserById(id: String!, token: String!): IsSuccess
   }
 
   enum Role {

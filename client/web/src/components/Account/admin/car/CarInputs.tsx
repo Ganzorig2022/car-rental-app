@@ -63,7 +63,7 @@ const CarInputs = (props: Props) => {
       <UploadImage setCarImage={setCarImage} />
       <UploadData setCarInputData={setCarInputData} />
       <button
-        className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white gap-2 dark:bg-transparent dark:hover:border-gray-secondary'
+        className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white gap-2 dark:bg-transparent dark:hover:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
         onClick={onSubmitHandler}
       >
         Бүгдийг хадгалах

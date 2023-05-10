@@ -8,7 +8,7 @@ type Props = {
 const Layout = ({ userData, children }: Props) => {
   return (
     <>
-      <main className='overflow-hidden h-screen'>
+      <main className='h-screen'>
         <div className='flex flex-col md:flex-row justify-between md:items-center m-8 '>
           <div className=''>
             <div className='text-sm md:text-base lg:text-2xl font-normal flex flex-row items-center dark:text-gray-secondary'>

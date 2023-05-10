@@ -49,3 +49,18 @@ export const GET_ALL_CARS_WITH_PAGINATION = gql`
     }
   }
 `;
+export const GET_OWN_CARS_BY_ID = gql`
+  query GetOwnCars($userId: String) {
+    getOwnCars(userId: $userId) {
+      id
+      image
+      kml
+      model
+      passengers
+      price
+      transmission
+      type
+      typeDefinition
+    }
+  }
+`;

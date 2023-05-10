@@ -43,7 +43,7 @@ const Account = (props: Props) => {
 
   const userId = Cookies.get('userId');
 
-  const { data, error } = useQuery(GET_USER_BY_ID, {
+  const { data } = useQuery(GET_USER_BY_ID, {
     variables: { id: userId! },
   });
 

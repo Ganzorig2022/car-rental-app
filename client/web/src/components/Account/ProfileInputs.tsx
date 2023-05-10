@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
+import { TrashIcon } from '@heroicons/react/24/solid';
+import { loggedInState } from '@/atoms/loginAtom';
 
 type Props = { userData: UserData | undefined };
 
@@ -18,8 +20,16 @@ const MyProfile = ({ userData }: Props) => {
     phone: userData?.phone ? userData?.phone : '',
   });
   const setUserDataRefresh = useSetRecoilState(refreshUserData);
+  const userId = Cookies.get('userId');
+  const token = Cookies.get('token');
+  const setLoggedIn = useSetRecoilState(loggedInState);
 
-  const { updateUserByID, updateUserLoading } = useGraphql();
+  const {
+    updateUserByID,
+    deleteUserByID,
+    updateUserLoading,
+    deleteUserByIdLoading,
+  } = useGraphql();
 
   // 1) Button toggler
   const toggleButton = (index: number) => {
@@ -38,7 +48,6 @@ const MyProfile = ({ userData }: Props) => {
 
   // 3) Save user data to mongoDb
   const onSubmitHandler = async () => {
-    const userId = Cookies.get('userId');
     let { name, email, phone } = userInputs;
 
     //3.1) Validations
@@ -62,7 +71,20 @@ const MyProfile = ({ userData }: Props) => {
     toast.success('Таны мэдээлэл амжилттай хадгалагдлаа.');
   };
 
-  if (updateUserLoading) return <Spinner />;
+  // 4) Delete user, car, rental data from database
+  async function deleteUserHandler() {
+    const response = await deleteUserByID(userId!, token!);
+
+    if (response) {
+      toast.success('Хэрэглэгчийн бүх дата амжилттай устлаа.');
+      setLoggedIn(false);
+      Cookies.remove('token');
+      Cookies.remove('userId');
+      router.push('/');
+    }
+  }
+
+  if (updateUserLoading || deleteUserByIdLoading) return <Spinner />;
 
   return (
     <>
@@ -73,7 +95,7 @@ const MyProfile = ({ userData }: Props) => {
           </h2>
           {toggle === 1 ? (
             <button
-              className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary'
+              className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
               onClick={() => toggleButton(2)}
             >
               Өөрчлөх
@@ -81,7 +103,7 @@ const MyProfile = ({ userData }: Props) => {
           ) : (
             <div className='flex flex-row space-x-2'>
               <button
-                className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary'
+                className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
                 onClick={() => {
                   toggleButton(1);
                   onSubmitHandler();
@@ -90,7 +112,7 @@ const MyProfile = ({ userData }: Props) => {
                 Хадгалах
               </button>
               <button
-                className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary'
+                className='btn btn-sm bg-white border-red-primary text-red-primary !max-h-4 hover:bg-red-primary hover:text-white normal-case font-normal rounded-full dark:bg-transparent dark:hover:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
                 onClick={() => toggleButton(1)}
               >
                 Болих
@@ -104,7 +126,7 @@ const MyProfile = ({ userData }: Props) => {
             <div className='text-xs font-semibold my-auto'>Нэр:</div>
             <div className='ml-4 w-2/4'>
               <input
-                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
+                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
                 placeholder={userData?.name ? userData?.name : 'no name'}
                 value={userInputs.name}
                 disabled={toggle === 1 ? true : false}
@@ -119,7 +141,7 @@ const MyProfile = ({ userData }: Props) => {
             <div className='text-xs font-semibold my-auto'>Имэйл Address:</div>
             <div className='ml-4 w-2/4'>
               <input
-                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
+                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
                 placeholder={userData?.email}
                 value={userInputs.email}
                 disabled={toggle === 1 ? true : false}
@@ -134,8 +156,8 @@ const MyProfile = ({ userData }: Props) => {
             <div className='text-xs font-semibold my-auto'>Утас:</div>
             <div className='ml-4 w-2/4'>
               <input
-                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary'
-                placeholder={userData?.phone}
+                className='input input-bordered w-full input-sm border border-gray-400 bg-red-100 disabled:bg-gray-primary disabled:border-none dark:disabled:bg-transparent dark:bg-transparent dark:border-gray-secondary text-[10px] sm:text-xs md:text-sm'
+                placeholder={userData?.phone ? userData?.phone : 'no phone'}
                 value={userInputs?.phone}
                 disabled={toggle === 1 ? true : false}
                 id='phone'
@@ -149,7 +171,7 @@ const MyProfile = ({ userData }: Props) => {
           <h2 className='tex-xl text-gray-800 lg:text-2xl md:text-xl text-base font-semibold dark:text-gray-secondary'>
             Хадгалагдсан төлбөрийн хэрэгсэл
           </h2>
-          <button className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case'>
+          <button className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case text-[10px] sm:text-xs md:text-sm'>
             + Төлбөрийн хэрэгсэл нэмэх
           </button>
         </div>
@@ -159,7 +181,7 @@ const MyProfile = ({ userData }: Props) => {
             Нууц үг
           </h2>
           <button
-            className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case'
+            className='btn btn-sm bg-white border-red-primary font-normal text-red-primary rounded-full !max-h-4 hover:bg-red-primary hover:text-white mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case text-[10px] sm:text-xs md:text-sm'
             onClick={() => router.push('/password/request')}
           >
             Өөрчлөх
@@ -168,6 +190,15 @@ const MyProfile = ({ userData }: Props) => {
         <div className='border-b-4 border-[#848484] my-4 '> </div>
         <div className='text-sm dark:text-gray-secondary'> ******** </div>
         <div className='border border-[#848484] mt-2'> </div>
+        <div className='mt-5 float-right'>
+          <button
+            className='btn btn-sm hover:bg-white hover:border-red-primary font-normal hover:text-red-primary rounded-full !max-h-4 bg-red-primary text-white border-transparent mt-2 md:mt-0 md:ml-2 gap-2 dark:bg-transparent dark:hover:border-gray-secondary normal-case'
+            onClick={deleteUserHandler}
+          >
+            <TrashIcon className='h-4' />
+            Аккаунт устгах
+          </button>
+        </div>
       </div>
     </>
   );

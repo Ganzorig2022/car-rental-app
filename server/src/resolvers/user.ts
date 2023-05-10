@@ -347,14 +347,81 @@ export const userResolvers = {
       }
     },
 
-    deleteUserById: async (_parent: any, args: { id: string }) => {
+    deleteUserById: async (
+      _parent: any,
+      args: { id: string; token: string },
+      context: ContextType
+    ) => {
       try {
-        // if there is no record, "delete" returns only ERROR
+        // 1) Middleware for checking user's token
+        const decoded: any = jwt.verify(args.token, process.env.JWT_SECRET);
+        const userId = decoded?.id;
+
+        // 1.1) getting userId from token verify using context middleware in "index.ts"
+        const idToken = context.token.id;
+
+        const authorized = userId === idToken;
+
+        // 1.2) If userId is not right, then ERROR
+        if (!authorized) {
+          throw new GraphQLError(
+            `User not authorized. Wrong token or userId: ${args.id}.`
+          );
+        }
+
+        // 2) Check user's other related data exists
+        const user = await Prisma.user.findUnique({
+          where: {
+            id: args.id,
+          },
+          include: {
+            rentals: true, // Rental model data will be included. Because in the prisma.schema, User @relation field
+            cars: true, //  Cars model data will be included. Because in the prisma.schema, User @relation field
+            transactions: true, // Transaction model data will be included. Because in the prisma.schema, User @relation field
+          },
+        });
+
+        // 2.1) Delete all user's cars data
+        if (user.cars.length > 0) {
+          await Prisma.car.deleteMany({
+            where: {
+              userId: args.id,
+            },
+          });
+        }
+
+        // 2.2) Delete all user's rentals data
+        if (user.rentals.length > 0) {
+          await Prisma.rental.deleteMany({
+            where: {
+              userId: args.id,
+            },
+          });
+        }
+
+        // 3) if there is no record, "delete" returns only ERROR
         await Prisma.user.delete({
           where: {
             id: args.id,
           },
         });
+
+        // 4) Delete user's password reset token
+        const token = await Prisma.token.findUnique({
+          // if there is no record, "findUnique" returns NULL
+          where: {
+            userId,
+          },
+        });
+
+        // 4.1) If token is valid, delete the token!!!
+        if (token)
+          await Prisma.token.delete({
+            where: {
+              userId,
+            },
+          });
+
         return { success: true };
       } catch (error) {
         console.log('DELETE USER ERROR', error);
