@@ -214,7 +214,7 @@ export const carsResolvers = {
                         id,
                     },
                 });
-                return { success: true };
+                return { success: true, id };
             }
             catch (error) {
                 console.log('DELETE CAR ERROR', error);

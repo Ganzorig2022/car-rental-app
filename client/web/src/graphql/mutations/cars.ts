@@ -83,6 +83,7 @@ export const DELETE_CAR_BY_ID = gql`
   mutation DeleteCarById($id: String) {
     deleteCarById(id: $id) {
       success
+      id
     }
   }
 `;

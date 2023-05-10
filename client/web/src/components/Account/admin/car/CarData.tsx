@@ -10,37 +10,26 @@ import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
 
 const CarData = () => {
-  const userId = Cookies.get('userId');
+  const { getOwnCarsByID, deleteCarById, deleteCarLoading } = useGraphql();
   const [carsData, setCarsData] = useState<OwnCarsType[]>([]);
-  const { getOwnCarsByID, getOwnCarsLoading, deleteCarById, deleteCarLoading } =
-    useGraphql();
-  const [persistData, setPersistData] = useState(false);
+  const userId = Cookies.get('userId');
 
-  const onEditHandler = async (id: string) => {
-    // const response = await deleteCarById(id);
-    // console.log('first', response);
-    // if (response) {
-    //   toast.success('Машины дата устлаа.');
-    // } else return;
-  };
+  // const { loading, error, data,  } = useQuery(GET_OWN_CARS_BY_ID, {
+  //   variables: { userId },
+  //   fetchPolicy: 'cache-first',
+  //   nextFetchPolicy: 'network-only',
+  // });
+
+  const onEditHandler = async (id: string) => {};
 
   const onDeleteHandler = async (id: string) => {
     const response = await deleteCarById(id);
 
     if (response) {
       toast.success('Машины дата устлаа.');
-
-      //   setPersistData(true);
       getCarsData();
     } else return;
   };
-
-  const { data } = useQuery(GET_OWN_CARS_BY_ID, {
-    variables: { userId: userId! },
-    pollInterval: 100,
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'network-only',
-  });
 
   const getCarsData = async () => {
     const response = await getOwnCarsByID(userId!);
@@ -54,20 +43,9 @@ const CarData = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //   useEffect(() => {
-  //     console.log('RENDERING');
-  //     if (persistData) {
-  //       if (data?.getOwnCars) {
-  //         setCarsData([...data?.getOwnCars]);
-  //       }
-  //     }
-  //   }, [persistData, data]);
-
-  console.log('first', data);
-
   if (carsData.length === 0) return <div>No car data</div>;
 
-  if (getOwnCarsLoading) return <Spinner />;
+  if (deleteCarLoading) return <Spinner />;
 
   return (
     <div>

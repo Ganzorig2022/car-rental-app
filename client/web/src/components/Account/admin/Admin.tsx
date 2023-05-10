@@ -3,7 +3,6 @@ import {
   PlusCircleIcon,
   TruckIcon,
 } from '@heroicons/react/24/solid';
-import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import ProfileInputs from '../ProfileInputs';
 import CarData from './car/CarData';
@@ -14,7 +13,6 @@ type Props = { userData: UserData | undefined };
 const AdminPage = ({ userData }: Props) => {
   const [toggle, setToggle] = useState(1);
   const [mobile, setMobile] = useState(false);
-  const userId = Cookies.get('userId');
 
   const toggleTab = (index: number) => {
     setToggle(index);

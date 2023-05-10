@@ -256,7 +256,7 @@ export const carsResolvers = {
           },
         });
 
-        return { success: true };
+        return { success: true, id };
       } catch (error) {
         console.log('DELETE CAR ERROR', error);
         throw new GraphQLError(

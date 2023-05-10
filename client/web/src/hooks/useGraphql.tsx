@@ -59,9 +59,8 @@ const useGraphql = () => {
   const [getOwnCarsById, { loading: getOwnCarsLoading }] = useLazyQuery(
     GET_OWN_CARS_BY_ID,
     {
-      pollInterval: 100,
-      fetchPolicy: 'no-cache',
-      nextFetchPolicy: 'no-cache',
+      fetchPolicy: 'network-only',
+      nextFetchPolicy: 'network-only',
     }
   );
 
@@ -69,14 +68,7 @@ const useGraphql = () => {
   const [createCar, { loading: createCarLoading }] = useMutation(CREATE_CAR);
   const [deleteCar, { loading: deleteCarLoading }] = useMutation(
     DELETE_CAR_BY_ID,
-    {
-      refetchQueries: [
-        {
-          query: GET_OWN_CARS_BY_ID,
-          variables: { userId: Cookies.get('userId') },
-        },
-      ],
-    }
+    { refetchQueries: [{ query: GET_OWN_CARS_BY_ID, variables: { userId } }] }
   );
 
   // RENTALS QUERIES

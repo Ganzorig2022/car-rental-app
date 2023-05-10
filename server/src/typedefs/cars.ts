@@ -53,6 +53,11 @@ const typeDefs = gql`
     success: Boolean
   }
 
+  type deleteCarResponse {
+    success: Boolean
+    id: String
+  }
+
   # QUERIES = GET REQUESTS
   type Query {
     getCarById(id: String): Car
@@ -103,7 +108,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    deleteCarById(id: String): IsSuccess
+    deleteCarById(id: String): deleteCarResponse
   }
 
   type Mutation {
