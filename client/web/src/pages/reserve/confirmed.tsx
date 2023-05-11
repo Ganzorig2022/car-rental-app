@@ -8,10 +8,9 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const Checklist = [
-  'Familiarize yourself with your Pick-Up and Return location(s)',
-  'Bring a valid driving license for each driver.',
-  "Provide an acceptable method of payment in the renter's name. See your pick-up location is policies for details.",
-  'For additional policy or deposit information, please refer to the Rental Policies section below, or within your email confirmation',
+  'Машин авах, өгөх газраа сайн мэддэг байх',
+  'Жолооны үнэмлэхтэйгээ заавал ирэх.',
+  '18-аас дээш насны байх',
 ];
 
 const Confirmed = () => {
@@ -35,6 +34,7 @@ const Confirmed = () => {
       const id = Cookies.get('userId');
       const response = await getUserByID(id!);
 
+      console.log(response);
       if (response?.email !== '') {
         setUserData({ ...response });
         setRentalData(response?.rentals[response?.rentals.length - 1]);
@@ -44,6 +44,7 @@ const Confirmed = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // console.log(rentalData);
   if (getUserByIdLoading) return <Spinner />;
 
   return (
@@ -60,11 +61,11 @@ const Confirmed = () => {
             />
             <div className='flex-col gap-y-[10px] max-w-[326px] flex-wrap'>
               <h1 className='font-semibold text-[25px] dark:text-gray-secondary duration-300'>
-                Reservation Confirmed
+                Захиалга баталгаажлаа
               </h1>
               <p className='font-normal dark:text-gray-secondary duration-300 text-[10px]'>
-                Thanks {userData?.name}! We look forward to seeing you on April
-                20, 2023 Confirmation Number: 12345678
+                Thanks {userData?.name}! We look forward to seeing you on{' '}
+                {rentalData?.dateRent} Confirmation Number: 12345678
               </p>
             </div>
           </div>
@@ -90,7 +91,7 @@ const Confirmed = () => {
           </button>
           <div className='py-[15px] pl-[30px] sm:w-1/2 w-full border-r border-r-[#E5E7E9]'>
             <h4 className='font-semibold text-[12px] dark:text-gray-secondary duration-300 flex flex-col gap-[7px]'>
-              PICK-UP
+              АВАХ
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
@@ -103,7 +104,7 @@ const Confirmed = () => {
           </div>
           <div className='py-[15px] pl-[30px] sm:w-1/2 w-full'>
             <h4 className='font-semibold text-[12px] dark:text-gray-secondary duration-300 flex flex-col gap-[7px]'>
-              RETURN
+              ӨГӨХ
             </h4>
             <div className='max-w-[250px] flex-wrap'>
               <p className='text-[#3E3E3E] text-normal text-[12px] dark:text-gray-secondary'>
@@ -133,26 +134,26 @@ const Confirmed = () => {
       <div className='pt-[30px] flex flex-col gap-[30px] sm:flex-row'>
         <div className='w-full h-auto p-[30px] flex flex-col gap-[25px] items-start'>
           <h1 className='font-semibold text-[20px] dark:text-gray-secondary'>
-            Rental Details
+            Захиалгын дэлгэрэнгүй
           </h1>
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-gray-secondary'>
-                User Details
+                Захиалагч
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                Driver Name: <strong>{userData?.name}</strong>
+                Жолоочийн нэр: <strong>{userData?.name}</strong>
               </h4>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                Email Address: <strong>{userData?.email}</strong>
+                Имэйл: <strong>{userData?.email}</strong>
               </h4>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                Phone Number: <strong>{userData?.phone}</strong>
+                Утас: <strong>{userData?.phone}</strong>
               </h4>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                Age: <strong>{userData?.age}</strong>
+                Нас: <strong>{userData?.age}</strong>
               </h4>
             </div>
           </div>
@@ -160,28 +161,28 @@ const Confirmed = () => {
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-gray-secondary'>
-                Vehicle Class
+                Машин
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary '>
-                Vehicle Class: <strong>{rentalData?.car?.model}</strong>
+                Ангилал: <strong>{rentalData?.car?.model}</strong>
               </h4>
               <ul className='pl-[30px]'>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   {rentalData?.car?.transmission}
                 </li>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {rentalData?.car?.type === 'Bus' ? '1' : '4'} door
+                  {rentalData?.car?.type === 'Bus' ? '1' : '4'} хаалга
                 </li>
                 <li className='font-normal list-disc text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  {rentalData?.car?.passengers} passengers
+                  {rentalData?.car?.passengers} зорчигч
                 </li>
               </ul>
               <div className='w-full flex justify-between items-center'>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   Time & Distance {rentalData?.totalDays} Day(s) @ ${' '}
-                  {rentalData?.car?.price} / Day
+                  {rentalData?.car?.price} / өдөр
                 </h4>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   $ {rentalData?.totalDays! * rentalData?.car?.price!}.00
@@ -189,10 +190,10 @@ const Confirmed = () => {
               </div>
               <div className='w-full flex justify-between items-center'>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  Unlimited Mileage
+                  Хязгааргүй км
                 </h4>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  Included
+                  Багтсан
                 </h4>
               </div>
               <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'></h4>
@@ -202,7 +203,7 @@ const Confirmed = () => {
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-gray-secondary'>
-                Extras
+                Нэмэлт
               </h4>
             </div>
 
@@ -213,10 +214,10 @@ const Confirmed = () => {
                     {rentalData?.extras.GPS && 'GPS'}
                   </h4>
                   <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                    {rentalData?.extras.child_safety && 'Child safety belt'}
+                    {rentalData?.extras.child_safety && 'Хүүхдийн суудал'}
                   </h4>
                   <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                    {rentalData?.extras.coverage && 'Coverage'}
+                    {rentalData?.extras.coverage && 'Даатгал'}
                   </h4>
                 </div>
                 <div>
@@ -239,13 +240,13 @@ const Confirmed = () => {
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-gray-secondary'>
-                Taxes & Fees
+                Татвар & Зардал
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
               <div className='w-full flex justify-between items-center'>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
-                  SALES TAX (10.0%)
+                  НӨАТ татвар (10.0%)
                 </h4>
                 <h4 className='font-normal text-base text-[#3E3E3E] dark:text-gray-secondary'>
                   $ {salesTax}.00
@@ -257,7 +258,7 @@ const Confirmed = () => {
           <div className='w-full flex flex-col gap-[25px]'>
             <div className='pb-[5px] border-b border-[#959595]'>
               <h4 className='font-semibold text-base dark:text-gray-secondary'>
-                Estimated Total
+                НИЙТ ДҮН
               </h4>
             </div>
             <div className='flex flex-col gap-[12px]'>
@@ -282,14 +283,14 @@ const Confirmed = () => {
 
         <div className='w-full sm:w-[683px] flex flex-col gap-[17px] px-[5px]'>
           <button
-            className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium dark:bg-red-primary dark:text-white'
+            className='w-full text-center py-[10px] rounded-[30px] border-2 border-[#FF3002] text-[#FF3002] text-[10px] font-medium dark:bg-red-primary dark:text-white hover:bg-red-primary hover:text-white dark:hover:bg-transparent dark:hover:text-red-primary'
             onClick={() => router.push('/')}
           >
-            Start Another Reservation
+            Өөр захиалга үүсгэх
           </button>
           <div className='px-[20px] py-[25px] flex flex-col gap-[24px]'>
             <h1 className='font-semibold text-[16px] text-[#303030] dark:text-gray-secondary'>
-              Rental Checklist
+              Захиалгын сануулга
             </h1>
             {Checklist.map((text, idx) => (
               <div className='flex gap-[10px] items-center' key={idx}>
@@ -353,7 +354,7 @@ const Confirmed = () => {
                 alt='clock'
               />
               <p className='font-medium text-[12px] text-[#616161] dark:text-gray-secondary'>
-                mon - fri 08:00 - 18:00
+                Дав - Баа 08:00 - 18:00
               </p>
             </div>
             <Image

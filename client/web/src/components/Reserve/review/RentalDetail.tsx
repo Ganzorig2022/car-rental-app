@@ -38,10 +38,10 @@ const RentalDetail = () => {
   } = useGraphql();
 
   const onSubmit = useCallback(async () => {
-    if (!loggedIn) return toast.error('Please login to complete your reserve');
+    if (!loggedIn) return toast.error('Та заавал нэвтэрч орно уу');
 
     if (!phone || !lastName || !firstName) {
-      toast.error('You have to enter your information!!!');
+      toast.error('Та нэр, утсаа оруулна уу');
       return;
     }
 
@@ -51,13 +51,13 @@ const RentalDetail = () => {
     //1) Save user name to database
     const responseUser = await updateUserByID(userId!, name, phone);
 
-    if (!responseUser) return toast.error('User not found');
+    if (!responseUser) return toast.error('Хэрэглэгч олдсонгүй');
 
     //2) Save rentals to database
     const response = await createRentals(rentals);
 
     if (response?.id) {
-      toast.success('Congrats! Successfully created a rental!.');
+      toast.success('Захиалга амжилттай үүслээ!.');
       // 3) go to home page
       router.push('/reserve/confirmed');
     }

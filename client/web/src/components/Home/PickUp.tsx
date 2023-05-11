@@ -10,8 +10,10 @@ import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
 import Calendar from './Calendar';
 import SearchResults from './SearchResults';
+import { useTheme } from 'next-themes';
 
 const PickUp = () => {
+  const { theme } = useTheme();
   const router = useRouter();
   const { rentals, setRentals } = useRental();
   const [startDate, setStartDate] = useState(new Date());
@@ -55,7 +57,12 @@ const PickUp = () => {
           <div className=''>
             {searchInput && (
               <div className='absolute top-16 left-1/2 md:-bottom-40 lg:-bottom-10 -translate-x-1/2 bg-gray-100 dark:bg-dark-primary p-2 shadow-md rounded-lg z-20 w-[200px] sm:w-[500px] md:w-[800px] h-fit'>
-                {isFetching && <ClipLoader color='black' size={30} />}
+                {isFetching && (
+                  <ClipLoader
+                    color={theme === 'dark' ? 'white' : 'black'}
+                    size={25}
+                  />
+                )}
                 {!isFetching && places && (
                   <SearchResults
                     places={places}

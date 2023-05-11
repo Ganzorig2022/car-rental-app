@@ -97,7 +97,7 @@ const Progress = () => {
               </div>
               <div className='flex flex-col'>
                 <div
-                  className={`text-[10px] sm:text-xs md:text-sm ml-2 dark:text-gray-secondary ${
+                  className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
                     rentals.car?.model && 'text-red-500'
                   }`}
                 >
@@ -105,7 +105,7 @@ const Progress = () => {
                 </div>
                 <div
                   className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
-                    rentals.car?.model && 'text-red-500'
+                    rentals.car?.type && 'text-red-500'
                   }`}
                 >
                   {rentals.car?.type && rentals.car?.type}

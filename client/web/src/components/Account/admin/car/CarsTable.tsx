@@ -7,8 +7,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
+import { useTheme } from 'next-themes';
 
 const CarData = () => {
+  const { theme } = useTheme();
   const { getOwnCarsByID, deleteCarById, getOwnCarsLoading, deleteCarLoading } =
     useGraphql();
   const [carsData, setCarsData] = useState<OwnCarsType[]>([]);
@@ -24,6 +26,8 @@ const CarData = () => {
     passengers: 0,
     price: 0,
   });
+
+  console.log(theme);
 
   const onEditHandler = async (id: string) => {
     setCarData(carsData.filter((car) => car.id === id)[0]);
@@ -52,22 +56,31 @@ const CarData = () => {
   if (getOwnCarsLoading)
     return (
       <div className='flex flex-col items-center justify-center space-y-2'>
-        <p>Мэдээлэл шалгаж байна...</p> <ClipLoader color='black' size={30} />
+        <p className='dark:text-gray-secondary'>Уншиж байна...</p>{' '}
+        <ClipLoader color={theme === 'dark' ? 'white' : 'black'} size={30} />
       </div>
     );
 
   if (carsData.length === 0)
     return (
       <div className='flex flex-col items-center justify-center space-y-2'>
-        <p>Мэдээлэл алга</p>
+        <p className='dark:text-gray-secondary'>Мэдээлэл алга</p>
       </div>
     );
-
-  if (deleteCarLoading) return <Spinner />;
 
   return (
     <div>
       <div className='overflow-x-auto'>
+        {deleteCarLoading && (
+          <div className='flex flex-col items-center justify-center space-y-2 mb-2'>
+            <p className='dark:text-gray-secondary'>Устгаж байна...</p>
+            <ClipLoader
+              color={theme === 'dark' ? 'white' : 'black'}
+              className='mx-auto dark:text-white'
+              size={30}
+            />
+          </div>
+        )}
         <table className='table w-full table-compact md:table'>
           {/* head*/}
           <thead className=''>
@@ -103,7 +116,7 @@ const CarData = () => {
                     {i + 1}
                   </th>
                   <th className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black text-center'>
-                    {id.slice(22)}
+                    {id.slice(20)}
                   </th>
                   <td className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black'>
                     <Image
@@ -142,10 +155,9 @@ const CarData = () => {
                     </label>
                   </td>
                   <td
-                    className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black'
+                    className='text-xs md:text-sm dark:bg-transparent dark:text-gray-secondary text-black cursor-pointer '
                     onClick={() => onDeleteHandler(id)}
                   >
-                    {deleteCarLoading && <ClipLoader color='black' size={30} />}
                     {!deleteCarLoading && (
                       <TrashIcon className='h-4 text-red-primary mx-auto' />
                     )}

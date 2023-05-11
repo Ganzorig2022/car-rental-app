@@ -92,6 +92,32 @@ export const carsResolvers = {
       }
     },
 
+    getCarsByPriceRange: async (_parent: any, args: { price: number }) => {
+      // https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#filter-conditions-and-operators
+      const { price } = args;
+      try {
+        // if passenger number LESS than or equal to 5, then return cars with 5 passengers. etc. SUV, Standard, Economy
+
+        const cars = await Prisma.car.findMany({
+          where: {
+            price: {
+              lte: price, // lte means "less than or equal to"
+            },
+          },
+          orderBy: {
+            price: 'desc',
+          },
+          include: {
+            user: true, // User model data will be included. Because in the prisma.schema, User @relation field
+          },
+        });
+        return cars;
+      } catch (error) {
+        console.log('GET CARS ERROR', error);
+        throw new GraphQLError(error);
+      }
+    },
+
     getOwnCars: async (_parent: any, args: { userId: string }) => {
       try {
         // if there are no cars, "findMany" returns EMPTY[]

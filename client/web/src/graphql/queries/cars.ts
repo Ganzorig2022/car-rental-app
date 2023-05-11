@@ -16,6 +16,7 @@ export const GET_CARS_BY_TYPE = gql`
     }
   }
 `;
+
 export const GET_CARS_BY_PASSENGERS = gql`
   query GetCarsByPassengers($passengers: Int) {
     getCarsByPassengers(passengers: $passengers) {
@@ -49,6 +50,23 @@ export const GET_ALL_CARS_WITH_PAGINATION = gql`
     }
   }
 `;
+
+export const GET_CARS_BY_PRICE = gql`
+  query getCarsByPriceRange($price: Int) {
+    getCarsByPriceRange(price: $price) {
+      id
+      image
+      kml
+      model
+      passengers
+      price
+      transmission
+      type
+      typeDefinition
+    }
+  }
+`;
+
 export const GET_OWN_CARS_BY_ID = gql`
   query GetOwnCars($userId: String) {
     getOwnCars(userId: $userId) {
@@ -64,6 +82,7 @@ export const GET_OWN_CARS_BY_ID = gql`
     }
   }
 `;
+
 export const GET_CAR_BY_ID = gql`
   query GetCarById($id: String) {
     getCarById(id: $id) {

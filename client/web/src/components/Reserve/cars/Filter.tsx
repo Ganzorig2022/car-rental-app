@@ -2,27 +2,28 @@ import useGraphql from '@/hooks/useGraphql';
 import { useRental } from '@/providers/rentalProvider';
 import { MapPinIcon } from '@heroicons/react/24/solid';
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import MapModal from '../../Modal/MapModal';
 import Spinner from '../../UI/Spinner';
-import { useRecoilState } from 'recoil';
-import { closeModalState } from '@/atoms/closeModal';
-import Map from '../../Modal/Map';
+import Map from './Map';
 
 type Props = {
   setCarsData: Dispatch<SetStateAction<CarsType[]>>;
   carsData: CarsType[];
+  setNoCarsData: Dispatch<SetStateAction<boolean>>;
 };
 
 //===========Rendering===================
-const Filter = ({ setCarsData, carsData }: Props) => {
+const Filter = ({ setCarsData, carsData, setNoCarsData }: Props) => {
   const {
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
-    getCarsByPassengerLoading: loading,
+    getCarsByPriceRange,
+    getCarsByPriceLoading,
+    getCarsByPassengerLoading,
     getCarsByTypeLoading,
   } = useGraphql();
   const { rentals } = useRental();
-  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
 
   const [vehicles, setVehicles] = useState([
     { id: 0, name: 'SUV', status: false },
@@ -50,7 +51,7 @@ const Filter = ({ setCarsData, carsData }: Props) => {
   ]);
 
   // Getting cars by type. etc. "SUV" or "Bus"
-  const carTypeHandler = async (id: number, name: string) => {
+  const onCarTypeHandler = async (id: number, name: string) => {
     const unchecked = vehicles[id].status;
 
     // when checkbox is unchecked, then fetch all types
@@ -68,13 +69,14 @@ const Filter = ({ setCarsData, carsData }: Props) => {
       const response = await getAllCarsByType(name);
 
       if (response) {
+        setNoCarsData(false);
         setCarsData([...response]);
       }
     }
   };
 
   // Getting cars by Passengers Number
-  const passengersHandler = async (id: number, passengers: number) => {
+  const onPassengersHandler = async (id: number, passengers: number) => {
     const unchecked = capacity[id].status;
 
     // when checkbox is unchecked, then fetch all types
@@ -92,12 +94,40 @@ const Filter = ({ setCarsData, carsData }: Props) => {
       const response = await getAllCarsByPeople(passengers);
 
       if (response.length > 0) {
+        setNoCarsData(false);
         setCarsData([...response]);
       }
     }
   };
 
-  if (loading || getCarsByTypeLoading) return <Spinner />;
+  // Getting cars by Price Range. etc $120
+  const onPriceRangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    const price = e.target.value;
+    setPriceRange(price);
+
+    // clear other field checkbox
+    setCapacity(capacity.map((item) => ({ ...item, status: false })));
+    setVehicles(vehicles.map((item) => ({ ...item, status: false })));
+
+    const data = await getCarsByPriceRange(+price);
+
+    if (data) {
+      setCarsData([...data]);
+    } else {
+      setCarsData([]);
+    }
+
+    if (data.length === 0) {
+      setNoCarsData(true);
+    } else setNoCarsData(false);
+  };
+
+  if (
+    getCarsByPassengerLoading ||
+    getCarsByTypeLoading ||
+    getCarsByPriceLoading
+  )
+    return <Spinner />;
 
   return (
     <div className='p-4'>
@@ -105,7 +135,7 @@ const Filter = ({ setCarsData, carsData }: Props) => {
         <MapPinIcon className='text-red-primary h-5' />
         <div className='flex flex-col bg-gray-200 dark:bg-gray-700 p-2 rounded w-full'>
           <p className='text-[9px] text-gray-500 dark:text-gray-secondary'>
-            Хаанаас авах
+            Хаанаас авах:
           </p>
           <p className='text-[10px] text-gray-700 md:text-xs dark:text-gray-secondary'>
             {rentals.location}
@@ -113,14 +143,13 @@ const Filter = ({ setCarsData, carsData }: Props) => {
           {rentals.location !== '' && (
             <label
               htmlFor='map'
-              className='text-[10px] text-red-primary  cursor-pointer'
-              onClick={() => setCloseModal(true)}
+              className='text-[10px] text-red-primary cursor-pointer'
             >
-              Газрын зураг дээр харах
+              <Map height={'h-[100px]'} zoom={10} bounce={false} pinSize={5} />
             </label>
           )}
         </div>
-        {closeModal && <Map />}
+        {<MapModal height={'h-[500px]'} zoom={12} bounce={true} pinSize={8} />}
       </div>
       <div className='divider m-0' />
 
@@ -144,7 +173,7 @@ const Filter = ({ setCarsData, carsData }: Props) => {
                     checked={status}
                     readOnly
                     onClick={() => {
-                      carTypeHandler(id, name);
+                      onCarTypeHandler(id, name);
                       setVehicles(
                         vehicles.map((item) =>
                           item.id === id
@@ -178,7 +207,7 @@ const Filter = ({ setCarsData, carsData }: Props) => {
                 checked={people.status}
                 readOnly
                 onClick={() => {
-                  passengersHandler(people.id, people.passengers);
+                  onPassengersHandler(people.id, people.passengers);
                   setCapacity(
                     capacity.map((item) =>
                       item.id === people.id
@@ -209,10 +238,10 @@ const Filter = ({ setCarsData, carsData }: Props) => {
             max='200'
             step='20'
             value={priceRange}
+            // onInput={() => console.log('blur working')}
+            // onInputCapture={() => console.log('blur working')}
             className='range range-error range-xs h-3 sm:h-4 bg-gray-primary dark:bg-dark-primary'
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setPriceRange(e.target.value)
-            }
+            onChange={onPriceRangeHandler}
           />
           <div className='w-full flex items-center justify-between text-[8px] sm:text-[10px] font-semibold'>
             <span className='dark:text-gray-secondary'>min.$20</span>

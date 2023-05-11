@@ -71,6 +71,10 @@ const typeDefs = gql `
   }
 
   type Query {
+    getCarsByPriceRange(price: Int): [Car]
+  }
+
+  type Query {
     getOwnCars(userId: String): [Car]
   }
   type Query {

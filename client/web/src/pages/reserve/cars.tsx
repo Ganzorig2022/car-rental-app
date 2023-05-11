@@ -4,19 +4,16 @@ import Progress from '@/components/Reserve/cars/Progress';
 import Vehicles from '@/components/Reserve/cars/Vehicles';
 import Spinner from '@/components/UI/Spinner';
 import useGraphql from '@/hooks/useGraphql';
-import { useRental } from '@/providers/rentalProvider';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 
 const take = 5;
 const perPage = 5;
 
 const Cars = () => {
   const [carsData, setCarsData] = useState<CarsType[]>([]);
-  const { rentals } = useRental();
-
-  const { getAllCarsByPage, getCarsByPageLoading: loading } = useGraphql();
+  const { getAllCarsByPage, getCarsByPageLoading } = useGraphql();
   const [active, setActive] = useState(1);
+  const [noCarsData, setNoCarsData] = useState(false);
 
   // Get data at every click on the PAGINATION number
   const paginationHandler = async (page: number) => {
@@ -34,7 +31,7 @@ const Cars = () => {
   // Get data at every click on the Price Sort select option
   const onSelectHandler = async (e: ChangeEvent<HTMLSelectElement>) => {
     const priceValue = e.target.value;
-    if (priceValue === 'Price: High to Low') {
+    if (priceValue === 'Үнэ: Буурахаар') {
       const data = await getAllCarsByPage(0, take, 'desc');
 
       if (data) {
@@ -43,7 +40,7 @@ const Cars = () => {
         setCarsData([]);
       }
     }
-    if (priceValue === 'Price: Low to High') {
+    if (priceValue === 'Үнэ: Өсөхөөр') {
       const data = await getAllCarsByPage(0, take, 'asc');
 
       if (data) {
@@ -64,13 +61,7 @@ const Cars = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const totalDays = rentals.totalDays;
-    if (totalDays === 0) toast.error('Та байршил, өдрөө сонгоно уу');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (loading) return <Spinner />;
+  if (getCarsByPageLoading) return <Spinner />;
 
   return (
     <main>
@@ -93,8 +84,11 @@ const Cars = () => {
                 onChange={onSelectHandler}
                 defaultChecked
               >
-                <option>Price: High to Low</option>
-                <option>Price: Low to High</option>
+                <option disabled selected>
+                  Эрэмбэлэх
+                </option>
+                <option>Үнэ: Буурахаар</option>
+                <option>Үнэ: Өсөхөөр</option>
               </select>
             </div>
           </div>
@@ -104,10 +98,20 @@ const Cars = () => {
       <main className='bg-gray-primary dark:bg-dark-primary py-5'>
         <div className='flex flex-row space-x-4 mx-auto'>
           <div className='w-1/3 bg-white dark:bg-dark-secondary rounded-lg h-full'>
-            <Filter setCarsData={setCarsData} carsData={carsData} />
+            <Filter
+              setCarsData={setCarsData}
+              carsData={carsData}
+              setNoCarsData={setNoCarsData}
+            />
           </div>
           <div className='w-2/3 rounded-lg'>
-            <Vehicles carsData={carsData} />
+            {noCarsData ? (
+              <div className='flex flex-row items-center justify-center'>
+                Машин олдсонгүй. Дахин оролдоно уу.
+              </div>
+            ) : (
+              <Vehicles carsData={carsData} />
+            )}
           </div>
         </div>
         {/* PAGINATION */}

@@ -22,7 +22,7 @@ const ContactDetails = (props: any) => {
               <input
                 type='text'
                 placeholder='Нэр'
-                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
+                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent dark:text-gray-secondary'
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -36,7 +36,7 @@ const ContactDetails = (props: any) => {
               <input
                 type='text'
                 placeholder='Овог'
-                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
+                className='input bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent dark:text-gray-secondary'
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -49,9 +49,9 @@ const ContactDetails = (props: any) => {
               </span>
             </label>
             <input
-              type='phone'
+              type='number'
               placeholder='Утас'
-              className='input w-full bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent'
+              className='input w-full bg-white border border-gray-300 rounded focus:outline-primary placeholder:text-xs dark:bg-transparent dark:text-gray-secondary'
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
             />

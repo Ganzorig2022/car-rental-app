@@ -13,6 +13,7 @@ import {
 import {
   GET_ALL_CARS_WITH_PAGINATION,
   GET_CARS_BY_PASSENGERS,
+  GET_CARS_BY_PRICE,
   GET_CARS_BY_TYPE,
   GET_CAR_BY_ID,
   GET_OWN_CARS_BY_ID,
@@ -60,6 +61,9 @@ const useGraphql = () => {
     GET_CARS_BY_TYPE,
     { pollInterval: 500 }
   );
+
+  const [getCarsByPrice, { loading: getCarsByPriceLoading }] =
+    useLazyQuery(GET_CARS_BY_PRICE);
 
   const [getOwnCarsById, { loading: getOwnCarsLoading }] = useLazyQuery(
     GET_OWN_CARS_BY_ID,
@@ -369,6 +373,25 @@ const useGraphql = () => {
     }
   };
 
+  const getCarsByPriceRange = async (price: number) => {
+    try {
+      const response = (
+        await getCarsByPrice({
+          variables: {
+            price,
+          },
+        })
+      ).data;
+
+      const { getCarsByPriceRange: data } = response;
+      return data;
+    } catch (error: any) {
+      console.log('ERROR with getCarsByPriceRange', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+    }
+  };
+
   const getAllCarsByType = async (type: string) => {
     try {
       const response = (
@@ -502,6 +525,7 @@ const useGraphql = () => {
     getCarsByPassengerLoading,
     getCarsByTypeLoading,
     getOwnCarsLoading,
+    getCarsByPriceLoading,
     getCarByIdLoading,
     updateUserLoading,
     createCarLoading,
@@ -519,6 +543,7 @@ const useGraphql = () => {
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
+    getCarsByPriceRange,
     getOwnCarsByID,
     getCarByID,
     createRentals,

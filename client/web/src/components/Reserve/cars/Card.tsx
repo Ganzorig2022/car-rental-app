@@ -19,7 +19,7 @@ const Card = ({
   const totalDays = rentals.totalDays;
 
   const goToExtrasPage = useCallback(() => {
-    if (totalDays === 0) return toast.error('Please choose date');
+    if (totalDays === 0) return toast.error('Та байршил, өдрөө сонгоно уу');
 
     setRentals((prev) => ({
       ...prev,
