@@ -5,10 +5,10 @@ import {
 } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 import ProfileInputs from '../ProfileInputs';
-import CarData from './car/CarData';
+import CarsTable from './car/CarsTable';
 import CarInputs from './car/CarInputs';
 
-type Props = { userData: UserData | undefined };
+type Props = { userData: UserData };
 
 const AdminPage = ({ userData }: Props) => {
   const [toggle, setToggle] = useState(1);
@@ -104,7 +104,7 @@ const AdminPage = ({ userData }: Props) => {
           {toggle === 1 && <ProfileInputs userData={userData} />}
           {toggle === 2 && <CarInputs />}
         </div>
-        <div className='w-2/3 md:w-full'>{toggle === 3 && <CarData />}</div>
+        <div className='w-2/3 md:w-full'>{toggle === 3 && <CarsTable />}</div>
       </div>
     </>
   );

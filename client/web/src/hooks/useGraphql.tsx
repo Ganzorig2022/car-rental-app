@@ -1,4 +1,8 @@
-import { CREATE_CAR, DELETE_CAR_BY_ID } from '@/graphql/mutations/cars';
+import {
+  CREATE_CAR,
+  DELETE_CAR_BY_ID,
+  UPDATE_CAR_BY_ID,
+} from '@/graphql/mutations/cars';
 import { CREATE_RENTAL } from '@/graphql/mutations/rentals';
 import {
   CREATE_NEW_USER,
@@ -10,6 +14,7 @@ import {
   GET_ALL_CARS_WITH_PAGINATION,
   GET_CARS_BY_PASSENGERS,
   GET_CARS_BY_TYPE,
+  GET_CAR_BY_ID,
   GET_OWN_CARS_BY_ID,
 } from '@/graphql/queries/cars';
 import { GET_OWN_RENTALS } from '@/graphql/queries/rentals';
@@ -64,12 +69,22 @@ const useGraphql = () => {
     }
   );
 
+  const [getCarById, { loading: getCarByIdLoading }] = useLazyQuery(
+    GET_CAR_BY_ID,
+    {
+      fetchPolicy: 'no-cache',
+      nextFetchPolicy: 'no-cache',
+    }
+  );
+
   // CARS MUTATIONS
   const [createCar, { loading: createCarLoading }] = useMutation(CREATE_CAR);
   const [deleteCar, { loading: deleteCarLoading }] = useMutation(
     DELETE_CAR_BY_ID,
     { refetchQueries: [{ query: GET_OWN_CARS_BY_ID, variables: { userId } }] }
   );
+  const [updateCar, { loading: updateCarLoading }] =
+    useMutation(UPDATE_CAR_BY_ID);
 
   // RENTALS QUERIES
   const [getOwnRentals, { loading: getOwnRentalsLoading }] = useLazyQuery(
@@ -182,6 +197,7 @@ const useGraphql = () => {
       return false;
     }
   };
+
   const deleteUserByID = async (id: string, token: string) => {
     try {
       const response = (
@@ -243,6 +259,47 @@ const useGraphql = () => {
       console.log('ERROR with createCar', error);
       const errors = new Error(error);
       toast.error('Something wrong with user id');
+    }
+  };
+
+  const updateCarById = async (params: OwnCarType) => {
+    const {
+      id,
+      image,
+      type,
+      typeDefinition,
+      model,
+      kml,
+      transmission,
+      passengers,
+      price,
+    } = params;
+
+    try {
+      const response = (
+        await updateCar({
+          variables: {
+            id,
+            image,
+            type,
+            typeDefinition,
+            model,
+            kml,
+            transmission,
+            passengers,
+            price,
+          },
+        })
+      ).data;
+
+      const { updateCarById: data } = response;
+
+      return data;
+    } catch (error: any) {
+      console.log('error from apollo/updateUser', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+      return false;
     }
   };
 
@@ -354,6 +411,27 @@ const useGraphql = () => {
     }
   };
 
+  const getCarByID = async (id: string) => {
+    try {
+      const response = (
+        await getCarById({
+          variables: {
+            id,
+          },
+        })
+      ).data;
+
+      const { getCarById: data } = response;
+
+      return data;
+    } catch (error: any) {
+      console.log('error from apollo/getCarById', error);
+      const errors = new Error(error);
+      toast.error(errors?.message);
+      return false;
+    }
+  };
+
   // ===================RENTALS======================
   const createRentals = async (args: RentalType) => {
     const {
@@ -417,12 +495,14 @@ const useGraphql = () => {
   return {
     createUserLoading,
     loginUserLoading,
+    updateCarLoading,
     getUserByIdLoading,
     deleteUserByIdLoading,
     getCarsByPageLoading,
     getCarsByPassengerLoading,
     getCarsByTypeLoading,
     getOwnCarsLoading,
+    getCarByIdLoading,
     updateUserLoading,
     createCarLoading,
     deleteCarLoading,
@@ -434,11 +514,13 @@ const useGraphql = () => {
     getUserByID,
     deleteUserByID,
     createCarData,
+    updateCarById,
     deleteCarById,
     getAllCarsByPage,
     getAllCarsByPeople,
     getAllCarsByType,
     getOwnCarsByID,
+    getCarByID,
     createRentals,
     getOwnRentalsById,
   };

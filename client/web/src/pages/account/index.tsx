@@ -22,6 +22,12 @@ const Account = (props: Props) => {
   const router = useRouter();
   const [persistUserData, setPersistUserData] = useRecoilState(refreshUserData);
 
+  const userId = Cookies.get('userId');
+
+  const { data } = useQuery(GET_USER_BY_ID, {
+    variables: { id: userId! },
+  });
+
   // 1) when page first renders, fetch user data from server
   useEffect(() => {
     (async () => {
@@ -40,12 +46,6 @@ const Account = (props: Props) => {
   useEffect(() => {
     if (!loggedIn) router.push('/');
   }, [loggedIn, router]);
-
-  const userId = Cookies.get('userId');
-
-  const { data } = useQuery(GET_USER_BY_ID, {
-    variables: { id: userId! },
-  });
 
   // 3) Persisting user data when user data is changed
   useEffect(() => {

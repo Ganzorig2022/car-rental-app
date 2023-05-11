@@ -114,5 +114,17 @@ type OwnCarsType = {
   kml: number;
   passengers: number;
   price: number;
-  checked: boolean;
+  // checked: boolean;
+};
+
+type OwnCarType = {
+  id: string;
+  image: string;
+  type: string;
+  typeDefinition: string;
+  model: string;
+  transmission: string;
+  kml: number;
+  passengers: number;
+  price: number;
 };

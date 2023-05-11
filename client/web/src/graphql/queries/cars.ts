@@ -64,3 +64,18 @@ export const GET_OWN_CARS_BY_ID = gql`
     }
   }
 `;
+export const GET_CAR_BY_ID = gql`
+  query GetCarById($id: String) {
+    getCarById(id: $id) {
+      id
+      image
+      kml
+      model
+      price
+      passengers
+      transmission
+      type
+      typeDefinition
+    }
+  }
+`;

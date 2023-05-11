@@ -2,7 +2,7 @@ import { refreshUserData } from '@/atoms/userSaved';
 import Spinner from '@/components/UI/Spinner';
 import useGraphql from '@/hooks/useGraphql';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
@@ -37,17 +37,18 @@ const MyProfile = ({ userData }: Props) => {
   };
 
   // 2) Handling both SELECT and INPUT elements at once
-  const onChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setUserInputs((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }));
-  };
+  const onChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setUserInputs((prev) => ({
+        ...prev,
+        [e.target.id]: e.target.value,
+      }));
+    },
+    []
+  );
 
   // 3) Save user data to mongoDb
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = useCallback(async () => {
     let { name, email, phone } = userInputs;
 
     //3.1) Validations
@@ -69,7 +70,15 @@ const MyProfile = ({ userData }: Props) => {
     setUserDataRefresh(true);
 
     toast.success('Таны мэдээлэл амжилттай хадгалагдлаа.');
-  };
+  }, [
+    userData?.phone,
+    userData?.email,
+    userData?.name,
+    setUserDataRefresh,
+    updateUserByID,
+    userId,
+    userInputs,
+  ]);
 
   // 4) Delete user, car, rental data from database
   async function deleteUserHandler() {

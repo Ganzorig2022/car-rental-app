@@ -37,6 +37,7 @@ export const GET_USER_BY_ID = gql`
         transmission
         type
         typeDefinition
+        id
       }
       createdAt
       email
@@ -55,16 +56,6 @@ export const GET_USER_BY_ID = gql`
         }
         totalDays
         createdAt
-        car {
-          image
-          kml
-          model
-          passengers
-          price
-          transmission
-          type
-          typeDefinition
-        }
       }
     }
   }
