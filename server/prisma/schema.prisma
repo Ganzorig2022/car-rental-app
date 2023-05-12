@@ -66,6 +66,13 @@ model Token {
   userId String @unique
 }
 
+model Language {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  textId String
+  lang   String
+  value  String
+}
+
 type Extras {
   coverage     Boolean @default(false)
   child_safety Boolean @default(false)

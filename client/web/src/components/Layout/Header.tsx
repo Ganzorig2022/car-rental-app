@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
-import { UserPlusIcon } from '@heroicons/react/24/solid';
+import { GlobeAltIcon, UserPlusIcon } from '@heroicons/react/24/solid';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,26 +12,49 @@ import DarkModeButton from '../UI/DarkModeButton';
 import Spinner from '../UI/Spinner';
 import SignIn from '../Modal/SignIn';
 import SignUp from '../Modal/SignUp';
+import { languageAtomState } from '@/atoms/languageAtom';
+import useLanguage from '@/hooks/useLanguage';
 
 const Header = () => {
   const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
+  const [languageChange, setLanguageChange] = useRecoilState(languageAtomState);
   const { loading } = useAuth();
   const router = useRouter();
   const [navbar, setNavbar] = useState(false);
+  const [
+    bookTxt,
+    aboutUsTxt,
+    contactTxt,
+    accounTxt,
+    signinTxt,
+    signupTxt,
+    logoutTxt,
+  ] = useLanguage([
+    'bookTxt',
+    'aboutTxt',
+    'contactTxt',
+    'accounTxt',
+    'signinTxt',
+    'signupTxt',
+    'logoutTxt',
+  ]);
 
   const changeBackground = () => {
-    if (window.scrollY >= 40) {
+    if (window.scrollY >= 20) {
       setNavbar(true);
     } else {
       setNavbar(false);
     }
   };
 
+  // header background change when scroll down
   useEffect(() => {
     changeBackground();
     // adding the event when scroll change background
     window.addEventListener('scroll', changeBackground);
+
+    return () => window.removeEventListener('scroll', changeBackground);
   });
 
   if (loading) return <Spinner />;
@@ -64,19 +87,19 @@ const Header = () => {
       {/* Center Menu */}
       <div className='hidden md:flex items-center justify-between space-x-4'>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/'>Захиалга</Link>
+          <Link href='/'>{bookTxt}</Link>
         </div>
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/about'>Бидний тухай</Link>
+          <Link href='/about'>{aboutUsTxt}</Link>
         </div>
         {loggedIn && (
           <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-            <Link href='/account'>Аккаунт</Link>
+            <Link href='/account'>{accounTxt}</Link>
           </div>
         )}
 
         <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-          <Link href='/contact'>Холбогдох</Link>
+          <Link href='/contact'>{contactTxt}</Link>
         </div>
       </div>
 
@@ -103,31 +126,47 @@ const Header = () => {
             className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-44'
           >
             <li className='text-sm '>
-              <Link href='/'>Захиалга</Link>
+              <Link href='/'>{bookTxt}</Link>
             </li>
             <li className='text-sm '>
-              <Link href='/about'>Бидний тухай</Link>
+              <Link href='/about'>{aboutUsTxt}</Link>
             </li>
 
             {loggedIn && (
               <li className='text-sm '>
-                <Link href='/account'>Аккаунт</Link>
+                <Link href='/account'>{accounTxt}</Link>
               </li>
             )}
 
             <li className='text-sm '>
-              <Link href='/contact'>Холбогдох</Link>
+              <Link href='/contact'>{contactTxt}</Link>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* RIGHT BUTTONS */}
+      {/* for MOBILE DEVICES */}
       <div className='flex items-center justify-end space-x-2'>
         <div className='flex-none sm:hidden'>
           <ul className='menu menu-horizontal px-1 items-center'>
             <div className='mr-2'>
               <DarkModeButton />
+            </div>
+            <div className='dropdown'>
+              <label tabIndex={0} className=' m-1'>
+                <GlobeAltIcon className='h-5 mx-2 dark:text-gray-secondary' />
+              </label>
+              <ul
+                tabIndex={0}
+                className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+              >
+                <li onClick={() => setLanguageChange('mn')}>
+                  <a>🇲🇳 Монгол</a>
+                </li>
+                <li onClick={() => setLanguageChange('eng')}>
+                  <a>🇬🇧 English</a>
+                </li>
+              </ul>
             </div>
             <li tabIndex={0} className=''>
               <a className='dark:text-white bg-red-primary'>
@@ -152,7 +191,7 @@ const Header = () => {
                       className='text-[10px] p-2 py-0 normal-case'
                       onClick={() => setCloseModal(true)}
                     >
-                      Бүртгүүлэх
+                      {signupTxt}
                     </label>
                     <div className='divider m-0' />
                     <label
@@ -160,7 +199,7 @@ const Header = () => {
                       className='text-[10px] p-2 py-0 normal-case'
                       onClick={() => setCloseModal(true)}
                     >
-                      Нэвтрэх
+                      {signinTxt}
                     </label>
                   </>
                 ) : (
@@ -172,16 +211,32 @@ const Header = () => {
                       Cookies.remove('userId');
                     }}
                   >
-                    Гарах
+                    {logoutTxt}
                   </button>
                 )}
               </ul>
             </li>
           </ul>
         </div>
-        {/* The button to open modal */}
+        {/* for BIGGER SCREENS */}
         <div className='hidden sm:flex sm:flex-row sm:items-center'>
           <DarkModeButton />
+          <div className='dropdown'>
+            <label tabIndex={0} className=' m-1'>
+              <GlobeAltIcon className='h-6 ml-2 dark:text-gray-secondary' />
+            </label>
+            <ul
+              tabIndex={0}
+              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+            >
+              <li onClick={() => setLanguageChange('mn')}>
+                <a>🇲🇳 Монгол</a>
+              </li>
+              <li onClick={() => setLanguageChange('eng')}>
+                <a>🇬🇧 English</a>
+              </li>
+            </ul>
+          </div>
           {!loggedIn ? (
             <>
               <label
@@ -189,14 +244,14 @@ const Header = () => {
                 className='btn-ghost btn dark:text-white normal-case'
                 onClick={() => setCloseModal(true)}
               >
-                Бүртгүүлэх
+                {signupTxt}
               </label>
               <label
                 htmlFor='signin'
                 className='main-button'
                 onClick={() => setCloseModal(true)}
               >
-                Нэвтрэх
+                {signinTxt}
               </label>
             </>
           ) : (
@@ -208,7 +263,7 @@ const Header = () => {
                 Cookies.remove('userId');
               }}
             >
-              Гарах
+              {logoutTxt}
             </button>
           )}
         </div>

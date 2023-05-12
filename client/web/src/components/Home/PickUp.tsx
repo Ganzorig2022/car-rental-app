@@ -1,16 +1,20 @@
+import useLanguage from '@/hooks/useLanguage';
 import { useRental } from '@/providers/rentalProvider';
 import { calculateDate } from '@/utils/calculateDate';
 import { fetchPlaces } from '@/utils/fetcher';
 import { ChevronDownIcon, MapPinIcon } from '@heroicons/react/24/solid';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
+import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
-import Calendar from './Calendar';
-import SearchResults from './SearchResults';
-import { useTheme } from 'next-themes';
+
+// Because it opens, when click on it. So no need to import when this page renders first time.
+const Calendar = dynamic(() => import('./Calendar'));
+const SearchResults = dynamic(() => import('./SearchResults'));
 
 const PickUp = () => {
   const { theme } = useTheme();
@@ -18,9 +22,9 @@ const PickUp = () => {
   const { rentals, setRentals } = useRental();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const userId = Cookies.get('userId') as string;
   const [searchInput, setSearchInput] = useState('');
   const [placeholder, setPlaceHolder] = useState('');
+  const userId = Cookies.get('userId') as string;
   const {
     data: places,
     refetch,
@@ -29,6 +33,13 @@ const PickUp = () => {
     queryKey: ['places'],
     queryFn: async () => searchInput && (await fetchPlaces(searchInput)),
   });
+  const [locationTxt, dateRentTxt, dateReturnTxt, browseVehicleTxt] =
+    useLanguage([
+      'home.pickUp.location',
+      'home.pickUp.dateRent',
+      'home.pickUp.dateReturn',
+      'home.pickUp.browseVehicle',
+    ]);
 
   useEffect(() => {
     const { stringStartDate, stringEndDate, totalDays } = calculateDate(
@@ -79,7 +90,7 @@ const PickUp = () => {
               <MapPinIcon className='h-8 text-red-primary rounded-full p-1 cursor-pointer' />
               <input
                 type='text'
-                placeholder={placeholder || 'Байршил хайх'}
+                placeholder={placeholder || locationTxt}
                 className='pl-2 bg-transparent outline-none w-full placeholder:text-sm md:placeholder:text-base dark:placeholder:text-gray-secondary dark:text-gray-secondary'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
@@ -95,7 +106,7 @@ const PickUp = () => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div className='normal-case'>Авах өдөр</div>
+                  <div className='normal-case'>{dateRentTxt}</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
                 <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
@@ -109,7 +120,7 @@ const PickUp = () => {
             >
               <div className='flex flex-col items-start space-y-1'>
                 <div className='flex flex-row space-x-4 items-center justify-between'>
-                  <div className='normal-case'>Хүргэх өдөр</div>
+                  <div className='normal-case'>{dateReturnTxt}</div>
                   <ChevronDownIcon className='h-4' />
                 </div>
                 <div className='text-gray-400 font-normal normal-case text-[12px] sm:text-sm'>
@@ -139,7 +150,7 @@ const PickUp = () => {
                 : router.push('/reserve/cars');
             }}
           >
-            Машин сонгох
+            {browseVehicleTxt}
           </button>
         </div>
       </div>

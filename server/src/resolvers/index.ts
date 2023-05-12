@@ -4,6 +4,7 @@ import { rentalResolvers } from './rental.js';
 import { transactionResolvers } from './transaction.js';
 import { carsResolvers } from './cars.js';
 import scalarResolvers from './scalars.js';
+import { languageResolvers } from './language.js';
 
 const resolvers = merge(
   {},
@@ -11,6 +12,7 @@ const resolvers = merge(
   rentalResolvers,
   transactionResolvers,
   carsResolvers,
+  languageResolvers,
   scalarResolvers
 );
 

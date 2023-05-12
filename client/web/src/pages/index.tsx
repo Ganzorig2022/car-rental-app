@@ -1,11 +1,13 @@
-import Head from 'next/head';
-import { type NextPage } from 'next';
 import Banner from '@/components/Home/Banner';
 import BestServices from '@/components/Home/BestServices';
-import HowItWorks from '@/components/Home/HowItWorks';
 import DownloadApp from '@/components/Home/DownloadApp';
+import HowItWorks from '@/components/Home/HowItWorks';
 import TopDeal from '@/components/Home/TopDeal';
-import ScrollToTop from '@/components/Layout/ScrollToTop';
+import { GET_ALL_LANGUAGES } from '@/graphql/queries/language';
+import { useQuery } from '@apollo/client';
+import Cookies from 'js-cookie';
+import { type NextPage } from 'next';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
   return (

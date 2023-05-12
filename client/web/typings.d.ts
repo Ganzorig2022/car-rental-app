@@ -128,3 +128,10 @@ type OwnCarType = {
   passengers: number;
   price: number;
 };
+
+type LanguageType = {
+  id: string;
+  textId: string;
+  lang: string;
+  value: string;
+};

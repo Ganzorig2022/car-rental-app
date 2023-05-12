@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
 import Image from 'next/image';
 import PickUp from './PickUp';
+import useLanguage from '@/hooks/useLanguage';
 
 const Banner = () => {
+  const [bannerTxt] = useLanguage(['home.bannerTxt']);
   return (
     <div className='relative h-[400px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] pt-5 bg-gray-primary dark:bg-dark-primary '>
       <div>
@@ -18,7 +19,7 @@ const Banner = () => {
       <div className='w-full'>
         <div className='absolute top-10 left-10 z-10 text-lg sm:text-xl md:text-3xl lg:text-4xl sm:top-20 sm:left-20 md:left-44 md:top-40'>
           <p className='relative font-bold dark:text-white md:w-40 lg:w-60 before:absolute before:-bottom-5 before:left-0 before:border-b-[3px] before:border-red-primary before:w-[70px]'>
-            Та өөрт тохирох төмөр хүлгээ түрээслэхэд бэлэн үү?
+            {bannerTxt}
           </p>
         </div>
       </div>

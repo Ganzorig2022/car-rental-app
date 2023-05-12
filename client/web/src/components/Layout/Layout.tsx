@@ -5,12 +5,15 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import dynamic from 'next/dynamic';
 import ScrollToTop from './ScrollToTop';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_LANGUAGES } from '@/graphql/queries/language';
 
 type Props = {
   children: ReactNode;
 };
 
 // Dynamic import resolved hydration error permanently in my case:
+//https://github.com/timolins/react-hot-toast/issues/46
 const Toaster = dynamic(
   () => import('react-hot-toast').then((c) => c.Toaster),
   {
@@ -19,8 +22,41 @@ const Toaster = dynamic(
 );
 
 const Layout = ({ children }: Props) => {
+  // 0) Get language texts from database
+  const { data: getAllLanguages } = useQuery(GET_ALL_LANGUAGES);
+  const mnObj = {};
+  const engObj = {};
+
+  // 1)  Divide by ENGLISH, MONGOL
+  const mn = getAllLanguages?.getLanguageText.filter(
+    ({ lang }: { lang: string }) => lang === 'mn'
+  );
+  const eng = getAllLanguages?.getLanguageText.filter(
+    ({ lang }: { lang: string }) => lang === 'eng'
+  );
+
+  // 2) { bookTxt: 'Захиалга' }
+  mn?.forEach(({ textId, value }: { textId: string; value: string }) => {
+    Object.assign(mnObj, { [textId]: value });
+  });
+
+  // 3) { bookTxt: 'Book' }
+  eng?.forEach(({ textId, value }: { textId: string; value: string }) => {
+    Object.assign(engObj, { [textId]: value });
+  });
+
+  // 4)  Set data to local storage by ENG and MN
+  // "localStorage is not defined" error happens when page refresh. Because nextjs SSR.
+  typeof window !== 'undefined'
+    ? window.localStorage.setItem('mn', JSON.stringify(mnObj))
+    : false;
+
+  typeof window !== 'undefined'
+    ? window.localStorage.setItem('eng', JSON.stringify(engObj))
+    : false;
+
+  // 👇️ scroll to top on page load
   useEffect(() => {
-    // 👇️ scroll to top on page load
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
 
@@ -42,5 +78,3 @@ const Layout = ({ children }: Props) => {
 };
 
 export default Layout;
-
-//https://github.com/timolins/react-hot-toast/issues/46

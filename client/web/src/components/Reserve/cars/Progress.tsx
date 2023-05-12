@@ -101,7 +101,7 @@ const Progress = () => {
                     rentals.car?.model && 'text-red-500'
                   }`}
                 >
-                  {rentals.car?.model ? rentals.car?.model : 'Select'}
+                  {rentals.car?.model ? rentals.car?.model : 'Сонгох'}
                 </div>
                 <div
                   className={`text-[10px] sm:text-xs md:text-sm ml-2 ${
