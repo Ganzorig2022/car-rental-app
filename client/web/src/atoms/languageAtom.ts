@@ -1,18 +1,15 @@
-import { GET_ALL_LANGUAGES } from '@/graphql/queries/language';
-import { useQuery } from '@apollo/client';
-import { atom, useRecoilValue } from 'recoil';
+import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+// const { persistAtom } = recoilPersist();
+
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist', // this key is using to store data in local storage
+  storage: localStorage, // configurate which storage will be used to store the data
+});
 
 export const languageAtomState = atom({
   key: 'language', // unique ID
   default: 'mn',
-  effects: [
-    () => {
-      const data =
-        typeof window !== 'undefined'
-          ? window.localStorage.getItem('mn')
-          : false;
-      return () => {};
-    },
-    () => {},
-  ],
+  effects_UNSTABLE: [persistAtom],
 });
