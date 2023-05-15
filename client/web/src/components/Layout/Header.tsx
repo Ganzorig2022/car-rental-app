@@ -50,6 +50,7 @@ const Header = () => {
 
   // header background change when scroll down
   useEffect(() => {
+    setLanguageChange('mn');
     changeBackground();
     // adding the event when scroll change background
     window.addEventListener('scroll', changeBackground);
@@ -158,7 +159,7 @@ const Header = () => {
               </label>
               <ul
                 tabIndex={0}
-                className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+                className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32'
               >
                 <li onClick={() => setLanguageChange('mn')}>
                   <a>🇲🇳 Монгол</a>
@@ -181,7 +182,6 @@ const Header = () => {
                   <path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' />
                 </svg>
               </a>
-              {/* The button to open modal */}
               <ul className='p-2 bg-base-100 w-full items-center'>
                 <div className='divider m-0' />
                 {!loggedIn ? (

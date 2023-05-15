@@ -1,3 +1,4 @@
+import { languageAtomState } from '@/atoms/languageAtom';
 import useLanguage from '@/hooks/useLanguage';
 import { useRental } from '@/providers/rentalProvider';
 import { calculateDate } from '@/utils/calculateDate';
@@ -11,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
+import { useRecoilState } from 'recoil';
 
 // Because it opens, when click on it. So no need to import when this page renders first time.
 const Calendar = dynamic(() => import('./Calendar'));
@@ -25,6 +27,8 @@ const PickUp = () => {
   const [searchInput, setSearchInput] = useState('');
   const [placeholder, setPlaceHolder] = useState('');
   const userId = Cookies.get('userId') as string;
+
+  const [languageChange, setLanguageChange] = useRecoilState(languageAtomState);
   const {
     data: places,
     refetch,

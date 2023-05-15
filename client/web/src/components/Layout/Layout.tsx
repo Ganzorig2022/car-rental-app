@@ -7,6 +7,8 @@ import dynamic from 'next/dynamic';
 import ScrollToTop from './ScrollToTop';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_LANGUAGES } from '@/graphql/queries/language';
+import { languageAtomState } from '@/atoms/languageAtom';
+import { useSetRecoilState } from 'recoil';
 
 type Props = {
   children: ReactNode;
@@ -22,6 +24,8 @@ const Toaster = dynamic(
 );
 
 const Layout = ({ children }: Props) => {
+  const setLanguageChange = useSetRecoilState(languageAtomState);
+
   // 0) Get language texts from database
   const { data: getAllLanguages } = useQuery(GET_ALL_LANGUAGES);
   const mnObj = {};
@@ -58,6 +62,8 @@ const Layout = ({ children }: Props) => {
   // 👇️ scroll to top on page load
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

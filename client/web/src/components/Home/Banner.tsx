@@ -24,7 +24,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <div className='absolute sm:right-20 md:left-1/2 md:-translate-x-1/2 lg:-translate-x-0 bg-gradient-to-b from-red-primary to-red-secondary w-[390px] md:w-[700px] lg:w-[513px] sm:h-[500px] md:h-[627px] xl:h-[800px] h-[400px] rounded-2xl' />
+      <div className='absolute sm:right-20 md:left-1/2 md:-translate-x-1/2 lg:-translate-x-0 bg-gradient-to-b from-red-primary to-red-secondary w-[380px] md:w-[700px] lg:w-[513px] sm:h-[500px] md:h-[627px] xl:h-[800px] h-[400px] rounded-2xl' />
 
       {/* LOCATION, PICKUP DATE */}
       <PickUp />
