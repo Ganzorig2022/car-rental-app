@@ -4,14 +4,12 @@ import React, { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
-import { closeModalState } from '../../atoms/closeModal';
 import { loggedInState } from '../../atoms/loginAtom';
 import Spinner from '../UI/Spinner';
 
 type Props = {};
 
 const SignIn = (props: Props) => {
-  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
   const router = useRouter();
 
@@ -46,14 +44,12 @@ const SignIn = (props: Props) => {
     if (response) {
       toast.success('Successfully signed.');
       setLoggedIn(true);
-      setCloseModal(false);
     }
-  }, [email, login, password, setCloseModal, setLoggedIn]);
+  }, [email, login, password, setLoggedIn]);
 
   //If press click here button
   const goToPasswordRequestPage = () => {
     router.push('/password/request');
-    setCloseModal(false);
   };
 
   if (loading) return <Spinner />;
@@ -69,7 +65,7 @@ const SignIn = (props: Props) => {
           <label
             htmlFor='signin'
             className='btn-sm btn-circle btn absolute right-2 top-2 dark:bg-gray-secondary dark:text-black'
-            onClick={() => setCloseModal(false)}
+            // onClick={() => setCloseModal(false)}
           >
             ✕
           </label>

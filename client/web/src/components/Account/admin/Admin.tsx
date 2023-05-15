@@ -5,8 +5,11 @@ import {
 } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 import ProfileInputs from '../ProfileInputs';
-import CarsTable from './car/CarsTable';
-import CarInputs from './car/CarInputs';
+// import CarsTable from './car/CarsTable';
+// import CarInputs from './car/CarInputs';
+import dynamic from 'next/dynamic';
+const CarInputs = dynamic(() => import('./car/CarInputs'));
+const CarsTable = dynamic(() => import('./car/CarsTable'));
 
 type Props = { userData: UserData };
 

@@ -1,32 +1,34 @@
+import { languageAtomState } from '@/atoms/languageAtom';
 import { useAuth } from '@/hooks/useAuth';
-import { GlobeAltIcon, UserPlusIcon } from '@heroicons/react/24/solid';
+import useLanguage from '@/hooks/useLanguage';
+import { UserPlusIcon } from '@heroicons/react/24/solid';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { closeModalState } from '../../atoms/closeModal';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { loggedInState } from '../../atoms/loginAtom';
-import DarkModeButton from '../UI/DarkModeButton';
-import Spinner from '../UI/Spinner';
 import SignIn from '../Modal/SignIn';
 import SignUp from '../Modal/SignUp';
-import { languageAtomState } from '@/atoms/languageAtom';
-import useLanguage from '@/hooks/useLanguage';
+import DarkModeButton from '../UI/DarkModeButton';
+import Spinner from '../UI/Spinner';
 
 const Header = () => {
-  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
-  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
-  const [languageChange, setLanguageChange] = useRecoilState(languageAtomState);
-  const { loading } = useAuth();
   const router = useRouter();
+  const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
+  const setLanguageChange = useSetRecoilState(languageAtomState);
+  const { loading } = useAuth();
   const [navbar, setNavbar] = useState(false);
+  const [flag, setFlag] = useState({
+    eng: false,
+    mn: false,
+  });
   const [
     bookTxt,
     aboutUsTxt,
     contactTxt,
-    accounTxt,
+    accountTxt,
     signinTxt,
     signupTxt,
     logoutTxt,
@@ -34,7 +36,7 @@ const Header = () => {
     'bookTxt',
     'aboutTxt',
     'contactTxt',
-    'accounTxt',
+    'accountTxt',
     'signinTxt',
     'signupTxt',
     'logoutTxt',
@@ -50,7 +52,6 @@ const Header = () => {
 
   // header background change when scroll down
   useEffect(() => {
-    setLanguageChange('mn');
     changeBackground();
     // adding the event when scroll change background
     window.addEventListener('scroll', changeBackground);
@@ -87,19 +88,43 @@ const Header = () => {
 
       {/* Center Menu */}
       <div className='hidden md:flex items-center justify-between space-x-4'>
-        <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
+        <div
+          className={`border-b-2 cursor-pointer text-sm dark:text-white ${
+            router.pathname === '/'
+              ? 'border-red-primary border-b-2'
+              : 'border-transparent hover:border-red-primary'
+          }`}
+        >
           <Link href='/'>{bookTxt}</Link>
         </div>
-        <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
+        <div
+          className={`border-b-2 cursor-pointer text-sm dark:text-white ${
+            router.pathname === '/about'
+              ? 'border-red-primary border-b-2'
+              : 'border-transparent hover:border-red-primary'
+          }`}
+        >
           <Link href='/about'>{aboutUsTxt}</Link>
         </div>
         {loggedIn && (
-          <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
-            <Link href='/account'>{accounTxt}</Link>
+          <div
+            className={`border-b-2 cursor-pointer text-sm dark:text-white ${
+              router.pathname === '/account'
+                ? 'border-red-primary border-b-2'
+                : 'border-transparent hover:border-red-primary'
+            }`}
+          >
+            <Link href='/account'>{accountTxt}</Link>
           </div>
         )}
 
-        <div className='border-b-2 border-transparent hover:border-red-primary cursor-pointer text-sm dark:text-white'>
+        <div
+          className={`border-b-2 cursor-pointer text-sm dark:text-white ${
+            router.pathname === '/contact'
+              ? 'border-red-primary border-b-2'
+              : 'border-transparent hover:border-red-primary'
+          }`}
+        >
           <Link href='/contact'>{contactTxt}</Link>
         </div>
       </div>
@@ -135,7 +160,7 @@ const Header = () => {
 
             {loggedIn && (
               <li className='text-sm '>
-                <Link href='/account'>{accounTxt}</Link>
+                <Link href='/account'>{accountTxt}</Link>
               </li>
             )}
 
@@ -153,22 +178,39 @@ const Header = () => {
             <div className='mr-2'>
               <DarkModeButton />
             </div>
-            <div className='dropdown'>
-              <label tabIndex={0} className=' m-1'>
-                <GlobeAltIcon className='h-5 mx-2 dark:text-gray-secondary' />
-              </label>
-              <ul
-                tabIndex={0}
-                className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32'
+            {flag.mn ? (
+              <div
+                onClick={() => {
+                  setFlag({ eng: true, mn: false });
+                  setLanguageChange('eng');
+                }}
               >
-                <li onClick={() => setLanguageChange('mn')}>
-                  <a>🇲🇳 Монгол</a>
-                </li>
-                <li onClick={() => setLanguageChange('eng')}>
-                  <a>🇬🇧 English</a>
-                </li>
-              </ul>
-            </div>
+                <Image
+                  src='/mgl.png'
+                  height={20}
+                  width={20}
+                  alt='flag'
+                  priority
+                  className='mr-2 sm:mr-0'
+                />
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setFlag({ eng: false, mn: true });
+                  setLanguageChange('mn');
+                }}
+              >
+                <Image
+                  src='/eng.png'
+                  height={30}
+                  width={30}
+                  alt='flag'
+                  priority
+                  className='ml-2'
+                />
+              </div>
+            )}
             <li tabIndex={0} className=''>
               <a className='dark:text-white bg-red-primary'>
                 <UserPlusIcon className='h-4 text-white' />
@@ -189,7 +231,6 @@ const Header = () => {
                     <label
                       htmlFor='signup'
                       className='text-[10px] p-2 py-0 normal-case'
-                      onClick={() => setCloseModal(true)}
                     >
                       {signupTxt}
                     </label>
@@ -197,7 +238,6 @@ const Header = () => {
                     <label
                       htmlFor='signin'
                       className='text-[10px] p-2 py-0 normal-case'
-                      onClick={() => setCloseModal(true)}
                     >
                       {signinTxt}
                     </label>
@@ -221,36 +261,48 @@ const Header = () => {
         {/* for BIGGER SCREENS */}
         <div className='hidden sm:flex sm:flex-row sm:items-center'>
           <DarkModeButton />
-          <div className='dropdown'>
-            <label tabIndex={0} className=' m-1'>
-              <GlobeAltIcon className='h-6 ml-2 dark:text-gray-secondary' />
-            </label>
-            <ul
-              tabIndex={0}
-              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+          {flag.mn ? (
+            <div
+              onClick={() => {
+                setFlag({ eng: true, mn: false });
+                setLanguageChange('eng');
+              }}
             >
-              <li onClick={() => setLanguageChange('mn')}>
-                <a>🇲🇳 Монгол</a>
-              </li>
-              <li onClick={() => setLanguageChange('eng')}>
-                <a>🇬🇧 English</a>
-              </li>
-            </ul>
-          </div>
+              <Image
+                src='/mgl.png'
+                height={30}
+                width={30}
+                alt='flag'
+                priority
+                className='ml-2'
+              />
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                setFlag({ eng: false, mn: true });
+                setLanguageChange('mn');
+              }}
+            >
+              <Image
+                src='/eng.png'
+                height={30}
+                width={30}
+                alt='flag'
+                priority
+                className='ml-2'
+              />
+            </div>
+          )}
           {!loggedIn ? (
             <>
               <label
                 htmlFor='signup'
                 className='btn-ghost btn dark:text-white normal-case'
-                onClick={() => setCloseModal(true)}
               >
                 {signupTxt}
               </label>
-              <label
-                htmlFor='signin'
-                className='main-button'
-                onClick={() => setCloseModal(true)}
-              >
+              <label htmlFor='signin' className='main-button'>
                 {signinTxt}
               </label>
             </>
@@ -269,8 +321,8 @@ const Header = () => {
         </div>
       </div>
 
-      {closeModal && <SignUp />}
-      {closeModal && <SignIn />}
+      {<SignUp />}
+      {<SignIn />}
     </div>
   );
 };

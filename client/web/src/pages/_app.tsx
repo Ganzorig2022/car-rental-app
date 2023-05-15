@@ -9,9 +9,9 @@ import { RentalProvider } from '@/providers/rentalProvider';
 import { AuthProvider } from '@/hooks/useAuth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export default function App({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <RecoilRoot>

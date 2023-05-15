@@ -1,14 +1,13 @@
+import useLanguage from '@/hooks/useLanguage';
 import Image from 'next/image';
 import React from 'react';
 
-type Props = {};
+const HowItWorks = () => {
+  const [titleTxt] = useLanguage(['home.howItWorks.titleTxt']);
 
-const HowItWorks = (props: Props) => {
   return (
     <div className='flex flex-col space-y-2 items-center py-20 sm:pt-60 md:pt-96 lg:pt-60 dark:bg-dark-primary'>
-      <p className='uppercase text-sm dark:text-gray-secondary'>
-        Хэрхэн машинаа захиалах вэ?
-      </p>
+      <p className='uppercase text-sm dark:text-gray-secondary'>{titleTxt}</p>
       <p className='font-bold sm:text-2xl md:text-3xl dark:text-gray-secondary'>
         Дараах 3 энгийн алхам
       </p>

@@ -1,16 +1,14 @@
-import toast from 'react-hot-toast';
-import Spinner from '../UI/Spinner';
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
 import useGraphql from '@/hooks/useGraphql';
-import { loggedInState } from '../../atoms/loginAtom';
-import { closeModalState } from '../../atoms/closeModal';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useRecoilState } from 'recoil';
+import { loggedInState } from '../../atoms/loginAtom';
+import Spinner from '../UI/Spinner';
 
 type Props = {};
 
 const SignUp = (props: Props) => {
-  const [closeModal, setCloseModal] = useRecoilState(closeModalState);
   const [loggedIn, setLoggedIn] = useRecoilState(loggedInState);
 
   //react hook form
@@ -47,7 +45,6 @@ const SignUp = (props: Props) => {
       setLoggedIn(true);
       toast.success('Successfully signed.');
     }
-    setCloseModal(false);
   };
 
   if (loading) return <Spinner />;
@@ -63,7 +60,6 @@ const SignUp = (props: Props) => {
           <label
             htmlFor='signup'
             className='btn-sm btn-circle btn absolute right-2 top-2 dark:bg-gray-secondary dark:text-black'
-            onClick={() => setCloseModal(false)}
           >
             ✕
           </label>

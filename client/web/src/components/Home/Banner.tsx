@@ -1,9 +1,10 @@
+import useLanguage from '@/hooks/useLanguage';
 import Image from 'next/image';
 import PickUp from './PickUp';
-import useLanguage from '@/hooks/useLanguage';
 
 const Banner = () => {
   const [bannerTxt] = useLanguage(['home.bannerTxt']);
+
   return (
     <div className='relative h-[400px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] pt-5 bg-gray-primary dark:bg-dark-primary '>
       <div>

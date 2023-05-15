@@ -1,17 +1,30 @@
 // import Banner from '@/components/Home/Banner';
 import BestServices from '@/components/Home/BestServices';
 import DownloadApp from '@/components/Home/DownloadApp';
-import HowItWorks from '@/components/Home/HowItWorks';
+// import HowItWorks from '@/components/Home/HowItWorks';
 import TopDeal from '@/components/Home/TopDeal';
-import { GET_ALL_LANGUAGES } from '@/graphql/queries/language';
-import { useQuery } from '@apollo/client';
-import Cookies from 'js-cookie';
+import getLanguage from '@/utils/getLanguage';
 import { type NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-const Banner = dynamic(() => import('../components/Home/Banner'));
+import { useEffect } from 'react';
+
+const Banner = dynamic(() => import('../components/Home/Banner'), {
+  ssr: false,
+});
+
+const HowItWorks = dynamic(() => import('../components/Home/HowItWorks'), {
+  ssr: false,
+});
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    (async () => {
+      await getLanguage();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Head>
