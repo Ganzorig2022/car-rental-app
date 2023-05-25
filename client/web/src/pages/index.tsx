@@ -1,7 +1,5 @@
-// import Banner from '@/components/Home/Banner';
 import BestServices from '@/components/Home/BestServices';
 import DownloadApp from '@/components/Home/DownloadApp';
-// import HowItWorks from '@/components/Home/HowItWorks';
 import TopDeal from '@/components/Home/TopDeal';
 import getLanguage from '@/utils/getLanguage';
 import { type NextPage } from 'next';
