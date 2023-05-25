@@ -3,7 +3,8 @@ import { setContext } from '@apollo/client/link/context';
 import Cookies from 'js-cookie';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000',
+  // uri: 'http://localhost:4000',
+  uri: 'https://3oxk9a8d1i.execute-api.us-east-1.amazonaws.com/',
 });
 
 const authLink = setContext((_, { headers }) => {
