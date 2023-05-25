@@ -1,14 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+  //https://www.prisma.io/docs/guides/deployment/deployment-guides/caveats-when-deploying-to-aws-platforms
+  binaryTargets = ["native", "rhel-openssl-1.0.x"] // needed for AWS deployment
 }
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL") // need to install "serverless-dotenv-plugin" package, include it into serverless.yml for AWS deployment
 }
 
 model User {
@@ -91,9 +89,4 @@ type CarType {
   price          Int
 }
 
-// enum Role {
-//   USER
-//   ADMIN
-// }
-
-// onDelete:Cascade does not work on MongoDb!!!!!!!!!!!!!!!!
+// Notes: onDelete:Cascade does not work on MongoDb!!!!!!!!!!!!!!!!

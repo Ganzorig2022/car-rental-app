@@ -3,8 +3,8 @@ import { setContext } from '@apollo/client/link/context';
 import Cookies from 'js-cookie';
 
 const httpLink = createHttpLink({
-  // uri: 'http://localhost:4000',
-  uri: 'https://3oxk9a8d1i.execute-api.us-east-1.amazonaws.com/',
+  // uri: 'http://localhost:4000', // for local server
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL, //AWS deployment URL here
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -22,10 +22,4 @@ const authLink = setContext((_, { headers }) => {
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  // ssrMode: true,
 });
-
-// export const client = new ApolloClient({
-//   uri: 'http://localhost:4000',
-//   cache: new InMemoryCache(),
-// });
